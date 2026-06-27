@@ -359,16 +359,121 @@ let user = null, answers = {}, qIndex = 0, breathTimer = null;
 const MED_PAGES = ['p-intro','p-settle','p-release','p-scene','p-become','p-why','p-affirm','p-complete'];
 
 const QUESTIONS = [
-  {id:'name',type:'text',q:'What is your first name?',hint:'This is just for personalising your meditation.',ph:'Your name...'},
-  {id:'situation',type:'opts',q:'Where are you right now in life?',hint:"Be honest — there's no wrong answer.",opts:['Building something from scratch — just getting started','In the grind — working hard but not there yet','Making real progress but still chasing the vision','Already winning but want to go deeper']},
-  {id:'domain',type:'opts',q:'What is the main thing you\'re building toward?',opts:['Online business / financial freedom','Career growth and personal success','Health, fitness and physical transformation','Relationships, family and a life I\'m proud of','Spiritual growth and purpose','A mix of all of these']},
-  {id:'struggle',type:'opts',q:'What has been hardest to carry?',hint:'Your real struggle — past or present.',opts:['Financial stress — scarcity, pressure, not enough','No direction — feeling lost, purposeless, wasting time','Wrong environment — wrong people, wrong habits','All of the above — it was everything at once']},
-  {id:'turning',type:'text',q:'What was the moment that started to change things?',hint:'A person, a moment, a word, a breakdown, a prayer. What shifted?',ph:'It was when...'},
-  {id:'faith',type:'opts',q:'What role does faith or spirituality play in your life?',opts:['Central — God is the foundation of everything I do','Growing — I\'m building my relationship with God','Present — I believe but I\'m still figuring it out','I draw from spirituality but not a specific religion']},
-  {id:'vision',type:'text',q:'Describe your future in one or two sentences.',hint:"Don't be modest. Write the real version — the one that excites and scares you.",ph:'In 3 years I am...'},
-  {id:'who',type:'text',q:'Who are you building this for, beyond yourself?',hint:'Name them if you can.',ph:"I'm building this for..."},
-  {id:'why',type:'text',q:'What would be lost if you never built this?',hint:'Go deep. This is the question beneath the question.',ph:'If I never build this...'},
-  {id:'words',type:'text',q:'In 3 words — what do you want your life to stand for?',hint:'Not what sounds good. What actually moves you.',ph:'e.g. Faith. Freedom. Legacy.'}
+  {
+    id:'name',type:'text',
+    q:'What is your first name?',
+    hint:'This is just for your meditation — nothing else.',
+    ph:'Your name...'
+  },
+  {
+    id:'situation',type:'opts',
+    q:'Where are you honestly right now?',
+    hint:'Not where you want to be — where you actually are today.',
+    opts:[
+      'At the very start — I know I want more but haven\'t moved yet',
+      'I\'ve started but I\'m still figuring it out day by day',
+      'I\'m in the grind — working hard but results are slow',
+      'I\'m building momentum — things are moving but I\'m not there yet',
+      'I\'m close — I can feel it, just not quite over the line'
+    ]
+  },
+  {
+    id:'domain',type:'opts',
+    q:'What areas of your life are you trying to transform?',
+    hint:'Select everything that genuinely burns in you right now.',
+    opts:[
+      'Financial — I want real freedom, not just enough to survive',
+      'Purpose — I want work that actually means something',
+      'Physical — my body and health need to change',
+      'Mental — my mindset, discipline and focus',
+      'Relationships — the people around me and the love I give',
+      'Spiritual — my connection to God and who He\'s calling me to be'
+    ]
+  },
+  {
+    id:'struggle',type:'opts',
+    q:'What has the struggle actually felt like?',
+    hint:'Be honest with yourself here. This is where it gets real.',
+    opts:[
+      'Financial pressure — the weight of not having enough',
+      'Lost — no direction, no purpose, just going through motions',
+      'Isolated — wrong crowd, wrong environment, pulling me backward',
+      'Self-doubt — feeling like success isn\'t meant for someone like me',
+      'Inconsistency — I start but I don\'t finish, I know what to do but I don\'t do it',
+      'All of it — it was everything hitting at once'
+    ]
+  },
+  {
+    id:'emotion',type:'opts',
+    q:'What emotion do you carry most right now?',
+    hint:'The one that sits underneath everything, even on good days.',
+    opts:[
+      'Hunger — a burning need to prove something and build something real',
+      'Frustration — I know I\'m capable of more and it bothers me',
+      'Fear — of failing, of staying stuck, of wasting my potential',
+      'Quiet faith — I don\'t have it all figured out but I trust the process',
+      'Restlessness — I can\'t settle because I know I\'m meant for more'
+    ]
+  },
+  {
+    id:'turning',type:'text',
+    q:'What was the moment something started to shift for you?',
+    hint:'A conversation, a rock bottom, a prayer, a realisation. What was it?',
+    ph:'It was when I...'
+  },
+  {
+    id:'faith',type:'opts',
+    q:'Where are you with faith and spirituality right now?',
+    opts:[
+      'God is central — He is the foundation of every decision I make',
+      'Growing — my faith is becoming more real and more personal',
+      'Searching — I believe but I\'m still finding my way',
+      'Spiritual but not religious — I believe in something bigger than me',
+      'Open — I\'m not sure what I believe but I\'m not closed off'
+    ]
+  },
+  {
+    id:'identity',type:'opts',
+    q:'How do you see yourself right now — honestly?',
+    hint:'Not who you want to be. Who you actually believe you are today.',
+    opts:[
+      'Someone with potential who hasn\'t fully stepped into it yet',
+      'Someone in the middle of a transformation — I can feel it happening',
+      'Someone who has been underestimated — including by myself',
+      'Someone being rebuilt — I\'m not who I was, but not yet who I\'m becoming',
+      'Someone who already knows who they are — I just need to execute'
+    ]
+  },
+  {
+    id:'vision',type:'text',
+    q:'Paint your future. What does life look like when you\'ve made it?',
+    hint:'Make it real — where are you, what do you feel, what does a day look like? Don\'t hold back.',
+    ph:'In 3 years I wake up and...'
+  },
+  {
+    id:'who',type:'text',
+    q:'Who are you really doing this for?',
+    hint:'Underneath the ambition — who are the faces you see when you think about winning?',
+    ph:'I\'m doing this for...'
+  },
+  {
+    id:'fear',type:'text',
+    q:'What is the version of your life you are most afraid of living?',
+    hint:'The version where you played it safe, stayed small, or gave up. Describe it.',
+    ph:'I\'m afraid that if I don\'t change...'
+  },
+  {
+    id:'why',type:'text',
+    q:'What would the world lose if you stayed exactly where you are?',
+    hint:'This is the real why. Not what you gain — what others lose if you don\'t rise.',
+    ph:'If I never become who I\'m meant to be...'
+  },
+  {
+    id:'words',type:'text',
+    q:'Three words. What do you want your life to stand for?',
+    hint:'Not what sounds good. The three words that actually move something in you.',
+    ph:'e.g. Faith. Freedom. Legacy.'
+  }
 ];
 
 // ── UTILS ──
@@ -563,8 +668,15 @@ function generate(){
   const isRelation=has(A.domain,'Relation');
   const wasAll=has(A.struggle,'All');
   const wasBroke=has(A.struggle,'Financial');
-  const wasLost=has(A.struggle,'direction');
-  const wrongCrowd=has(A.struggle,'environment');
+  const wasLost=has(A.struggle,'Lost')||has(A.struggle,'direction');
+  const wrongCrowd=has(A.struggle,'environment')||has(A.struggle,'Isolated');
+  const wasDoubt=has(A.struggle,'doubt');
+  const wasInconsistent=has(A.struggle,'Inconsistency');
+
+  const isHungry=has(A.emotion,'Hunger');
+  const isFearful=has(A.emotion,'Fear');
+  const isRestless=has(A.emotion,'Restless');
+  const isFrustrated=has(A.emotion,'Frustration');
 
   const verses={
     c:{text:'"For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."',ref:'Jeremiah 29:11'},
@@ -591,22 +703,26 @@ function generate(){
 
   setText('rel-title','You are not who you were');
   let rBody=`Close your eyes. Picture the version of you that was `;
-  if(wasAll)rBody+='<em>broke, lost, and in the wrong environment.</em>';
-  else if(wasBroke)rBody+='<em>carrying real financial pressure</em> — the weight of not having enough.';
-  else if(wasLost)rBody+='<em>lost — with no real direction</em> and no map to follow.';
-  else if(wrongCrowd)rBody+='<em>surrounded by the wrong people</em>, being pulled the wrong way.';
+  if(wasAll)rBody+='<em>carrying everything at once — financially broke, directionless, in the wrong environment.</em>';
+  else if(wasBroke)rBody+='<em>under real financial pressure</em> — the quiet weight of not having enough.';
+  else if(wasLost)rBody+='<em>lost</em> — going through the motions with no real direction, no real purpose.';
+  else if(wrongCrowd)rBody+='<em>in the wrong environment</em> — surrounded by people pulling you in the wrong direction.';
+  else if(wasDoubt)rBody+='<em>doubting himself</em> — wondering if success was really meant for someone like him.';
+  else if(wasInconsistent)rBody+='<em>starting but not finishing</em> — knowing what to do but not doing it, again and again.';
   else rBody+='<em>carrying everything you\'ve been through.</em>';
-  rBody+=` See him clearly. He felt it. He didn't know the way out yet.`;
+  rBody+=` See him clearly. He felt the weight of it. He didn't know the way out yet.`;
   setHTML('rel-body',rBody);
 
-  let rScene=`I see you. I know what you carried. `;
-  if(A.turning)rScene+=`And I know when things started to shift — ${A.turning.trim()}${A.turning.trim().endsWith('.')?'':'.'}`;
-  if(faithC)rScene+=` Even in the darkest part of that, <em>God saw you.</em> He was already writing the next chapter. `;
-  else if(faithG||faithS)rScene+=` Even then, something bigger was at work. You were being prepared, not abandoned. `;
-  else rScene+=` Even then, something in you refused to give up. That part of you carried you here. `;
-  rScene+=`What you built from that pain is something you couldn't have imagined back then. You can rest now. <em>I've got it from here.</em>`;
+  let rScene=`I see you. I know exactly what you carried. `;
+  if(A.turning)rScene+=`And I know the moment things began to shift — ${A.turning.trim()}${A.turning.trim().endsWith('.')?'':'.'}  `;
+  if(faithC)rScene+=`Even in the darkest part of that, <em>God saw you.</em> He was already writing the next chapter before you could see it. `;
+  else if(faithG||faithS)rScene+=`Even then, something bigger was at work. You were being shaped, not abandoned. `;
+  else rScene+=`Even then, something in you refused to fold. That stubbornness carried you here. `;
+  if(isFearful)rScene+=`The fear you felt was real. But it didn't stop you. `;
+  if(isHungry)rScene+=`That hunger you felt — it wasn't desperation. It was a signal. `;
+  rScene+=`What you have become from that season is something that version of you couldn't have imagined. You can rest now. <em>I've got it from here.</em>`;
   setHTML('rel-scene',rScene);
-  setHTML('rel-close',`Feel the weight of that version of you lift. He did his job. He survived. He got you here. <em>Now let him go.</em>`);
+  setHTML('rel-close',`Feel the weight of that version of you lift. He did his job. He survived. He got you to this moment. <em>Now let him go — and step forward.</em>`);
 
   setText('scene-title','See your life');
   setHTML('scene-intro',`You are now three years forward. Everything you worked toward is real. Close your eyes and step into this completely — don't observe it from the outside. <em>You are living it.</em>`);
@@ -633,20 +749,22 @@ function generate(){
   setText('why-title','What this is really for');
   setHTML('why-intro','Now feel the weight of the real reason underneath all of it. Not the results. Not the recognition. The thing that actually moves you.');
   const whyCards=[
-    {l:'The person you\'re reaching',t:`Right now, somewhere, there is someone who is exactly where you were — ${wasAll||wasLost?'lost, without direction':wasBroke?'under real financial pressure':wrongCrowd?'in the wrong environment':'carrying what you carried'}. They don't know your name yet. <em>But they will find you.</em> And when they do, your story will be the thing that makes them believe it's possible.`},
-    A.why?{l:'What\'s at stake',t:`You know it yourself: "${A.why.trim()}". <em>That is the cost of staying small.</em> Feel the weight of that. Let it move you forward, not paralyse you. Let it be fuel.`}:null,
-    {l:'The legacy',t:`Years from now, when people ask what ${name} built — the answer won't just be a number. It will be people. It will be a life lived with intention. It will be a family, a generation, a world <em>that is different because you showed up.</em>`}
+    {l:'The person you\'re reaching',t:`Right now, somewhere, there is someone who is exactly where you were — ${wasAll?'broke, lost and in the wrong crowd':wasLost?'without direction, just going through the motions':wasBroke?'under real financial pressure':wrongCrowd?'surrounded by the wrong people':wasDoubt?'doubting whether they\'re capable of more':'carrying what you once carried'}. They don't know your name yet. <em>But they will find you.</em> And when they do, your story will be the thing that finally makes them believe.`},
+    A.fear?{l:'The life you refused to live',t:`You wrote it: "${A.fear.trim()}". <em>That is the version of your life you are fighting against every single day.</em> Feel the weight of that. Let it sharpen you. Not paralyse you — fuel you.`}:null,
+    A.why?{l:'What the world loses if you stay small',t:`You said it yourself: "${A.why.trim()}". <em>That is not a small thing.</em> That is the real cost of not becoming who you are meant to be. Let it move you.`}:null,
+    {l:'The legacy',t:`Years from now, when people ask what ${name} built — the answer won't be a number. It will be people whose lives changed. It will be a family line that shifted. It will be a generation that saw someone like them make it. <em>That is what you are actually building.</em>`}
   ].filter(Boolean);
   document.getElementById('why-cards').innerHTML=whyCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
 
   const affirms=[
-    faithC?`I am who God designed me to be. I am simply stepping into that person now.`:`I am becoming who I was always meant to be. I am stepping into that person now.`,
-    `My story — every struggle, every setback — is the exact qualification for everything I am called to do.`,
-    faithC||faithG?`I keep what matters first, and I trust that everything else aligns behind that.`:`I stay aligned with what matters most, and everything else follows.`,
-    `The life I am building is real. I can feel it. I can see it. It is already mine.`,
-    `Every day I show up is a day I honour the version of me who refused to give up.`,
-    A.who?`I am building this for ${A.who.trim()}. That is enough to keep going on any day.`:`I know exactly who I am building this for. That is enough to keep going on any day.`,
-    `I am disciplined. I am grounded. I am clear. I am unstoppable.`
+    faithC?`I am exactly who God designed me to be. I am simply stepping into that person now.`:`I am becoming who I was always meant to be. Every day I step closer.`,
+    `My story — every struggle, every setback, every dark season — is the exact qualification for everything I am called to do.`,
+    faithC||faithG?`I keep God first and trust that everything else aligns behind that decision.`:`I stay aligned with what matters most, and everything else follows from there.`,
+    isRestless||isHungry?`The hunger inside me is not restlessness. It is purpose. It is a signal pointing me toward what I am meant to build.`:`The drive I feel is not anxiety. It is direction. It is fuel.`,
+    `The life I am building is real. I can feel it. I can see it. It already exists — I am simply walking toward it.`,
+    `Every single day I show up is a day I honour the version of me who refused to quit.`,
+    A.who?`I am doing this for ${A.who.trim()}. On the hard days, that is enough.`:`I know exactly who I am building this for. That is enough to keep going on any day.`,
+    `I am disciplined. I am grounded. I am faith-led. I am unstoppable.`
   ];
   document.getElementById('affirm-list').innerHTML=affirms.map(a=>`<div class="affirm-item">${a}</div>`).join('');
 
