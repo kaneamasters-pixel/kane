@@ -9,161 +9,197 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --black:#0A0A0A;--surface:#111;--surface2:#161616;
-  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.22);
+  --black:#0A0A0A;--surface:#111;--surface2:#161616;--surface3:#1C1C1C;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.2);--gold-glow:rgba(201,168,76,0.08);
   --text:#F0EDE6;--text-s:#8A8580;--text-t:#3E3C3A;
   --border:rgba(240,237,230,0.07);--border-s:rgba(240,237,230,0.04);
-  --red:#C0392B;
+  --green:#4CAF7D;--red:#C0392B;
 }
 html,body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-
-/* ── PAGES ── */
-.page{display:none;min-height:100vh;padding:40px 24px 80px;flex-direction:column;align-items:center;justify-content:center}
+.page{display:none;min-height:100vh;padding:40px 20px 80px;flex-direction:column;align-items:center;justify-content:center}
 .page.active{display:flex;animation:fadeUp 0.5s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-
-.inner{max-width:520px;width:100%}
+.inner{max-width:540px;width:100%}
 .inner.c{text-align:center}
-
-/* ── TYPE ── */
-.eyebrow{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,8vw,66px);font-weight:300;line-height:1.06;color:var(--text);margin-bottom:22px}
-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,5vw,46px);font-weight:300;line-height:1.12;color:var(--text);margin-bottom:18px}
-h3{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,30px);font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px}
-.body{font-size:15px;line-height:1.9;color:var(--text-s);margin-bottom:24px;font-weight:300}
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,8vw,64px);font-weight:300;line-height:1.06;color:var(--text);margin-bottom:20px}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,44px);font-weight:300;line-height:1.12;color:var(--text);margin-bottom:16px}
+h3{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,30px);font-weight:300;line-height:1.2;color:var(--text);margin-bottom:12px}
+.body{font-size:15px;line-height:1.9;color:var(--text-s);margin-bottom:22px;font-weight:300}
 .body em,.body strong{color:var(--text);font-style:normal;font-weight:400}
 .small{font-size:13px;line-height:1.8;color:var(--text-s)}
-
-/* ── BUTTONS ── */
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .btn-row.c{justify-content:center}
 button,a.btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:13px 26px;border-radius:1px;cursor:pointer;transition:all .18s;border:1px solid rgba(240,237,230,.18);background:transparent;color:var(--text-s);text-decoration:none;display:inline-block}
 button:hover,a.btn:hover{color:var(--text);border-color:rgba(240,237,230,.35)}
 .btn-primary{background:var(--gold)!important;color:var(--black)!important;border-color:var(--gold)!important;font-weight:500!important}
-.btn-primary:hover{background:#DDB85A!important;border-color:#DDB85A!important}
-.btn-ghost{color:var(--text-t);border-color:transparent;font-size:11px;padding:10px 0}
-.btn-ghost:hover{color:var(--text-s);border-color:transparent}
+.btn-primary:hover{background:#DDB85A!important}
+.btn-ghost{color:var(--text-t)!important;border-color:transparent!important;font-size:11px;padding:10px 0}
+.btn-ghost:hover{color:var(--text-s)!important;border-color:transparent!important}
 button:disabled{opacity:.3;cursor:not-allowed}
-
-/* ── FORM ── */
-.field{margin-bottom:20px}
+.field{margin-bottom:18px}
 label.lbl{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-t);display:block;margin-bottom:8px}
-input[type=email],input[type=password],input[type=text],textarea.q-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:1px;padding:13px 15px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text);font-weight:300;line-height:1.6;outline:none;transition:border-color .18s}
-input:focus,textarea.q-input:focus{border-color:rgba(201,168,76,.4)}
+input[type=email],input[type=password],input[type=text],textarea.q-input,textarea.ta{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:1px;padding:13px 15px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text);font-weight:300;line-height:1.6;outline:none;transition:border-color .18s}
+input:focus,textarea:focus{border-color:rgba(201,168,76,.4)}
 input::placeholder,textarea::placeholder{color:var(--text-t)}
-textarea.q-input{resize:vertical;min-height:88px}
+textarea.q-input,textarea.ta{resize:vertical;min-height:80px}
 .error-msg{font-size:12px;color:#E07070;margin-top:8px;display:none}
 .error-msg.show{display:block}
-
-/* ── AUTH CARD ── */
-.auth-card{background:var(--surface);border:1px solid var(--border);padding:36px 32px;border-radius:1px;margin-bottom:20px}
-.auth-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text-t);font-size:11px;letter-spacing:.08em}
-.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* ── PROGRESS ── */
+.auth-card{background:var(--surface);border:1px solid var(--border);padding:32px 28px;margin-bottom:18px}
 .progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--gold);transition:width .5s ease;z-index:200}
 .phase-counter{position:fixed;top:18px;right:18px;font-size:10px;letter-spacing:.1em;color:var(--text-t)}
-
-/* ── NAV BAR ── */
-.nav-bar{position:fixed;top:0;left:0;right:0;height:52px;display:none;align-items:center;justify-content:space-between;padding:0 24px;background:var(--black);border-bottom:1px solid var(--border);z-index:150}
+.nav-bar{position:fixed;top:0;left:0;right:0;height:52px;display:none;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(10,10,10,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:150}
 .nav-bar.show{display:flex}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--text);letter-spacing:.04em}
-.nav-right{display:flex;gap:16px;align-items:center}
-.nav-link{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);cursor:pointer;transition:color .15s;background:none;border:none;padding:0;font-family:'Inter',sans-serif;font-weight:400}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--text);letter-spacing:.06em;cursor:pointer}
+.nav-right{display:flex;gap:4px;align-items:center}
+.nav-link{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);cursor:pointer;transition:color .15s;background:none;border:none;padding:8px 12px;font-family:'Inter',sans-serif;font-weight:400}
 .nav-link:hover{color:var(--text-s)}
-
-/* ── QUESTIONNAIRE ── */
-.q-steps{display:flex;gap:5px;margin-bottom:32px}
+.nav-link.active{color:var(--gold)}
+.q-steps{display:flex;gap:4px;margin-bottom:28px}
 .q-step{height:2px;flex:1;background:var(--text-t);border-radius:1px;transition:background .3s}
 .q-step.done{background:var(--gold)}.q-step.active{background:rgba(201,168,76,.5)}
-.q-num{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-t);margin-bottom:8px}
-.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,28px);font-weight:300;color:var(--text);line-height:1.4;margin-bottom:12px}
-.q-hint{font-size:13px;color:var(--text-t);margin-bottom:14px;line-height:1.7}
-.options{display:flex;flex-direction:column;gap:8px}
-.opt{background:transparent;border:1px solid var(--border);border-radius:1px;padding:13px 16px;text-align:left;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;width:100%;color:var(--text-s)}
+.q-num{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-t);margin-bottom:7px}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,4vw,26px);font-weight:300;color:var(--text);line-height:1.4;margin-bottom:10px}
+.q-hint{font-size:13px;color:var(--text-t);margin-bottom:12px;line-height:1.7}
+.multi-hint{font-size:11px;color:var(--text-t);letter-spacing:.06em;margin-bottom:12px}
+.options{display:flex;flex-direction:column;gap:7px}
+.opt{background:transparent;border:1px solid var(--border);border-radius:1px;padding:12px 15px;text-align:left;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;width:100%;color:var(--text-s)}
 .opt:hover{border-color:rgba(240,237,230,.25);color:var(--text)}
-.opt.selected{border-color:var(--gold);color:var(--text);background:rgba(201,168,76,.05)}
-.opt-dot{width:13px;height:13px;border-radius:2px;border:1px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.opt.selected .opt-dot::after{content:'✓';font-size:9px;color:var(--gold);line-height:1;font-weight:600}
-.multi-hint{font-size:11px;color:var(--text-t);letter-spacing:.06em;margin-bottom:14px}
+.opt.selected{border-color:var(--gold);color:var(--text);background:var(--gold-glow)}
+.opt-dot{width:13px;height:13px;border-radius:2px;border:1px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.opt.selected .opt-dot::after{content:'✓';font-size:9px;color:var(--gold);font-weight:600}
 .opt-text{font-size:13px;font-weight:300}
-
-/* ── MEDITATION ── */
-.open-pulse{width:86px;height:86px;border-radius:50%;border:1px solid rgba(201,168,76,.12);margin:0 auto 36px;position:relative;display:flex;align-items:center;justify-content:center}
-.pulse-inner{width:30px;height:30px;border-radius:50%;border:1px solid rgba(201,168,76,.4);animation:pulse 3s ease-in-out infinite}
-.pulse-outer{position:absolute;width:86px;height:86px;border-radius:50%;border:1px solid rgba(201,168,76,.07);animation:pulse-out 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.35);opacity:.9}}
-@keyframes pulse-out{0%,100%{transform:scale(1);opacity:.1}50%{transform:scale(1.6);opacity:0}}
-.verse-block{border-left:1px solid var(--gold-dim);padding:16px 22px;margin:24px 0}
+.verse-block{border-left:1px solid var(--gold-dim);padding:16px 22px;margin:22px 0}
 .verse-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;line-height:1.8;color:var(--text-s);margin-bottom:7px}
 .verse-ref{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
-.scene{background:var(--surface);border:1px solid var(--border);padding:22px 26px;margin:10px 0;border-radius:1px}
+.scene{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin:10px 0;border-radius:1px}
 .scene-lbl{font-size:10px;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:var(--text-t);margin-bottom:10px}
 .scene-text{font-size:14px;line-height:1.95;color:var(--text-s)}
 .scene-text em{color:var(--text);font-style:normal}
-.breath-wrap{position:relative;width:130px;height:130px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
+.breath-wrap{position:relative;width:130px;height:130px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
 .breath-ring{position:absolute;width:130px;height:130px;border-radius:50%;border:1px solid rgba(201,168,76,.22);transition:transform 4s ease-in-out,opacity 4s ease-in-out;opacity:.4}
 .breath-ring.expand{transform:scale(1.6);opacity:.1}
 .breath-core{width:36px;height:36px;border-radius:50%;border:1px solid rgba(201,168,76,.3);transition:transform 4s ease-in-out}
 .breath-core.expand{transform:scale(1.5)}
-.breath-lbl{font-size:12px;letter-spacing:.07em;color:var(--text-t);margin-bottom:24px;text-align:center;min-height:18px}
-.affirm-list{margin:8px 0 24px}
-.affirm-item{padding:15px 0;border-bottom:1px solid var(--border-s);font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.65;color:var(--text-t);transition:color .4s}
+.breath-lbl{font-size:12px;letter-spacing:.07em;color:var(--text-t);margin-bottom:20px;text-align:center;min-height:18px}
+.affirm-list{margin:8px 0 22px}
+.affirm-item{padding:14px 0;border-bottom:1px solid var(--border-s);font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.65;color:var(--text-t);transition:color .4s}
 .affirm-item:last-child{border-bottom:none}
 .affirm-item.lit{color:var(--text)}
-.end-word{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,7vw,58px);font-weight:300;letter-spacing:.04em;color:var(--text);opacity:0;animation:fadeword 1.2s ease forwards;display:block;line-height:1.3}
+.end-word{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,7vw,56px);font-weight:300;letter-spacing:.04em;color:var(--text);opacity:0;animation:fadeword 1.2s ease forwards;display:block;line-height:1.3}
 @keyframes fadeword{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.scroll-area{max-height:58vh;overflow-y:auto;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.divider{width:32px;height:1px;background:var(--gold-dim);margin:28px auto;opacity:.6}
-
-/* ── DASHBOARD ── */
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
-.dash-card{background:var(--surface);border:1px solid var(--border);padding:20px 22px;border-radius:1px}
-.dash-card-label{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-t);margin-bottom:8px}
-.dash-card-value{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--text)}
-.dash-card-sub{font-size:12px;color:var(--text-t);margin-top:4px}
-.session-list{margin-bottom:24px}
-.session-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-s);font-size:13px;color:var(--text-s)}
-.session-row:last-child{border-bottom:none}
-.session-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-right:10px}
-
-/* ── BUILDING ── */
+.scroll-area{max-height:55vh;overflow-y:auto;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.divider{width:32px;height:1px;background:var(--gold-dim);margin:24px auto;opacity:.6}
+.open-pulse{width:80px;height:80px;border-radius:50%;border:1px solid rgba(201,168,76,.12);margin:0 auto 32px;position:relative;display:flex;align-items:center;justify-content:center}
+.pulse-inner{width:28px;height:28px;border-radius:50%;border:1px solid rgba(201,168,76,.4);animation:pulse 3s ease-in-out infinite}
+.pulse-outer{position:absolute;width:80px;height:80px;border-radius:50%;border:1px solid rgba(201,168,76,.07);animation:pulse-out 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.35);opacity:.9}}
+@keyframes pulse-out{0%,100%{transform:scale(1);opacity:.1}50%{transform:scale(1.6);opacity:0}}
 .dots-anim::after{content:'.';animation:dots 1.5s infinite}
 @keyframes dots{0%{content:'.'}33%{content:'..'}66%{content:'...'}100%{content:'.'}}
 
-@media(max-width:480px){
-  .page{padding:28px 16px 60px}.auth-card{padding:24px 20px}
-  .scene{padding:16px 18px}.verse-block{padding:14px 16px}
-}
+/* ── DASHBOARD ── */
+.dash-wrap{padding-top:72px;padding-bottom:80px;align-items:flex-start}
+.dash-section{margin-bottom:28px}
+.dash-section-title{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--text-t);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat-card{background:var(--surface);border:1px solid var(--border);padding:16px;text-align:center}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--text)}
+.stat-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);margin-top:4px}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px;margin-bottom:16px}
+.plan-day{width:100%;aspect-ratio:1;border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-t);cursor:pointer;transition:all .15s;flex-direction:column;gap:2px}
+.plan-day.done{background:var(--gold-glow);border-color:var(--gold);color:var(--gold)}
+.plan-day.today{border-color:rgba(201,168,76,.5);color:var(--text-s)}
+.plan-day.done .day-check{display:block}.day-check{display:none;font-size:10px}
+.session-item{background:var(--surface);border:1px solid var(--border);padding:14px 16px;margin-bottom:8px;border-radius:1px}
+.session-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.session-day{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.session-time{font-size:11px;color:var(--text-t)}
+.session-takeaway{font-size:13px;color:var(--text-s);line-height:1.6;font-style:italic}
+.vision-box{background:var(--surface);border:1px solid var(--border);padding:16px 18px;margin-bottom:12px;border-radius:1px}
+.vision-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:var(--text-s);line-height:1.7;font-style:italic}
+
+/* ── PLAN SELECTOR ── */
+.plan-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+.plan-card{background:var(--surface);border:1px solid var(--border);padding:16px 12px;text-align:center;cursor:pointer;transition:all .18s;border-radius:1px}
+.plan-card:hover{border-color:rgba(201,168,76,.4)}
+.plan-card.selected{border-color:var(--gold);background:var(--gold-glow)}
+.plan-card-days{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--text);margin-bottom:4px}
+.plan-card-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t)}
+.plan-card.selected .plan-card-days{color:var(--gold)}
+
+/* ── LEADERBOARD ── */
+.lb-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border-s);transition:background .15s}
+.lb-row:last-child{border-bottom:none}
+.lb-row.me{background:var(--gold-glow)}
+.lb-rank{font-size:11px;font-weight:500;color:var(--text-t);min-width:24px;text-align:center}
+.lb-rank.top{color:var(--gold)}
+.lb-name{flex:1;font-size:14px;color:var(--text)}
+.lb-name.me{color:var(--gold)}
+.lb-day{font-size:12px;color:var(--text-s);min-width:50px;text-align:right}
+.lb-streak{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-t);min-width:40px;text-align:right}
+.lb-badge{font-size:14px}
+.lb-card{background:var(--surface);border:1px solid var(--border)}
+
+/* ── PREP SCREEN ── */
+.prep-step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border-s);align-items:flex-start}
+.prep-step:last-child{border-bottom:none}
+.prep-num{width:24px;height:24px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0;margin-top:1px}
+.prep-text{font-size:14px;color:var(--text-s);line-height:1.7}
+.prep-text strong{color:var(--text);font-weight:400}
+
+/* ── TIMER ── */
+.med-timer{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--text-t);letter-spacing:.08em;text-align:center;margin-bottom:8px}
+
+/* ── TAKEAWAY MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex;animation:fadeUp .3s ease}
+.modal{background:var(--surface);border:1px solid var(--border);padding:28px 24px;max-width:480px;width:100%;border-radius:1px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--text);margin-bottom:8px}
+.modal-sub{font-size:13px;color:var(--text-s);margin-bottom:18px;line-height:1.7}
+
+@media(max-width:480px){.page{padding:28px 14px 60px}.auth-card{padding:22px 18px}.stat-grid{grid-template-columns:repeat(3,1fr)}.plan-cards{grid-template-columns:repeat(3,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-
 <div class="progress-bar" id="progress" style="width:0%"></div>
 <div class="phase-counter" id="counter"></div>
 
 <nav class="nav-bar" id="nav">
-  <div class="nav-logo">2VIBRATE</div>
+  <div class="nav-logo" onclick="showDash()">2VIBRATE</div>
   <div class="nav-right">
-    <button class="nav-link" onclick="showDash()">Dashboard</button>
-    <button class="nav-link" onclick="startMeditation()">Meditate</button>
-    <button class="nav-link" onclick="doLogout()">Sign out</button>
+    <button class="nav-link" id="nav-dash" onclick="showDash()">Home</button>
+    <button class="nav-link" id="nav-lb" onclick="showLeaderboard()">Community</button>
+    <button class="nav-link" id="nav-profile" onclick="showProfile()">Profile</button>
+    <button class="nav-link" onclick="doLogout()">Out</button>
   </div>
 </nav>
 
+<!-- TAKEAWAY MODAL -->
+<div class="modal-overlay" id="takeaway-modal">
+  <div class="modal">
+    <div class="modal-title">How was your session?</div>
+    <div class="modal-sub">Take a moment to capture what you felt, what came up, what shifted. Even one line is enough.</div>
+    <div class="field"><textarea class="ta" id="takeaway-input" placeholder="I felt... I noticed... Something shifted in me..." rows="4"></textarea></div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="saveTakeaway()">Save & complete →</button>
+      <button onclick="saveTakeaway(true)">Skip</button>
+    </div>
+  </div>
+</div>
+
 <!-- LANDING -->
-<div class="page active" id="p-land" style="padding-top:40px">
+<div class="page active" id="p-land">
   <div class="inner c">
     <div class="open-pulse"><div class="pulse-outer"></div><div class="pulse-inner"></div></div>
     <div class="eyebrow">Guided meditation</div>
     <h1>2VIBRATE</h1>
-    <p class="body">A personalised meditation built around your story, your struggle, and your vision. Answer a few honest questions — then step fully into the life you're building.</p>
+    <p class="body">A personalised daily meditation built around your story, your vision, and your faith. Track your journey. Hold each other accountable. Build the life you're here to live.</p>
     <div class="btn-row c" style="gap:12px">
       <button class="btn-primary" onclick="show('p-register')">Create account</button>
       <button onclick="show('p-login')">Sign in</button>
     </div>
-    <p class="small" style="margin-top:28px;color:var(--text-t)">Your answers are saved privately to your account. Nothing is shared.</p>
   </div>
 </div>
 
@@ -178,12 +214,8 @@ textarea.q-input{resize:vertical;min-height:88px}
       <div class="error-msg" id="reg-err"></div>
       <button class="btn-primary" style="width:100%;margin-top:4px" onclick="doRegister()">Create account →</button>
     </div>
-    <div style="text-align:center">
-      <button class="btn-ghost" onclick="show('p-login')">Already have an account? Sign in</button>
-    </div>
-    <div style="text-align:center;margin-top:8px">
-      <button class="btn-ghost" onclick="show('p-land')">← Back</button>
-    </div>
+    <div style="text-align:center"><button class="btn-ghost" onclick="show('p-login')">Already have an account? Sign in</button></div>
+    <div style="text-align:center;margin-top:6px"><button class="btn-ghost" onclick="show('p-land')">← Back</button></div>
   </div>
 </div>
 
@@ -198,48 +230,89 @@ textarea.q-input{resize:vertical;min-height:88px}
       <div class="error-msg" id="log-err"></div>
       <button class="btn-primary" style="width:100%;margin-top:4px" onclick="doLogin()">Sign in →</button>
     </div>
-    <div style="text-align:center">
-      <button class="btn-ghost" onclick="show('p-register')">No account? Create one</button>
-    </div>
+    <div style="text-align:center"><button class="btn-ghost" onclick="show('p-register')">No account? Create one</button></div>
   </div>
 </div>
 
 <!-- DASHBOARD -->
-<div class="page" id="p-dash" style="padding-top:80px;justify-content:flex-start">
-  <div class="inner">
-    <div class="eyebrow">Your space</div>
-    <h2 id="dash-greeting">Welcome back</h2>
-    <p class="body" id="dash-sub"></p>
-    <div class="dash-grid">
-      <div class="dash-card">
-        <div class="dash-card-label">Sessions completed</div>
-        <div class="dash-card-value" id="dash-sessions">0</div>
-        <div class="dash-card-sub">meditations</div>
+<div class="page dash-wrap" id="p-dash">
+  <div class="inner" style="max-width:600px">
+    <div class="dash-section">
+      <h2 id="dash-greeting" style="margin-bottom:4px">Welcome back</h2>
+      <p class="small" id="dash-sub" style="margin-bottom:20px"></p>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-val" id="stat-day">0</div><div class="stat-label">Current day</div></div>
+        <div class="stat-card"><div class="stat-val" id="stat-sessions">0</div><div class="stat-label">Sessions</div></div>
+        <div class="stat-card"><div class="stat-val" id="stat-time">0m</div><div class="stat-label">Total time</div></div>
       </div>
-      <div class="dash-card">
-        <div class="dash-card-label">Member since</div>
-        <div class="dash-card-value" id="dash-since" style="font-size:20px;padding-top:6px"></div>
-        <div class="dash-card-sub" id="dash-streak"></div>
+      <div class="btn-row" style="margin-bottom:20px">
+        <button class="btn-primary" onclick="showPrep()">Begin today's meditation →</button>
+        <button onclick="showPlanSelector()">Change plan</button>
       </div>
     </div>
-    <div id="dash-recent-wrap" style="display:none">
-      <div class="eyebrow" style="margin-bottom:12px">Recent sessions</div>
-      <div class="session-list" id="dash-recent"></div>
+    <div class="dash-section" id="vision-section" style="display:none">
+      <div class="dash-section-title">Your vision</div>
+      <div class="vision-box"><div class="vision-text" id="dash-vision"></div></div>
+      <button class="btn-ghost" style="padding:6px 0" onclick="showVisionEdit()">Edit vision →</button>
     </div>
-    <div class="btn-row">
-      <button class="btn-primary" onclick="startMeditation()">Begin meditation →</button>
-      <button onclick="startIntake()">Update my profile</button>
+    <div class="dash-section">
+      <div class="dash-section-title">Your plan — <span id="plan-label">7-day journey</span></div>
+      <div class="plan-grid" id="plan-grid"></div>
+    </div>
+    <div class="dash-section" id="history-section" style="display:none">
+      <div class="dash-section-title">Session history</div>
+      <div id="session-history"></div>
     </div>
   </div>
 </div>
 
+<!-- PLAN SELECTOR -->
+<div class="page" id="p-plan" style="padding-top:72px;justify-content:flex-start">
+  <div class="inner">
+    <div class="eyebrow">Choose your journey</div>
+    <h2>Select a plan</h2>
+    <p class="body">Each plan is a commitment — to yourself, to your vision, to the person you're becoming. Choose what you're ready for.</p>
+    <div class="plan-cards" id="plan-cards"></div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="savePlan()">Confirm plan →</button>
+      <button onclick="showDash()">Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE EDITOR -->
+<div class="page" id="p-profile" style="padding-top:72px;justify-content:flex-start">
+  <div class="inner">
+    <div class="eyebrow">Your profile</div>
+    <h2>Update your vision</h2>
+    <p class="body">Your vision should grow as you grow. Update it whenever it no longer feels big enough.</p>
+    <div class="field"><label class="lbl">What you're building toward (your vision)</label><textarea class="ta" id="vision-input" placeholder="In 3 years I wake up and..." rows="4"></textarea></div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="saveVision()">Save vision →</button>
+      <button onclick="startIntake()">Redo full questionnaire</button>
+      <button class="btn-ghost" onclick="showDash()">Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- LEADERBOARD -->
+<div class="page" id="p-leaderboard" style="padding-top:72px;justify-content:flex-start">
+  <div class="inner" style="max-width:600px">
+    <div class="eyebrow">Community</div>
+    <h2>Who's showing up</h2>
+    <p class="body">Accountability is built in public. Everyone on this board made the same commitment you did. <em>Keep your streak alive.</em></p>
+    <div class="lb-card" id="lb-table" style="margin-bottom:20px"></div>
+    <div class="btn-row"><button onclick="showDash()">← Back to dashboard</button></div>
+  </div>
+</div>
+
 <!-- INTAKE -->
-<div class="page" id="p-intake" style="padding-top:80px">
+<div class="page" id="p-intake" style="padding-top:72px">
   <div class="inner">
     <div class="eyebrow">About you</div>
     <div class="q-steps" id="q-steps"></div>
     <div id="q-container"></div>
-    <div class="btn-row" style="margin-top:20px">
+    <div class="btn-row" style="margin-top:18px">
       <button id="q-back" onclick="qBack()">Back</button>
       <button class="btn-primary" onclick="qNext()">Continue →</button>
     </div>
@@ -250,13 +323,33 @@ textarea.q-input{resize:vertical;min-height:88px}
 <div class="page" id="p-building">
   <div class="inner c">
     <div class="open-pulse"><div class="pulse-outer"></div><div class="pulse-inner"></div></div>
-    <h3 style="font-size:28px;margin-bottom:12px">Building your meditation<span class="dots-anim"></span></h3>
+    <h3 style="font-size:26px;margin-bottom:10px">Building your meditation<span class="dots-anim"></span></h3>
     <p class="body">Personalising every word to your story and vision.</p>
   </div>
 </div>
 
-<!-- MEDITATION INTRO -->
-<div class="page" id="p-intro" style="padding-top:60px">
+<!-- PREP SCREEN -->
+<div class="page" id="p-prep">
+  <div class="inner">
+    <div class="eyebrow" id="prep-day-label">Day 1</div>
+    <h2>Before you begin</h2>
+    <p class="body">Set yourself up properly. This meditation works best when your environment works with you.</p>
+    <div style="margin-bottom:24px">
+      <div class="prep-step"><div class="prep-num">1</div><div class="prep-text"><strong>Find your space.</strong> Sit comfortably or lie down somewhere you won't be disturbed for the next 10-15 minutes.</div></div>
+      <div class="prep-step"><div class="prep-num">2</div><div class="prep-text"><strong>Silence everything.</strong> Phone on silent. Notifications off. This time is yours.</div></div>
+      <div class="prep-step"><div class="prep-num">3</div><div class="prep-text"><strong>Put on binaural beats.</strong> Open Spotify or YouTube and search "theta binaural beats" or "528hz meditation music". Play it quietly in the background — this deepens the experience.</div></div>
+      <div class="prep-step"><div class="prep-num">4</div><div class="prep-text"><strong>Close your eyes briefly.</strong> Take three deep breaths before pressing Start. Let your shoulders drop. Let your body settle.</div></div>
+      <div class="prep-step"><div class="prep-num">5</div><div class="prep-text"><strong>Commit to the full session.</strong> Don't skip forward. Let each phase land before you move to the next.</div></div>
+    </div>
+    <div class="btn-row c">
+      <button onclick="showDash()">Not now</button>
+      <button class="btn-primary" onclick="startSession()">I'm ready — start →</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEDITATION PAGES -->
+<div class="page" id="p-intro">
   <div class="inner c">
     <div class="open-pulse"><div class="pulse-outer"></div><div class="pulse-inner"></div></div>
     <div class="eyebrow">Your meditation</div>
@@ -267,87 +360,86 @@ textarea.q-input{resize:vertical;min-height:88px}
   </div>
 </div>
 
-<!-- SETTLE -->
 <div class="page" id="p-settle">
   <div class="inner c">
+    <div class="med-timer" id="timer-settle"></div>
     <div class="eyebrow">Phase 1 · Settle</div>
     <h2>Come out of the noise</h2>
     <p class="body" id="settle-body"></p>
     <div class="breath-wrap"><div class="breath-ring" id="ring"></div><div class="breath-core" id="core"></div></div>
     <div class="breath-lbl" id="breath-lbl">Breathe in slowly...</div>
-    <p class="body" style="font-size:13px;margin-bottom:32px">In for 4. Hold for 4. Out for 6. Three rounds. Let your body go heavy. <em>You are safe here.</em></p>
+    <p class="body" style="font-size:13px;margin-bottom:28px">In for 4. Hold for 4. Out for 6. Three rounds. Feel your body go heavy. <em>You are safe here.</em></p>
     <div class="btn-row c"><button onclick="medGo(0)">Back</button><button class="btn-primary" onclick="medGo(2)">I'm settled →</button></div>
   </div>
 </div>
 
-<!-- RELEASE -->
 <div class="page" id="p-release">
   <div class="inner">
+    <div class="med-timer" id="timer-release"></div>
     <div class="eyebrow">Phase 2 · Release</div>
     <h2 id="rel-title"></h2>
     <p class="body" id="rel-body"></p>
     <div class="scene"><div class="scene-lbl">Speak this slowly in your mind</div><div class="scene-text" id="rel-scene"></div></div>
-    <p class="body" id="rel-close" style="margin-top:18px"></p>
+    <p class="body" id="rel-close" style="margin-top:16px"></p>
     <div class="btn-row"><button onclick="medGo(1)">Back</button><button class="btn-primary" onclick="medGo(3)">Released →</button></div>
   </div>
 </div>
 
-<!-- SCENE -->
 <div class="page" id="p-scene">
   <div class="inner">
+    <div class="med-timer" id="timer-scene"></div>
     <div class="eyebrow">Phase 3 · Enter the scene</div>
     <h2 id="scene-title"></h2>
     <p class="body" id="scene-intro"></p>
     <div class="scroll-area" id="scene-cards"></div>
-    <div class="btn-row" style="margin-top:16px"><button onclick="medGo(2)">Back</button><button class="btn-primary" onclick="medGo(4)">I see it →</button></div>
+    <div class="btn-row" style="margin-top:14px"><button onclick="medGo(2)">Back</button><button class="btn-primary" onclick="medGo(4)">I see it →</button></div>
   </div>
 </div>
 
-<!-- BECOME -->
 <div class="page" id="p-become">
   <div class="inner">
+    <div class="med-timer" id="timer-become"></div>
     <div class="eyebrow">Phase 4 · Become them</div>
     <h2 id="become-title"></h2>
     <p class="body" id="become-intro"></p>
     <div class="scroll-area" id="become-cards"></div>
-    <div class="verse-block" id="become-verse" style="margin-top:16px"></div>
-    <div class="btn-row" style="margin-top:8px"><button onclick="medGo(3)">Back</button><button class="btn-primary" onclick="medGo(5)">I feel it →</button></div>
+    <div class="verse-block" id="become-verse" style="margin-top:14px"></div>
+    <div class="btn-row" style="margin-top:6px"><button onclick="medGo(3)">Back</button><button class="btn-primary" onclick="medGo(5)">I feel it →</button></div>
   </div>
 </div>
 
-<!-- WHY -->
 <div class="page" id="p-why">
   <div class="inner">
+    <div class="med-timer" id="timer-why"></div>
     <div class="eyebrow">Phase 5 · The why</div>
     <h2 id="why-title"></h2>
     <p class="body" id="why-intro"></p>
     <div class="scroll-area" id="why-cards"></div>
-    <div class="btn-row" style="margin-top:16px"><button onclick="medGo(4)">Back</button><button class="btn-primary" onclick="medGo(6)">I feel the why →</button></div>
+    <div class="btn-row" style="margin-top:14px"><button onclick="medGo(4)">Back</button><button class="btn-primary" onclick="medGo(6)">I feel the why →</button></div>
   </div>
 </div>
 
-<!-- AFFIRM -->
 <div class="page" id="p-affirm">
   <div class="inner">
+    <div class="med-timer" id="timer-affirm"></div>
     <div class="eyebrow">Phase 6 · Seal it</div>
     <h2>Lock it in</h2>
-    <p class="body">Read each one slowly. Close your eyes after each and <em>feel</em> it as already true.</p>
+    <p class="body">Read each one slowly. Close your eyes after each and <em>feel</em> it as already true. Because in the part of your mind that matters, it is.</p>
     <div class="affirm-list" id="affirm-list"></div>
     <div class="btn-row"><button onclick="medGo(5)">Back</button><button class="btn-primary" onclick="medGo(7)">Complete →</button></div>
   </div>
 </div>
 
-<!-- COMPLETE -->
 <div class="page" id="p-complete">
   <div class="inner c">
     <div class="divider"></div>
-    <div style="margin-bottom:40px" id="end-words"></div>
+    <div style="margin-bottom:36px" id="end-words"></div>
     <p class="body" id="complete-body"></p>
     <div class="verse-block" id="complete-verse"></div>
-    <p class="body" id="complete-close" style="font-size:13px;margin-bottom:32px"></p>
+    <p class="body" id="complete-close" style="font-size:13px;margin-bottom:28px"></p>
     <div class="btn-row c">
-      <button class="btn-primary" onclick="restartMed()">Begin again →</button>
-      <button onclick="showDash()">Dashboard</button>
+      <button class="btn-primary" onclick="showDash()">Back to dashboard →</button>
+      <button onclick="restartMed()">Begin again</button>
     </div>
     <div class="divider"></div>
   </div>
@@ -355,316 +447,233 @@ textarea.q-input{resize:vertical;min-height:88px}
 
 <script>
 // ── STATE ──
-let user = null, answers = {}, qIndex = 0, breathTimer = null;
-const MED_PAGES = ['p-intro','p-settle','p-release','p-scene','p-become','p-why','p-affirm','p-complete'];
+let user=null, answers={}, qIndex=0, breathTimer=null;
+let sessionStart=null, selectedPlan=7, currentDayNum=1;
+const MED_PAGES=['p-intro','p-settle','p-release','p-scene','p-become','p-why','p-affirm','p-complete'];
+const PLANS=[7,14,21,30,60,90];
 
-const QUESTIONS = [
-  {
-    id:'name',type:'text',
-    q:'What is your first name?',
-    hint:'This is just for your meditation — nothing else.',
-    ph:'Your name...'
-  },
-  {
-    id:'situation',type:'opts',
-    q:'Where are you honestly right now?',
-    hint:'Not where you want to be — where you actually are today.',
-    opts:[
-      'At the very start — I know I want more but haven\'t moved yet',
-      'I\'ve started but I\'m still figuring it out day by day',
-      'I\'m in the grind — working hard but results are slow',
-      'I\'m building momentum — things are moving but I\'m not there yet',
-      'I\'m close — I can feel it, just not quite over the line'
-    ]
-  },
-  {
-    id:'domain',type:'opts',
-    q:'What areas of your life are you trying to transform?',
-    hint:'Select everything that genuinely burns in you right now.',
-    opts:[
-      'Financial — I want real freedom, not just enough to survive',
-      'Purpose — I want work that actually means something',
-      'Physical — my body and health need to change',
-      'Mental — my mindset, discipline and focus',
-      'Relationships — the people around me and the love I give',
-      'Spiritual — my connection to God and who He\'s calling me to be'
-    ]
-  },
-  {
-    id:'struggle',type:'opts',
-    q:'What has the struggle actually felt like?',
-    hint:'Be honest with yourself here. This is where it gets real.',
-    opts:[
-      'Financial pressure — the weight of not having enough',
-      'Lost — no direction, no purpose, just going through motions',
-      'Isolated — wrong crowd, wrong environment, pulling me backward',
-      'Self-doubt — feeling like success isn\'t meant for someone like me',
-      'Inconsistency — I start but I don\'t finish, I know what to do but I don\'t do it',
-      'All of it — it was everything hitting at once'
-    ]
-  },
-  {
-    id:'emotion',type:'opts',
-    q:'What emotion do you carry most right now?',
-    hint:'The one that sits underneath everything, even on good days.',
-    opts:[
-      'Hunger — a burning need to prove something and build something real',
-      'Frustration — I know I\'m capable of more and it bothers me',
-      'Fear — of failing, of staying stuck, of wasting my potential',
-      'Quiet faith — I don\'t have it all figured out but I trust the process',
-      'Restlessness — I can\'t settle because I know I\'m meant for more'
-    ]
-  },
-  {
-    id:'turning',type:'text',
-    q:'What was the moment something started to shift for you?',
-    hint:'A conversation, a rock bottom, a prayer, a realisation. What was it?',
-    ph:'It was when I...'
-  },
-  {
-    id:'faith',type:'opts',
-    q:'Where are you with faith and spirituality right now?',
-    opts:[
-      'God is central — He is the foundation of every decision I make',
-      'Growing — my faith is becoming more real and more personal',
-      'Searching — I believe but I\'m still finding my way',
-      'Spiritual but not religious — I believe in something bigger than me',
-      'Open — I\'m not sure what I believe but I\'m not closed off'
-    ]
-  },
-  {
-    id:'identity',type:'opts',
-    q:'How do you see yourself right now — honestly?',
-    hint:'Not who you want to be. Who you actually believe you are today.',
-    opts:[
-      'Someone with potential who hasn\'t fully stepped into it yet',
-      'Someone in the middle of a transformation — I can feel it happening',
-      'Someone who has been underestimated — including by myself',
-      'Someone being rebuilt — I\'m not who I was, but not yet who I\'m becoming',
-      'Someone who already knows who they are — I just need to execute'
-    ]
-  },
-  {
-    id:'vision',type:'text',
-    q:'Paint your future. What does life look like when you\'ve made it?',
-    hint:'Make it real — where are you, what do you feel, what does a day look like? Don\'t hold back.',
-    ph:'In 3 years I wake up and...'
-  },
-  {
-    id:'who',type:'text',
-    q:'Who are you really doing this for?',
-    hint:'Underneath the ambition — who are the faces you see when you think about winning?',
-    ph:'I\'m doing this for...'
-  },
-  {
-    id:'fear',type:'text',
-    q:'What is the version of your life you are most afraid of living?',
-    hint:'The version where you played it safe, stayed small, or gave up. Describe it.',
-    ph:'I\'m afraid that if I don\'t change...'
-  },
-  {
-    id:'why',type:'text',
-    q:'What would the world lose if you stayed exactly where you are?',
-    hint:'This is the real why. Not what you gain — what others lose if you don\'t rise.',
-    ph:'If I never become who I\'m meant to be...'
-  },
-  {
-    id:'words',type:'text',
-    q:'Three words. What do you want your life to stand for?',
-    hint:'Not what sounds good. The three words that actually move something in you.',
-    ph:'e.g. Faith. Freedom. Legacy.'
-  }
+const QUESTIONS=[
+  {id:'name',type:'text',q:'What is your first name?',hint:'This is just for your meditation — nothing else.',ph:'Your name...'},
+  {id:'situation',type:'opts',q:'Where are you honestly right now?',hint:"Not where you want to be — where you actually are today.",opts:['At the very start — I know I want more but haven\'t moved yet','I\'ve started but I\'m still figuring it out day by day','I\'m in the grind — working hard but results are slow','I\'m building momentum — things are moving but I\'m not there yet','I\'m close — I can feel it, just not quite over the line']},
+  {id:'domain',type:'opts',q:'What areas of your life are you trying to transform?',hint:'Select everything that genuinely burns in you right now.',opts:['Financial — I want real freedom, not just enough to survive','Purpose — I want work that actually means something','Physical — my body and health need to change','Mental — my mindset, discipline and focus','Relationships — the people around me and the love I give','Spiritual — my connection to God and who He\'s calling me to be']},
+  {id:'struggle',type:'opts',q:'What has the struggle actually felt like?',hint:'Be honest with yourself here. This is where it gets real.',opts:['Financial pressure — the weight of not having enough','Lost — no direction, no purpose, just going through motions','Isolated — wrong crowd, wrong environment, pulling me backward','Self-doubt — feeling like success isn\'t meant for someone like me','Inconsistency — I start but I don\'t finish, I know what to do but I don\'t','All of it — it was everything hitting at once']},
+  {id:'emotion',type:'opts',q:'What emotion do you carry most right now?',hint:'The one that sits underneath everything, even on good days.',opts:['Hunger — a burning need to prove something and build something real','Frustration — I know I\'m capable of more and it bothers me','Fear — of failing, of staying stuck, of wasting my potential','Quiet faith — I don\'t have it all figured out but I trust the process','Restlessness — I can\'t settle because I know I\'m meant for more']},
+  {id:'turning',type:'text',q:'What was the moment something started to shift for you?',hint:'A conversation, a rock bottom, a prayer, a realisation. What was it?',ph:'It was when I...'},
+  {id:'faith',type:'opts',q:'Where are you with faith and spirituality right now?',opts:['God is central — He is the foundation of every decision I make','Growing — my faith is becoming more real and more personal','Searching — I believe but I\'m still finding my way','Spiritual but not religious — I believe in something bigger than me','Open — I\'m not sure what I believe but I\'m not closed off']},
+  {id:'identity',type:'opts',q:'How do you honestly see yourself today?',hint:'Not who you want to be. Who you actually believe you are right now.',opts:['Someone with potential who hasn\'t fully stepped into it yet','Someone in the middle of a transformation — I can feel it happening','Someone who has been underestimated — including by myself','Someone being rebuilt — not who I was, but not yet who I\'m becoming','Someone who already knows who they are — I just need to execute']},
+  {id:'vision',type:'text',q:'Paint your future. What does life look like when you\'ve made it?',hint:'Make it real — where are you, what do you feel, what does a day look like?',ph:'In 3 years I wake up and...'},
+  {id:'who',type:'text',q:'Who are you really doing this for?',hint:'Underneath the ambition — who are the faces you see when you think about winning?',ph:'I\'m doing this for...'},
+  {id:'fear',type:'text',q:'What is the version of your life you are most afraid of living?',hint:'The version where you played it safe, stayed small, or gave up.',ph:'I\'m afraid that if I don\'t change...'},
+  {id:'why',type:'text',q:'What would the world lose if you stayed exactly where you are?',hint:'Not what you gain — what others lose if you don\'t rise.',ph:'If I never become who I\'m meant to be...'},
+  {id:'words',type:'text',q:'Three words. What do you want your life to stand for?',hint:'Not what sounds good. The three that actually move something in you.',ph:'e.g. Faith. Freedom. Legacy.'}
 ];
 
 // ── UTILS ──
-function show(id) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-}
-function setProgress(pct, label) {
-  document.getElementById('progress').style.width = pct+'%';
-  document.getElementById('counter').textContent = label||'';
-}
+function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+function setProgress(pct,label){document.getElementById('progress').style.width=pct+'%';document.getElementById('counter').textContent=label||''}
 function setHTML(id,h){const e=document.getElementById(id);if(e)e.innerHTML=h}
 function setText(id,t){const e=document.getElementById(id);if(e)e.textContent=t}
 function showErr(id,msg){const e=document.getElementById(id);if(e){e.textContent=msg;e.classList.toggle('show',!!msg)}}
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function fmtTime(secs){const m=Math.floor(secs/60),s=secs%60;return m>0?`${m}m ${s}s`:`${s}s`}
+function fmtDate(str){if(!str)return'';try{return new Date(str).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}catch{return str}}
 
-// ── NAV ──
 function showNav(on){document.getElementById('nav').classList.toggle('show',on)}
+function setNavActive(id){document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));const el=document.getElementById(id);if(el)el.classList.add('active')}
 
 // ── AUTH ──
-async function doRegister() {
+async function doRegister(){
   const email=document.getElementById('reg-email').value.trim();
   const pw=document.getElementById('reg-pw').value;
   showErr('reg-err','');
-  try {
-    const r=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
-    const d=await r.json();
-    if(!r.ok){showErr('reg-err',d.error||'Something went wrong');return}
-    await loadUser();
-  } catch(e){showErr('reg-err','Connection error. Please try again.')}
+  try{const r=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
+  const d=await r.json();if(!r.ok){showErr('reg-err',d.error||'Something went wrong');return}await loadUser();}
+  catch(e){showErr('reg-err','Connection error.')}
 }
-async function doLogin() {
+async function doLogin(){
   const email=document.getElementById('log-email').value.trim();
   const pw=document.getElementById('log-pw').value;
   showErr('log-err','');
-  try {
-    const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
-    const d=await r.json();
-    if(!r.ok){showErr('log-err',d.error||'Something went wrong');return}
-    await loadUser();
-  } catch(e){showErr('log-err','Connection error. Please try again.')}
+  try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
+  const d=await r.json();if(!r.ok){showErr('log-err',d.error||'Something went wrong');return}await loadUser();}
+  catch(e){showErr('log-err','Connection error.')}
 }
-async function doLogout() {
-  await fetch('/api/logout',{method:'POST'});
-  user=null; showNav(false); setProgress(0,''); show('p-land');
-}
+async function doLogout(){await fetch('/api/logout',{method:'POST'});user=null;showNav(false);setProgress(0,'');show('p-land')}
 
-async function loadUser() {
-  try {
-    const r=await fetch('/api/me');
-    if(!r.ok){showNav(false);show('p-land');return}
-    const d=await r.json();
-    user=d;
-    showNav(true);
-    if(d.profile && d.profile.answers) {
-      answers=d.profile.answers;
-      showDash();
-    } else {
-      startIntake();
-    }
-  } catch(e){show('p-land')}
+async function loadUser(){
+  try{const r=await fetch('/api/me');if(!r.ok){showNav(false);show('p-land');return}
+  const d=await r.json();user=d;showNav(true);
+  if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;showDash()}
+  else startIntake();}catch(e){show('p-land')}
 }
 
 // ── DASHBOARD ──
-async function showDash() {
-  if(!user) return;
-  const name=user.profile?.name || user.email.split('@')[0];
-  setText('dash-greeting',`Welcome back, ${name}`);
-  const since=new Date(user.created_at);
-  document.getElementById('dash-since').textContent=since.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-  setText('dash-sessions', user.session_count||0);
-  const last=user.profile?.updated_at;
-  setText('dash-sub', last ? `Your meditation profile was last updated ${new Date(last).toLocaleDateString('en-GB',{day:'numeric',month:'long'})}.` : 'Your meditation is ready when you are.');
-  try {
-    const r=await fetch('/api/sessions');
-    const d=await r.json();
-    if(d.sessions && d.sessions.length>0) {
-      const wrap=document.getElementById('dash-recent-wrap');
-      const list=document.getElementById('dash-recent');
-      wrap.style.display='block';
-      list.innerHTML=d.sessions.slice(0,5).map(s=>{
-        const dt=new Date(s);
-        return `<div class="session-row"><div style="display:flex;align-items:center"><div class="session-dot"></div>${dt.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</div><span style="color:var(--text-t)">${dt.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</span></div>`;
-      }).join('');
-    }
-  } catch(e){}
+async function showDash(){
+  if(!user)return;
+  setNavActive('nav-dash');
+  const name=(user.profile?.name||user.email.split('@')[0]);
+  setText('dash-greeting',`Day ${currentDayNum} — ${name}`);
+  setText('dash-sub',`Your ${selectedPlan}-day journey. Keep showing up.`);
+  setText('plan-label',`${selectedPlan}-day journey`);
+  // Load sessions
+  try{const r=await fetch('/api/sessions');const d=await r.json();
+  const sessions=d.sessions||[];
+  // Stats
+  const totalSecs=sessions.reduce((a,s)=>a+(s.duration||0),0);
+  const maxDay=sessions.length>0?Math.max(...sessions.map(s=>s.day||1)):0;
+  currentDayNum=maxDay+1;
+  setText('stat-day',maxDay>0?`${maxDay}`:'—');
+  setText('stat-sessions',sessions.length);
+  setText('stat-time',totalSecs>60?`${Math.floor(totalSecs/60)}m`:`${totalSecs}s`);
+  setText('dash-greeting',`Day ${currentDayNum} — ${name}`);
+  // Plan grid
+  buildPlanGrid(sessions,selectedPlan);
+  // History
+  if(sessions.length>0){
+    document.getElementById('history-section').style.display='block';
+    document.getElementById('session-history').innerHTML=sessions.slice(0,5).map(s=>`
+      <div class="session-item">
+        <div class="session-top">
+          <div class="session-day">Day ${s.day}</div>
+          <div class="session-time">${fmtDate(s.completed_at)} · ${fmtTime(s.duration||0)}</div>
+        </div>
+        ${s.takeaway?`<div class="session-takeaway">"${s.takeaway}"</div>`:''}
+      </div>`).join('');
+  }}catch(e){}
+  // Vision
+  if(user.profile?.vision){
+    document.getElementById('vision-section').style.display='block';
+    setText('dash-vision',user.profile.vision);
+    document.getElementById('vision-input').value=user.profile.vision;
+  }
   setProgress(0,'');
   show('p-dash');
 }
 
+function buildPlanGrid(sessions,planDays){
+  const completedDays=new Set(sessions.map(s=>s.day));
+  const grid=document.getElementById('plan-grid');
+  const nextDay=sessions.length>0?Math.max(...sessions.map(s=>s.day))+1:1;
+  grid.innerHTML='';
+  for(let i=1;i<=planDays;i++){
+    const div=document.createElement('div');
+    div.className='plan-day'+(completedDays.has(i)?' done':i===nextDay?' today':'');
+    div.innerHTML=`<span>${i}</span><span class="day-check">✓</span>`;
+    div.title=`Day ${i}${completedDays.has(i)?' — completed':''}`;
+    grid.appendChild(div);
+  }
+}
+
+// ── PLAN SELECTOR ──
+function showPlanSelector(){
+  const container=document.getElementById('plan-cards');
+  container.innerHTML=PLANS.map(p=>`
+    <div class="plan-card${p===selectedPlan?' selected':''}" onclick="selectPlan(${p},this)">
+      <div class="plan-card-days">${p}</div>
+      <div class="plan-card-label">day${p===1?'':'s'}</div>
+    </div>`).join('');
+  show('p-plan');
+}
+function selectPlan(days,el){selectedPlan=days;document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+async function savePlan(){
+  const v=document.getElementById('vision-input').value.trim();
+  await fetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
+  if(user){user.profile={...user.profile,plan_days:selectedPlan};selectedPlan=selectedPlan}
+  await showDash();
+}
+
+// ── VISION EDIT ──
+function showVisionEdit(){show('p-profile')}
+function showProfile(){setNavActive('nav-profile');show('p-profile')}
+async function saveVision(){
+  const v=document.getElementById('vision-input').value.trim();
+  await fetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
+  if(user&&user.profile)user.profile.vision=v;
+  await showDash();
+}
+
+// ── LEADERBOARD ──
+async function showLeaderboard(){
+  setNavActive('nav-lb');
+  show('p-leaderboard');
+  try{const r=await fetch('/api/leaderboard');const d=await r.json();
+  const lb=d.leaderboard||[];
+  const medals=['🥇','🥈','🥉'];
+  document.getElementById('lb-table').innerHTML=lb.length===0
+    ?'<div style="padding:24px;text-align:center;font-size:13px;color:var(--text-t)">No data yet — be the first to complete a session.</div>'
+    :lb.map(r=>`
+      <div class="lb-row${r.is_me?' me':''}">
+        <div class="lb-rank${r.rank<=3?' top':''}">${medals[r.rank-1]||r.rank}</div>
+        <div class="lb-name${r.is_me?' me':''}">${r.name}${r.is_me?' (you)':''}</div>
+        <div class="lb-day">Day ${r.current_day||'—'}</div>
+        <div class="lb-streak">${r.total_sessions} sessions</div>
+      </div>`).join('');}
+  catch(e){setHTML('lb-table','<div style="padding:20px;text-align:center;color:var(--text-t);font-size:13px">Could not load leaderboard.</div>')}
+}
+
 // ── INTAKE ──
-function startIntake() {
-  qIndex=0;
-  if(user?.profile?.answers) answers={...user.profile.answers};
-  else answers={};
-  renderQ();
-  show('p-intake');
-}
-
-function buildSteps(){
-  const el=document.getElementById('q-steps');
-  el.innerHTML='';
-  QUESTIONS.forEach((_,i)=>{
-    const d=document.createElement('div');
-    d.className='q-step'+(i<qIndex?' done':i===qIndex?' active':'');
-    el.appendChild(d);
-  });
-}
-
+function startIntake(){qIndex=0;if(user?.profile?.answers)answers={...user.profile.answers};else answers={};renderQ();show('p-intake')}
+function buildSteps(){const el=document.getElementById('q-steps');el.innerHTML='';QUESTIONS.forEach((_,i)=>{const d=document.createElement('div');d.className='q-step'+(i<qIndex?' done':i===qIndex?' active':'');el.appendChild(d)})}
 function renderQ(){
   buildSteps();
   const q=QUESTIONS[qIndex];
   setProgress(Math.round(qIndex/QUESTIONS.length*35),`Question ${qIndex+1} of ${QUESTIONS.length}`);
   document.getElementById('q-back').style.display=qIndex===0?'none':'';
-  const c=document.getElementById('q-container');
-  c.innerHTML='';
+  const c=document.getElementById('q-container');c.innerHTML='';
   const num=document.createElement('div');num.className='q-num';num.textContent=`${qIndex+1} / ${QUESTIONS.length}`;c.appendChild(num);
   const qt=document.createElement('div');qt.className='q-text';qt.textContent=q.q;c.appendChild(qt);
   if(q.hint){const h=document.createElement('div');h.className='q-hint';h.textContent=q.hint;c.appendChild(h)}
   if(q.type==='opts'){
     const hint=document.createElement('div');hint.className='multi-hint';hint.textContent='Select all that apply';c.appendChild(hint);
     const wrap=document.createElement('div');wrap.className='options';
-    // Ensure answers[q.id] is always an array for multi-select
-    if(!Array.isArray(answers[q.id])) answers[q.id]=answers[q.id]?[answers[q.id]]:[];
+    if(!Array.isArray(answers[q.id]))answers[q.id]=answers[q.id]?[answers[q.id]]:[];
     q.opts.forEach(o=>{
-      const btn=document.createElement('button');
-      btn.className='opt'+(answers[q.id].includes(o)?' selected':'');
-      btn.type='button';
+      const btn=document.createElement('button');btn.className='opt'+(answers[q.id].includes(o)?' selected':'');btn.type='button';
       btn.innerHTML=`<div class="opt-dot"></div><span class="opt-text">${o}</span>`;
-      btn.onclick=()=>{
-        const arr=answers[q.id];
-        const idx=arr.indexOf(o);
-        if(idx>-1){arr.splice(idx,1);btn.classList.remove('selected')}
-        else{arr.push(o);btn.classList.add('selected')}
-        answers[q.id]=arr;
-      };
+      btn.onclick=()=>{const arr=answers[q.id];const idx=arr.indexOf(o);if(idx>-1){arr.splice(idx,1);btn.classList.remove('selected')}else{arr.push(o);btn.classList.add('selected')};answers[q.id]=arr};
       wrap.appendChild(btn);
-    });
-    c.appendChild(wrap);
+    });c.appendChild(wrap);
   } else {
     const ta=document.createElement('textarea');ta.className='q-input';ta.placeholder=q.ph||'';ta.value=answers[q.id]||'';
-    ta.oninput=()=>{answers[q.id]=ta.value};
-    c.appendChild(ta);
+    ta.oninput=()=>{answers[q.id]=ta.value};c.appendChild(ta);
   }
 }
-
-function qBack(){if(qIndex>0){qIndex--;renderQ()}else{showDash()}}
-
+function qBack(){if(qIndex>0){qIndex--;renderQ()}else if(user&&user.profile?.answers)showDash();else show('p-land')}
 async function qNext(){
   const q=QUESTIONS[qIndex];
-  if(!answers[q.id]||(Array.isArray(answers[q.id])?answers[q.id].length===0:answers[q.id].toString().trim()==='')){ 
-    if(q.type==='opts'){alert('Please select at least one option.');return}
-    if(['name','vision','why','words'].includes(q.id)){alert('Please fill this in.');return}
-  }
+  if(!answers[q.id]||(Array.isArray(answers[q.id])?answers[q.id].length===0:answers[q.id].toString().trim()===''))
+    {if(q.type==='opts'){alert('Please select at least one option.');return}
+    if(['name','vision','why','words'].includes(q.id)){alert('Please fill this in.');return}}
   if(qIndex<QUESTIONS.length-1){qIndex++;renderQ()}
-  else {
-    await saveProfile();
-    buildAndShow();
-  }
+  else{await saveProfile();buildAndShow()}
+}
+async function saveProfile(){
+  const v=answers.vision||'';
+  try{await fetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
+  if(user)user.profile={name:answers.name,answers,vision:v,plan_days:selectedPlan,updated_at:new Date().toISOString()}}catch(e){}
 }
 
-async function saveProfile(){
-  try {
-    await fetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers})});
-    if(user) user.profile={name:answers.name,answers,updated_at:new Date().toISOString()};
-  } catch(e){}
+// ── PREP ──
+function showPrep(){
+  setText('prep-day-label',`Day ${currentDayNum} of ${selectedPlan}`);
+  show('p-prep');
 }
 
 // ── BUILD MEDITATION ──
-function startMeditation(){
-  if(!answers||!answers.name){startIntake();return}
-  buildAndShow();
-}
-
-function buildAndShow(){
-  show('p-building');setProgress(40,'');
-  setTimeout(()=>{generate();show('p-intro');setProgress(42,'');},1800);
-}
+function startSession(){sessionStart=Date.now();buildAndShow()}
+function startMeditation(){if(!answers||!answers.name){startIntake();return}showPrep()}
+function buildAndShow(){show('p-building');setProgress(40,'');setTimeout(()=>{generate();show('p-intro');setProgress(42,'');},1800)}
 
 function generate(){
   const A=answers;
   const name=(A.name||'').split(' ')[0]||'friend';
-  const arrStr = v => Array.isArray(v) ? v.join(' ') : (v||'');
-  const has = (v, term) => arrStr(v).toLowerCase().includes(term.toLowerCase());
-
+  const arrStr=v=>Array.isArray(v)?v.join(' '):(v||'');
+  const has=(v,term)=>arrStr(v).toLowerCase().includes(term.toLowerCase());
   const faithC=has(A.faith,'Central')||has(A.faith,'God');
   const faithG=has(A.faith,'Growing')||has(A.faith,'Present');
   const faithS=has(A.faith,'spiritual');
-  const isFinancial=has(A.domain,'financial')||has(A.domain,'business');
-  const isHealth=has(A.domain,'Health');
+  const isFinancial=has(A.domain,'Financial');
+  const isHealth=has(A.domain,'Physical');
   const isRelation=has(A.domain,'Relation');
   const wasAll=has(A.struggle,'All');
   const wasBroke=has(A.struggle,'Financial');
@@ -672,87 +681,74 @@ function generate(){
   const wrongCrowd=has(A.struggle,'environment')||has(A.struggle,'Isolated');
   const wasDoubt=has(A.struggle,'doubt');
   const wasInconsistent=has(A.struggle,'Inconsistency');
-
   const isHungry=has(A.emotion,'Hunger');
   const isFearful=has(A.emotion,'Fear');
   const isRestless=has(A.emotion,'Restless');
-  const isFrustrated=has(A.emotion,'Frustration');
 
-  const verses={
-    c:{text:'"For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."',ref:'Jeremiah 29:11'},
-    g:{text:'"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."',ref:'Proverbs 3:5-6'},
-    s:{text:'"Whatever you ask for in prayer, believe that you have received it, and it will be yours."',ref:'Mark 11:24'},
-    n:{text:'"The future belongs to those who believe in the beauty of their dreams."',ref:'Eleanor Roosevelt'}
-  };
+  const verses={c:{text:'"For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."',ref:'Jeremiah 29:11'},g:{text:'"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."',ref:'Proverbs 3:5-6'},s:{text:'"Whatever you ask for in prayer, believe that you have received it, and it will be yours."',ref:'Mark 11:24'},n:{text:'"The future belongs to those who believe in the beauty of their dreams."',ref:'Eleanor Roosevelt'}};
   const openV=faithC?verses.c:faithG?verses.g:faithS?verses.s:verses.n;
-  const closeVerses=[
-    {text:'"I can do all things through Christ who strengthens me."',ref:'Philippians 4:13'},
-    {text:'"Commit to the Lord whatever you do, and he will establish your plans."',ref:'Proverbs 16:3'},
-    {text:'"Be strong and courageous. Do not be afraid; for the Lord your God will be with you wherever you go."',ref:'Joshua 1:9'}
-  ];
+  const closeVerses=[{text:'"I can do all things through Christ who strengthens me."',ref:'Philippians 4:13'},{text:'"Commit to the Lord whatever you do, and he will establish your plans."',ref:'Proverbs 16:3'},{text:'"Be strong and courageous. Do not be afraid; for the Lord your God will be with you wherever you go."',ref:'Joshua 1:9'}];
   const closeV=faithC||faithG?pick(closeVerses):{text:'"The secret of getting ahead is getting started."',ref:'Mark Twain'};
-
   const wordList=(A.words||'Faith. Freedom. Legacy.').split(/[.,\s]+/).filter(w=>w.length>1).slice(0,3);
+  const visionText=user?.profile?.vision||A.vision||'';
 
-  // ── POPULATE ──
-  setText('med-title',`Enter your future, ${name}`);
-  setHTML('med-intro-body',`This meditation is built entirely around you, ${name} — your story, your struggle, your vision. Find somewhere still. Silence your phone. Close your eyes between each section and let each word settle before moving forward.`);
+  setText('med-title',`Day ${currentDayNum} — ${name}`);
+  setHTML('med-intro-body',`This is Day ${currentDayNum} of your ${selectedPlan}-day journey. Settle in. Close your eyes between each section. Let each word land before you move forward. <em>You showed up. That already matters.</em>`);
   setHTML('med-verse',`<div class="verse-text">${openV.text}</div><div class="verse-ref">${openV.ref}</div>`);
-
   setHTML('settle-body',`Before you can see the future clearly, you have to leave the present behind. Right now — your phone, your worries, everything on your plate — none of it exists here. You are stepping out of time and into what's possible.`);
 
   setText('rel-title','You are not who you were');
   let rBody=`Close your eyes. Picture the version of you that was `;
-  if(wasAll)rBody+='<em>carrying everything at once — financially broke, directionless, in the wrong environment.</em>';
+  if(wasAll)rBody+='<em>carrying everything at once — financially under pressure, directionless, in the wrong environment.</em>';
   else if(wasBroke)rBody+='<em>under real financial pressure</em> — the quiet weight of not having enough.';
-  else if(wasLost)rBody+='<em>lost</em> — going through the motions with no real direction, no real purpose.';
-  else if(wrongCrowd)rBody+='<em>in the wrong environment</em> — surrounded by people pulling you in the wrong direction.';
+  else if(wasLost)rBody+='<em>lost</em> — going through the motions without real direction or purpose.';
+  else if(wrongCrowd)rBody+='<em>in the wrong environment</em> — being pulled in the wrong direction.';
   else if(wasDoubt)rBody+='<em>doubting himself</em> — wondering if success was really meant for someone like him.';
-  else if(wasInconsistent)rBody+='<em>starting but not finishing</em> — knowing what to do but not doing it, again and again.';
   else rBody+='<em>carrying everything you\'ve been through.</em>';
-  rBody+=` See him clearly. He felt the weight of it. He didn't know the way out yet.`;
+  rBody+=` See him. He felt the weight of it. He didn't know the way out yet.`;
   setHTML('rel-body',rBody);
 
-  let rScene=`I see you. I know exactly what you carried. `;
+  let rScene=`I see you. I know what you carried. `;
   if(A.turning)rScene+=`And I know the moment things began to shift — ${A.turning.trim()}${A.turning.trim().endsWith('.')?'':'.'}  `;
-  if(faithC)rScene+=`Even in the darkest part of that, <em>God saw you.</em> He was already writing the next chapter before you could see it. `;
+  if(faithC)rScene+=`Even in the darkest part of that, <em>God saw you.</em> He was already writing the next chapter. `;
   else if(faithG||faithS)rScene+=`Even then, something bigger was at work. You were being shaped, not abandoned. `;
-  else rScene+=`Even then, something in you refused to fold. That stubbornness carried you here. `;
+  else rScene+=`Even then, something in you refused to fold. That part of you carried you here. `;
   if(isFearful)rScene+=`The fear you felt was real. But it didn't stop you. `;
-  if(isHungry)rScene+=`That hunger you felt — it wasn't desperation. It was a signal. `;
-  rScene+=`What you have become from that season is something that version of you couldn't have imagined. You can rest now. <em>I've got it from here.</em>`;
+  if(isHungry)rScene+=`That hunger wasn't desperation. It was a signal pointing you somewhere. `;
+  rScene+=`What you've built from that season is something that version of you couldn't have imagined. You can rest now. <em>I've got it from here.</em>`;
   setHTML('rel-scene',rScene);
-  setHTML('rel-close',`Feel the weight of that version of you lift. He did his job. He survived. He got you to this moment. <em>Now let him go — and step forward.</em>`);
+  setHTML('rel-close',`Feel the weight of that version of you lift. He did his job. He survived. <em>Now let him go — and step forward.</em>`);
 
   setText('scene-title','See your life');
-  setHTML('scene-intro',`You are now three years forward. Everything you worked toward is real. Close your eyes and step into this completely — don't observe it from the outside. <em>You are living it.</em>`);
+  setHTML('scene-intro',`You are now three years forward. Everything you worked toward is real. Close your eyes and step into this completely — don't observe it. <em>You are living it.</em>`);
   const sceneCards=[
-    {l:'The morning',t:`You wake up with no alarm. The space around you is yours — calm, intentional, exactly how you designed it. There is no dread waiting for you. No financial panic. No feeling of wasted time. You open your eyes and the first thing you feel is <em>gratitude.</em> You made it, ${name}. You actually made it.`},
-    isFinancial?{l:'The freedom',t:`Your income moves without you having to grind every hour. The stress of money is gone — replaced by the quiet confidence of someone who built something real. You look at your numbers and feel <em>peace, not panic.</em> That is the life you chose.`}:
-    isHealth?{l:'The transformation',t:`You move through life in a body that feels strong and alive. The discipline you built is no longer an effort — it is simply <em>who you are.</em> People notice. But more importantly, you feel it every single day.`}:
-    isRelation?{l:'The people around you',t:`The relationships in your life are deep and real. The people you love feel it — the quality of your presence, the time you give, the peace you carry. You built a life worth sharing. <em>And you're sharing it.</em>`}:
+    {l:'The morning',t:`You wake up with no alarm. The space around you is yours — calm, intentional. There is no dread. No financial panic. No feeling of wasted potential. You open your eyes and the first thing you feel is <em>gratitude.</em> You made it, ${name}. You actually made it.`},
+    visionText?{l:'Your vision, realised',t:`You described it yourself — "${visionText.length>120?visionText.slice(0,120)+'...':visionText}". <em>You are living that.</em> Not thinking about it. Not working toward it. Living it.`}:null,
+    isFinancial?{l:'The freedom',t:`Your income moves without you having to grind every single hour. The stress of money is gone — replaced by quiet confidence. You look at your numbers and feel <em>peace, not panic.</em>`}:
+    isHealth?{l:'The transformation',t:`You move through life in a body that feels strong and alive. The discipline is no longer an effort — it is simply <em>who you are.</em> People notice. But more importantly, you feel it.`}:
+    isRelation?{l:'The people',t:`The relationships in your life are deep and real. The people you love feel it — your presence, your time, your peace. <em>You built a life worth sharing.</em>`}:
     {l:'The purpose',t:`Every day you wake up aligned. What you do matches who you are. The work feels meaningful. The impact is real. <em>You are living exactly the life you described to yourself on your hardest days.</em>`},
-    A.who?{l:'The people you built this for',t:`You think about ${A.who.trim()} — and what this life means for them. The things they no longer have to worry about. The doors that are open. The weight that lifted because of what you chose to build. <em>You did that. You changed the line.</em>`}:null
+    A.who?{l:'The people you built this for',t:`You think about ${A.who.trim()} — and what this life means for them. The things they no longer have to worry about. The doors that are open now. <em>You did that. You changed the line.</em>`}:null
   ].filter(Boolean);
   document.getElementById('scene-cards').innerHTML=sceneCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
 
   setText('become-title','Step into who you are');
-  setHTML('become-intro',`Now go deeper. You are not watching this life from the outside. You are <em>inside it.</em> Feel what this version of you carries every single ordinary day.`);
+  setHTML('become-intro',`Now go deeper. You are not watching this life from the outside. You are <em>inside it.</em> Feel what this version of you carries every ordinary day.`);
   const becCards=[
-    {l:'The inner world',t:faithC?`His first thought every morning is <em>thank you.</em> When challenges come he doesn't panic — he prays, he thinks, he moves. He trusts the process because he trusts the God behind it. Setbacks don't shake him. They refine him.`:faithG||faithS?`When challenges come, something inside him stays steady. He has learned that hard moments are preparation, not punishment. He moves with patience. He acts with intention. He is <em>unshakeable in the places that matter.</em>`:`When challenges come he doesn't spiral. He gets still, thinks clearly, and moves with purpose. The work he put in is now just who he is. Setbacks teach him. <em>He knows himself.</em>`},
-    {l:'How he carries himself',t:`He walks into rooms with quiet authority. He doesn't need to be the loudest voice. People feel something when they're around him — a calm, a groundedness, a sense that this person knows exactly where they're going. He speaks with intention. He listens first. <em>This is who you are becoming, ${name}.</em>`}
+    {l:'The inner world',t:faithC?`His first thought every morning is <em>thank you.</em> When challenges come he doesn't panic — he prays, he thinks, he moves. He trusts the process because he trusts the God behind it. Setbacks don't shake him. They refine him.`:faithG||faithS?`When challenges come, something inside him stays steady. He has learned that hard moments are preparation, not punishment. He moves with patience. He acts with intention. <em>He is unshakeable where it matters.</em>`:`When challenges come he doesn't spiral. He gets still, thinks clearly, and moves. The discipline he built is now just who he is. Setbacks teach him. <em>He knows himself.</em>`},
+    {l:'How he carries himself',t:`He walks into rooms with quiet authority. He doesn't need to be the loudest. People feel something when they're around him — a groundedness, a calm, a sense that this person knows exactly where they're going. He speaks with intention. He listens. <em>This is who you are becoming, ${name}.</em>`}
   ];
   document.getElementById('become-cards').innerHTML=becCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
   const becV=faithC?{text:'"But seek first his kingdom and his righteousness, and all these things will be given to you as well."',ref:'Matthew 6:33'}:faithG||faithS?{text:'"Ask and it will be given to you; seek and you will find; knock and the door will be opened to you."',ref:'Matthew 7:7'}:{text:'"The man who moves a mountain begins by carrying away small stones."',ref:'Confucius'};
   setHTML('become-verse',`<div class="verse-text">${becV.text}</div><div class="verse-ref">${becV.ref}</div>`);
 
   setText('why-title','What this is really for');
-  setHTML('why-intro','Now feel the weight of the real reason underneath all of it. Not the results. Not the recognition. The thing that actually moves you.');
+  setHTML('why-intro','Now feel the weight of the real reason underneath all of it. Not the results. Not the status. The thing that actually moves you.');
   const whyCards=[
-    {l:'The person you\'re reaching',t:`Right now, somewhere, there is someone who is exactly where you were — ${wasAll?'broke, lost and in the wrong crowd':wasLost?'without direction, just going through the motions':wasBroke?'under real financial pressure':wrongCrowd?'surrounded by the wrong people':wasDoubt?'doubting whether they\'re capable of more':'carrying what you once carried'}. They don't know your name yet. <em>But they will find you.</em> And when they do, your story will be the thing that finally makes them believe.`},
-    A.fear?{l:'The life you refused to live',t:`You wrote it: "${A.fear.trim()}". <em>That is the version of your life you are fighting against every single day.</em> Feel the weight of that. Let it sharpen you. Not paralyse you — fuel you.`}:null,
-    A.why?{l:'What the world loses if you stay small',t:`You said it yourself: "${A.why.trim()}". <em>That is not a small thing.</em> That is the real cost of not becoming who you are meant to be. Let it move you.`}:null,
-    {l:'The legacy',t:`Years from now, when people ask what ${name} built — the answer won't be a number. It will be people whose lives changed. It will be a family line that shifted. It will be a generation that saw someone like them make it. <em>That is what you are actually building.</em>`}
+    {l:'The person you\'re reaching',t:`Right now, somewhere, there is someone who is exactly where you were — ${wasAll?'broke, lost and in the wrong crowd':wasLost?'without direction, just going through motions':wasBroke?'under real financial pressure':wrongCrowd?'surrounded by the wrong people':wasDoubt?'doubting whether they\'re capable':'carrying what you once carried'}. They don't know your name yet. <em>But they will find you.</em> And when they do, your story will be the thing that makes them believe.`},
+    A.fear?{l:'The life you refused',t:`You wrote it: "${A.fear.trim().slice(0,150)}". <em>That is the version of your life you are fighting against every single day.</em> Feel the weight of that. Let it sharpen you. Not paralyse you — fuel you.`}:null,
+    A.why?{l:'What the world loses if you stay small',t:`You said it: "${A.why.trim().slice(0,150)}". <em>That is not a small thing.</em> That is the real cost. Let it move you.`}:null,
+    {l:'The legacy',t:`Years from now, when people ask what ${name} built — the answer won't be a number. It will be people. A family line that shifted. A generation that saw someone like them make it. <em>That is what you are actually building.</em>`}
   ].filter(Boolean);
   document.getElementById('why-cards').innerHTML=whyCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
 
@@ -760,41 +756,66 @@ function generate(){
     faithC?`I am exactly who God designed me to be. I am simply stepping into that person now.`:`I am becoming who I was always meant to be. Every day I step closer.`,
     `My story — every struggle, every setback, every dark season — is the exact qualification for everything I am called to do.`,
     faithC||faithG?`I keep God first and trust that everything else aligns behind that decision.`:`I stay aligned with what matters most, and everything else follows from there.`,
-    isRestless||isHungry?`The hunger inside me is not restlessness. It is purpose. It is a signal pointing me toward what I am meant to build.`:`The drive I feel is not anxiety. It is direction. It is fuel.`,
+    isRestless||isHungry?`The hunger inside me is not restlessness. It is purpose — a signal pointing me toward what I am meant to build.`:`The drive I feel is not anxiety. It is direction. It is fuel.`,
     `The life I am building is real. I can feel it. I can see it. It already exists — I am simply walking toward it.`,
     `Every single day I show up is a day I honour the version of me who refused to quit.`,
-    A.who?`I am doing this for ${A.who.trim()}. On the hard days, that is enough.`:`I know exactly who I am building this for. That is enough to keep going on any day.`,
+    A.who?`I am doing this for ${A.who.trim().slice(0,60)}. On the hard days, that is enough.`:`I know exactly who I am building this for. That is enough to keep going on any day.`,
     `I am disciplined. I am grounded. I am faith-led. I am unstoppable.`
   ];
   document.getElementById('affirm-list').innerHTML=affirms.map(a=>`<div class="affirm-item">${a}</div>`).join('');
-
   document.getElementById('end-words').innerHTML=wordList.map((w,i)=>`<span class="end-word" style="animation-delay:${i*0.4}s">${w}</span>`).join('');
   setHTML('complete-body',`Take three deep breaths. Feel the ground beneath you. When you open your eyes, ${name}, carry what you felt in here into everything you do today. <em>That version of you is not a dream. He is the direction.</em>`);
   setHTML('complete-verse',`<div class="verse-text">${closeV.text}</div><div class="verse-ref">${closeV.ref}</div>`);
-  setHTML('complete-close',`Come back to this every morning before you touch your phone. The more you rehearse this reality, the more your mind and body move toward it automatically. <em>This is how identity changes.</em>`);
+  setHTML('complete-close',`Come back every morning before you touch your phone. Day ${currentDayNum} is done. See you tomorrow. <em>This is how identity changes.</em>`);
 }
 
-// ── MEDITATION NAV ──
+// ── MED NAV ──
 let medScreen=0;
+const timerIds=['timer-settle','timer-release','timer-scene','timer-become','timer-why','timer-affirm'];
+let phaseStart=null;
+
 function medGo(n){
-  medScreen=n;
-  show(MED_PAGES[n]);
+  medScreen=n;show(MED_PAGES[n]);
   const pct=42+Math.round(n/(MED_PAGES.length-1)*58);
   const labels=['','Phase 1 of 6','Phase 2 of 6','Phase 3 of 6','Phase 4 of 6','Phase 5 of 6','Phase 6 of 6',''];
   setProgress(pct,labels[n]||'');
   if(n===1)startBreath();else stopBreath();
   if(n===6)startAffirms();
+  if(n>=1&&n<=6){phaseStart=Date.now();startPhaseTimer(timerIds[n-1])}
   if(n===7){
     document.querySelectorAll('.end-word').forEach(w=>{w.style.animation='none';w.offsetHeight;w.style.animation=''});
-    logSession();
-    // Refresh user count
-    fetch('/api/me').then(r=>r.json()).then(d=>{if(d&&d.session_count!==undefined){user=d;setText('dash-sessions',d.session_count)}}).catch(()=>{});
+    showTakeawayModal();
   }
 }
-async function logSession(){
-  try{await fetch('/api/session',{method:'POST'})}catch(e){}
+
+let phaseTimerInterval=null;
+function startPhaseTimer(id){
+  clearInterval(phaseTimerInterval);
+  phaseTimerInterval=setInterval(()=>{
+    const elapsed=Math.floor((Date.now()-(phaseStart||Date.now()))/1000);
+    setText(id,fmtTime(elapsed));
+  },1000);
 }
+
 function restartMed(){medGo(0)}
+
+// ── TAKEAWAY ──
+function showTakeawayModal(){
+  const totalSecs=sessionStart?Math.floor((Date.now()-sessionStart)/1000):0;
+  document.getElementById('takeaway-modal').classList.add('show');
+  document.getElementById('takeaway-input').value='';
+  document.getElementById('takeaway-input')._duration=totalSecs;
+}
+async function saveTakeaway(skip=false){
+  const ta=document.getElementById('takeaway-input');
+  const takeaway=skip?'':ta.value.trim();
+  const duration=ta._duration||0;
+  document.getElementById('takeaway-modal').classList.remove('show');
+  clearInterval(phaseTimerInterval);
+  try{await fetch('/api/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({day_number:currentDayNum,duration_seconds:duration,takeaway})});}catch(e){}
+  // Refresh user
+  try{const r=await fetch('/api/me');if(r.ok){const d=await r.json();user=d;}}catch(e){}
+}
 
 // ── BREATH ──
 function startBreath(){
@@ -817,24 +838,11 @@ function startAffirms(){
 
 // ── INIT ──
 window.addEventListener('DOMContentLoaded',()=>{
-  // Enter key on auth forms
-  ['reg-email','reg-pw'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doRegister()});
-  });
-  ['log-email','log-pw'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-  });
-  // Check if already logged in
-  fetch('/api/me').then(r=>{
-    if(r.ok)return r.json();
-    throw new Error('not authed');
-  }).then(d=>{
-    user=d;showNav(true);
-    if(d.profile&&d.profile.answers){answers=d.profile.answers;showDash()}
-    else startIntake();
-  }).catch(()=>{show('p-land')});
+  ['reg-email','reg-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doRegister()})});
+  ['log-email','log-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()})});
+  fetch('/api/me').then(r=>{if(r.ok)return r.json();throw new Error('unauthed')})
+    .then(d=>{user=d;showNav(true);if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;showDash()}else startIntake()})
+    .catch(()=>show('p-land'));
 });
 </script>
 </body>
