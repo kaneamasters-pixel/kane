@@ -2,3 +2,4 @@ flask
 flask-cors
 bcrypt
 pyjwt
+psycopg2-binary
