@@ -1041,25 +1041,21 @@ function buildMeditation(){
 
   setH('scene-cards',makeCards(sceneCards));
   setH('scene-verse',`<div class="verse-text">${openV.text}</div><div class="verse-ref">${openV.ref}</div>`);
-  setH('become-cards',makeCards(becCards));
-  setH('become-verse',`<div class="verse-text">${becV.text}</div><div class="verse-ref">${becV.ref}</div>`);
-  setH('why-cards',makeCards(whyCards));
-  // Why fear quote
-  const fearQ=A.fear?`"${A.fear.trim().slice(0,150)}" — <em>every session you complete is a day further from this.</em>`:A.why?`"${A.why.trim().slice(0,150)}" — <em>that is not a small thing.</em>`:'The cost of staying small is the person you never became.';
-  setH('why-fear-quote',fearQ);
+
+  // ── BECOME ──
   let becomeIntro=`Now go deeper. You are not watching this life from the outside. You are <em>inside it.</em> Feel what this version of you carries every ordinary day.`;
   if(!isDay1&&resistingBelief)becomeIntro=`Today your mind has been resisting the belief that this is really for you. So we're going to do this differently. <em>Don't think your way there — feel your way there.</em> Drop into the body of the person who already made it.`;
-
   const becCards=[
     {l:'The inner world',t:faithC?`His first thought every morning is <em>thank you.</em> When challenges come he doesn't panic — he prays, he thinks, he moves. He trusts the process because he trusts the God behind it. Setbacks don't shake him. They refine him.`:faithG||faithS?`When challenges come, something inside him stays steady. He has learned that hard moments are preparation, not punishment. He moves with patience. <em>He is unshakeable where it matters.</em>`:`When challenges come he doesn't spiral. He gets still, thinks, and moves. The discipline is now just who he is. <em>He knows himself.</em>`},
     {l:'How he carries himself',t:`He walks into rooms with quiet authority. He doesn't need to be the loudest. People feel something when they're around him — a groundedness, a sense that this person knows exactly where they're going. He speaks with intention. He listens first. <em>This is who you are becoming, ${name}.</em>`},
     !isDay1&&resistingAction?{l:'He acts without waiting to feel ready',t:`He stopped waiting for the right moment. He stopped waiting to feel motivated. He acts first — the emotion follows the action, not the other way around. <em>That is the identity you are installing right now.</em>`}:null
   ].filter(Boolean);
-
   const becV=faithC?{text:'"But seek first his kingdom and his righteousness, and all these things will be given to you as well."',ref:'Matthew 6:33'}:faithG||faithS?{text:'"Ask and it will be given to you; seek and you will find."',ref:'Matthew 7:7'}:{text:'"The man who moves a mountain begins by carrying away small stones."',ref:'Confucius'};
   setH('become-intro',becomeIntro);
+  setH('become-cards',makeCards(becCards));
+  setH('become-verse',`<div class="verse-text">${becV.text}</div><div class="verse-ref">${becV.ref}</div>`);
 
-  setH('why-intro',whyIntro);
+  // ── WHY ──
   let whyIntro='Now feel the weight of the real reason underneath all of it. Not the results. Not the status. The thing that actually moves you.';
   if(!isDay1&&focusGratitude)whyIntro="Today, the why lives in gratitude. Not just for what is coming — for what is already happening. <em>Every session you complete is evidence that you are the person you're becoming.</em>";
 
@@ -1070,8 +1066,10 @@ function buildMeditation(){
     {l:'The legacy',t:`Years from now, when people ask what ${name} built — the answer won't be a number. It will be people. A family that changed. A generation that saw someone like them make it. <em>That is what every single session is building toward.</em>`}
   ].filter(Boolean);
   setH('why-intro',whyIntro);
-
-  // ── AFFIRMATIONS / COMPLETE ── (adapt by day and state)
+  setH('why-cards',makeCards(whyCards));
+  // Fear quote
+  const fearQ=A.fear?`"${A.fear.trim().slice(0,150)}" — <em>every session is a day further from this.</em>`:A.why?`"${A.why.trim().slice(0,150)}" — <em>that is not a small thing.</em>`:'The cost of staying small is the person you never became.';
+  setH('why-fear-quote',fearQ); (adapt by day and state)
   const affirms=[
     faithC?`I am exactly who God designed me to be. I am stepping into that person now.`:`I am becoming who I was always meant to be. Every day I step closer.`,
     !isDay1?`I have shown up ${userSessions.length} time${userSessions.length===1?'':'s'}. That is evidence of who I am becoming.`:`My story — every struggle, every dark season — is the exact qualification for everything I'm called to do.`,
