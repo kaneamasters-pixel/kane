@@ -693,12 +693,9 @@ function beginSession(){
 }
 
 function startSession(){
-  showBin();startBin();
   if(!answers||!answers.name||freshIntake){
-    // Day 1: full intake inline
     renderCheckin(INTAKE_QS,0,'Day 1',7);
   } else {
-    // Day 2+: daily check-in
     renderCheckin(DAILY_QS,0,`Day ${currentDayNum}`,3);
   }
 }
@@ -780,7 +777,7 @@ function sessionStep(n){
   showSP(id);
   const pct=Math.round(n/(SESSION_STEPS.length-1)*100);
   document.getElementById('progress').style.width=pct+'%';
-  if(n===2)startBreath();else stopBreath();
+  if(n===2){startBreath();showBin();startBin();}else stopBreath();
   if(n===7)startAffirms();
   if(n>=2&&n<=7&&PHASE_TIMERS[n]){phaseStart=Date.now();startPhaseTimer(PHASE_TIMERS[n])}
   if(n===8){
