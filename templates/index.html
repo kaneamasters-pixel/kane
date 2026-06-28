@@ -98,48 +98,43 @@ textarea.ta{resize:vertical;min-height:80px}
 .divider{width:32px;height:1px;background:var(--gold-dim);margin:22px auto;opacity:.6}
 .med-timer{font-size:11px;color:var(--text-t);letter-spacing:.07em;text-align:center;margin-bottom:6px}
 
-/* ── MEDITATION CANVAS ── */
-#sp-meditation{padding:0;justify-content:flex-start;overflow:hidden;min-height:100vh}
-.phase-strip{position:fixed;top:50px;left:0;right:0;z-index:140;display:flex;align-items:center;justify-content:center;background:rgba(10,10,10,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);height:38px;overflow-x:auto}
-.phase-pip{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);padding:0 16px;height:38px;display:flex;align-items:center;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;flex-shrink:0}
-.phase-pip:hover{color:var(--text-s)}
-.phase-pip.active{color:var(--gold);border-bottom-color:var(--gold)}
-.med-timer-bar{position:fixed;top:88px;left:0;right:0;z-index:130;display:flex;align-items:center;justify-content:space-between;padding:5px 28px;background:rgba(10,10,10,.6)}
-.med-phase-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-t)}
-.med-elapsed{font-size:10px;letter-spacing:.08em;color:var(--text-t);font-variant-numeric:tabular-nums}
-.med-canvas{position:fixed;top:110px;left:0;right:0;bottom:0;overflow:hidden}
-.med-panel{display:none;height:100%;grid-template-columns:1fr 1fr;animation:fadeUp .4s ease}
-.med-panel.active{display:grid}
-.med-left{padding:30px 32px 80px 40px;overflow-y:auto;border-right:1px solid var(--border);scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.med-right{padding:30px 40px 80px 32px;overflow-y:auto;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.phase-eyebrow{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.med-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,38px);font-weight:300;line-height:1.1;color:var(--text);margin-bottom:14px}
-.med-body{font-size:14px;line-height:1.9;color:var(--text-s);margin-bottom:14px;font-weight:300}
-.med-body em{color:var(--text);font-style:normal}
-.med-cards{display:flex;flex-direction:column;gap:9px;margin-top:4px}
-.med-card{background:var(--surface);border:1px solid var(--border);padding:15px 17px;border-radius:1px}
-.med-card-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-t);margin-bottom:7px}
-.med-card-text{font-size:13px;line-height:1.85;color:var(--text-s)}
-.med-card-text em{color:var(--text);font-style:normal}
-.med-quote-block{background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--gold-dim);padding:20px 20px;margin-bottom:20px;border-radius:1px}
-.med-quote-label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-t);margin-bottom:10px}
-.med-quote-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;line-height:1.75;color:var(--text-s)}
-.med-quote-text em{color:var(--text);font-style:normal}
-.med-next-btn{align-self:flex-start;margin-top:auto}
-.affirm-list{margin:4px 0}
-.affirm-item{padding:11px 0;border-bottom:1px solid var(--border-s);font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.6;color:var(--text-t);transition:color .4s}
+/* ── MEDITATION SINGLE SCROLL ── */
+#sp-meditation{padding:0;justify-content:flex-start;min-height:100vh;background:var(--black)}
+.med-topbar{position:fixed;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(10,10,10,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:150}
+.med-day-lbl{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.med-elapsed{font-size:11px;letter-spacing:.08em;color:var(--text-t);font-variant-numeric:tabular-nums}
+.med-exit-btn{background:none;border:none;color:var(--text-t);font-size:16px;cursor:pointer;padding:4px 8px;letter-spacing:0;text-transform:none}
+.med-exit-btn:hover{color:var(--text-s)}
+.med-scroll{padding:70px 0 40px;max-width:680px;margin:0 auto;width:100%;padding-left:24px;padding-right:24px}
+.med-section{padding:48px 0;border-bottom:1px solid var(--border-s);transition:opacity .4s}
+.med-section:last-of-type{border-bottom:none}
+.med-section.locked{opacity:.18;pointer-events:none}
+.med-section.locked.unlocking{opacity:.18;animation:unlockFade .8s ease forwards}
+@keyframes unlockFade{to{opacity:1}}
+.ms-label{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.ms-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,5vw,44px);font-weight:300;line-height:1.1;color:var(--text);margin-bottom:18px}
+.ms-body{font-size:15px;line-height:1.9;color:var(--text-s);margin-bottom:16px;font-weight:300}
+.ms-body em{color:var(--text);font-style:normal;font-weight:400}
+.ms-breath{display:flex;flex-direction:column;align-items:center;padding:32px 0;margin:8px 0 24px}
+.ms-quote{border-left:2px solid var(--gold-dim);padding:20px 24px;margin:20px 0;background:var(--surface);border-radius:0 1px 1px 0}
+.ms-quote-label{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-t);margin-bottom:12px}
+.ms-quote-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;line-height:1.75;color:var(--text-s)}
+.ms-quote-text em{color:var(--text);font-style:normal}
+.ms-cards{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.ms-card{background:var(--surface);border:1px solid var(--border);padding:18px 20px;border-radius:1px}
+.ms-card-lbl{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-t);margin-bottom:9px}
+.ms-card-text{font-size:14px;line-height:1.9;color:var(--text-s)}
+.ms-card-text em{color:var(--text);font-style:normal}
+.ms-next{margin-top:28px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:13px 28px;border-radius:1px;cursor:pointer;transition:all .18s;border:1px solid rgba(240,237,230,.18);background:transparent;color:var(--text-s)}
+.ms-next:hover{color:var(--text);border-color:rgba(240,237,230,.3)}
+.btn-complete{background:var(--gold)!important;color:var(--black)!important;border-color:var(--gold)!important;font-weight:500!important}
+.btn-complete:hover{background:#DDB85A!important}
+.affirm-list{margin:8px 0}
+.affirm-item{padding:13px 0;border-bottom:1px solid var(--border-s);font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.65;color:var(--text-t);transition:color .5s}
 .affirm-item:last-child{border-bottom:none}
 .affirm-item.lit{color:var(--text)}
-.end-word{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,44px);font-weight:300;letter-spacing:.04em;color:var(--text);opacity:0;animation:fadeword 1.2s ease forwards;display:block;line-height:1.3}
+.end-word{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,6vw,52px);font-weight:300;letter-spacing:.04em;color:var(--text);opacity:0;animation:fadeword 1.2s ease forwards;display:block;line-height:1.3}
 @keyframes fadeword{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:700px){
-  .med-panel.active{grid-template-columns:1fr;overflow-y:auto}
-  .med-canvas{overflow-y:auto}
-  .med-left{border-right:none;border-bottom:1px solid var(--border);padding:20px 18px 20px}
-  .med-right{padding:20px 18px 80px}
-  .phase-strip{justify-content:flex-start}
-  .phase-pip{padding:0 10px;font-size:9px}
-}
 
 /* Breath */
 .breath-wrap{position:relative;width:120px;height:120px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
@@ -423,121 +418,93 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
   </div>
 </div>
 
-<!-- UNIFIED MEDITATION CANVAS -->
+<!-- UNIFIED MEDITATION CANVAS — single scrollable page -->
 <div class="session-page" id="sp-meditation">
-  <!-- Phase nav strip -->
-  <div class="phase-strip" id="phase-strip">
-    <div class="phase-pip active" id="pip-0" onclick="jumpPhase(0)">Settle</div>
-    <div class="phase-pip" id="pip-1" onclick="jumpPhase(1)">Release</div>
-    <div class="phase-pip" id="pip-2" onclick="jumpPhase(2)">See it</div>
-    <div class="phase-pip" id="pip-3" onclick="jumpPhase(3)">Become</div>
-    <div class="phase-pip" id="pip-4" onclick="jumpPhase(4)">The why</div>
-    <div class="phase-pip" id="pip-5" onclick="jumpPhase(5)">Seal it</div>
-  </div>
 
-  <!-- Timer -->
-  <div class="med-timer-bar">
-    <div class="med-phase-label" id="med-phase-label">Settle</div>
+  <!-- Top bar -->
+  <div class="med-topbar">
+    <div class="med-day-lbl" id="med-day-lbl">Day 1</div>
     <div class="med-elapsed" id="med-elapsed">0:00</div>
+    <button class="med-exit-btn" onclick="exitMed()">✕</button>
   </div>
 
-  <!-- Phase panels — all in DOM, only one visible -->
-  <div class="med-canvas" id="med-canvas">
+  <!-- Single continuous scroll -->
+  <div class="med-scroll" id="med-scroll">
 
-    <!-- PHASE 0: SETTLE -->
-    <div class="med-panel active" id="panel-0">
-      <div class="med-left">
-        <div class="phase-eyebrow">Phase 1 · Settle</div>
-        <div class="med-heading">Leave the noise behind</div>
-        <div class="med-body" id="settle-body"></div>
-        <div class="med-body" style="font-size:13px">In for 4 counts. Hold for 4. Out for 6. Three rounds. Let your body go heavy. <em>You are safe here.</em></div>
-      </div>
-      <div class="med-right">
+    <!-- SETTLE -->
+    <div class="med-section" id="ms-0">
+      <div class="ms-label">Settle · Breathe</div>
+      <div class="ms-heading">Leave the noise behind</div>
+      <div class="ms-body" id="settle-body"></div>
+      <div class="ms-breath">
         <div class="breath-wrap"><div class="breath-ring" id="ring"></div><div class="breath-core" id="core"></div></div>
         <div class="breath-lbl" id="breath-lbl">Breathe in slowly...</div>
-        <button class="btn-p med-next-btn" onclick="goPhase(1)">I'm settled →</button>
+        <div class="ms-body" style="font-size:13px;text-align:center;margin-top:0">In for 4. Hold for 4. Out for 6. Three rounds.<br><em>Let your body go heavy. You are safe here.</em></div>
       </div>
+      <button class="ms-next" onclick="revealNext(1)">I'm settled →</button>
     </div>
 
-    <!-- PHASE 1: RELEASE -->
-    <div class="med-panel" id="panel-1">
-      <div class="med-left">
-        <div class="phase-eyebrow">Phase 2 · Release</div>
-        <div class="med-heading" id="rel-title">You are not who you were</div>
-        <div class="med-body" id="rel-body"></div>
-        <div class="med-body" id="rel-close" style="margin-top:8px"></div>
+    <!-- RELEASE -->
+    <div class="med-section locked" id="ms-1">
+      <div class="ms-label">Release</div>
+      <div class="ms-heading" id="rel-title">You are not who you were</div>
+      <div class="ms-body" id="rel-body"></div>
+      <div class="ms-quote">
+        <div class="ms-quote-label">Speak this slowly in your mind</div>
+        <div class="ms-quote-text" id="rel-scene"></div>
       </div>
-      <div class="med-right">
-        <div class="med-quote-block">
-          <div class="med-quote-label">Speak this slowly in your mind</div>
-          <div class="med-quote-text" id="rel-scene"></div>
-        </div>
-        <button class="btn-p med-next-btn" onclick="goPhase(2)">Released →</button>
-      </div>
+      <div class="ms-body" id="rel-close"></div>
+      <button class="ms-next" onclick="revealNext(2)">Released →</button>
     </div>
 
-    <!-- PHASE 2: SCENE -->
-    <div class="med-panel" id="panel-2">
-      <div class="med-left">
-        <div class="phase-eyebrow">Phase 3 · See it</div>
-        <div class="med-heading" id="scene-title">See your life</div>
-        <div class="med-body" id="scene-intro"></div>
-        <div id="scene-cards" class="med-cards"></div>
-      </div>
-      <div class="med-right med-right-verse">
-        <div class="verse-block" id="scene-verse" style="margin-bottom:24px"></div>
-        <button class="btn-p med-next-btn" onclick="goPhase(3)">I see it →</button>
-      </div>
+    <!-- SCENE -->
+    <div class="med-section locked" id="ms-2">
+      <div class="ms-label">See it</div>
+      <div class="ms-heading">See your life</div>
+      <div class="ms-body" id="scene-intro"></div>
+      <div id="scene-cards" class="ms-cards"></div>
+      <div class="verse-block" id="scene-verse"></div>
+      <button class="ms-next" onclick="revealNext(3)">I see it →</button>
     </div>
 
-    <!-- PHASE 3: BECOME -->
-    <div class="med-panel" id="panel-3">
-      <div class="med-left">
-        <div class="phase-eyebrow">Phase 4 · Become</div>
-        <div class="med-heading" id="become-title">Step into who you are</div>
-        <div class="med-body" id="become-intro"></div>
-        <div id="become-cards" class="med-cards"></div>
-      </div>
-      <div class="med-right med-right-verse">
-        <div class="verse-block" id="become-verse" style="margin-bottom:24px"></div>
-        <button class="btn-p med-next-btn" onclick="goPhase(4)">I feel it →</button>
-      </div>
+    <!-- BECOME -->
+    <div class="med-section locked" id="ms-3">
+      <div class="ms-label">Become</div>
+      <div class="ms-heading" id="become-title">Step into who you are</div>
+      <div class="ms-body" id="become-intro"></div>
+      <div id="become-cards" class="ms-cards"></div>
+      <div class="verse-block" id="become-verse"></div>
+      <button class="ms-next" onclick="revealNext(4)">I feel it →</button>
     </div>
 
-    <!-- PHASE 4: WHY -->
-    <div class="med-panel" id="panel-4">
-      <div class="med-left">
-        <div class="phase-eyebrow">Phase 5 · The why</div>
-        <div class="med-heading" id="why-title">What this is really for</div>
-        <div class="med-body" id="why-intro"></div>
-        <div id="why-cards" class="med-cards"></div>
+    <!-- WHY -->
+    <div class="med-section locked" id="ms-4">
+      <div class="ms-label">The why</div>
+      <div class="ms-heading">What this is really for</div>
+      <div class="ms-body" id="why-intro"></div>
+      <div id="why-cards" class="ms-cards"></div>
+      <div class="ms-quote" id="why-fear-wrap">
+        <div class="ms-quote-label">The cost of staying small</div>
+        <div class="ms-quote-text" id="why-fear-quote"></div>
       </div>
-      <div class="med-right">
-        <div class="med-quote-block" style="margin-bottom:24px">
-          <div class="med-quote-label">The cost of staying small</div>
-          <div class="med-quote-text" id="why-fear-quote" style="font-style:italic"></div>
-        </div>
-        <button class="btn-p med-next-btn" onclick="goPhase(5)">I feel the why →</button>
-      </div>
+      <button class="ms-next" onclick="revealNext(5)">I feel the why →</button>
     </div>
 
-    <!-- PHASE 5: AFFIRM -->
-    <div class="med-panel" id="panel-5">
-      <div class="med-left">
-        <div class="phase-eyebrow">Phase 6 · Seal it</div>
-        <div class="med-heading">Lock it in</div>
-        <div class="med-body">Read each one slowly. Close your eyes after each and <em>feel</em> it as already true.</div>
-        <div class="affirm-list" id="affirm-list"></div>
-      </div>
-      <div class="med-right">
-        <div id="end-words" style="margin-bottom:28px"></div>
-        <div class="verse-block" id="complete-verse" style="margin-bottom:20px"></div>
-        <div class="med-body" id="complete-close" style="font-size:13px;margin-bottom:20px"></div>
-        <button class="btn-p med-next-btn" onclick="openTakeawayModal()">Complete session →</button>
-      </div>
+    <!-- SEAL IT -->
+    <div class="med-section locked" id="ms-5">
+      <div class="ms-label">Seal it</div>
+      <div class="ms-heading">Lock it in</div>
+      <div class="ms-body">Read each one slowly. Close your eyes after each and <em>feel</em> it as already true.</div>
+      <div class="affirm-list" id="affirm-list"></div>
+      <div id="end-words" style="margin:28px 0 20px"></div>
+      <div class="verse-block" id="complete-verse"></div>
+      <div class="ms-body" id="complete-close" style="margin-top:16px;font-size:13px"></div>
+      <button class="ms-next btn-complete" onclick="openTakeawayModal()">Complete session →</button>
     </div>
 
-  </div><!-- end med-canvas -->
+    <div style="height:80px"></div>
+  </div>
+
 </div><!-- end sp-meditation -->
 
 <script>
@@ -880,18 +847,20 @@ async function checkinNext(){
     if(user&&user.profile){user.profile.answers=answers;user.profile.name=answers.name||user.profile.name}
     // Build and enter meditation
     buildMeditation();
+    // Reset all sections — only first is unlocked
+    for(let i=0;i<=5;i++){
+      const el=document.getElementById('ms-'+i);
+      if(el){el.classList.remove('unlocking');if(i===0)el.classList.remove('locked');else el.classList.add('locked')}
+    }
+    setT('med-day-lbl',`Day ${currentDayNum}`);
     showSP('sp-meditation');
-    showBin();startBin();
-    goPhase(0);
-    startSessionElapsed();
     document.getElementById('progress').style.width='0%';
+    showBin();startBin();startBreath();startSessionElapsed();
   }
 }
 
-// ═══ SESSION STEP NAVIGATION ═══
-const SESSION_STEPS=['sp-prep','sp-checkin','sp-meditation'];
-let currentPhase=0, phaseStart=null, phaseInterval=null, sessionElapsedInterval=null, sessionElapsed=0;
-const PHASE_LABELS=['Settle','Release','See it','Become','The why','Seal it'];
+// ═══ SESSION NAVIGATION ═══
+let sessionElapsedInterval=null, sessionElapsed=0;
 
 function sessionBack(){
   if(currentQIndex>0)renderCheckin(currentQSet,currentQIndex-1,currentQSet===INTAKE_QS?'Day 1':`Day ${currentDayNum}`,currentQSet.length);
@@ -905,37 +874,21 @@ function showSP(id){
   window.scrollTo(0,0);
 }
 
-function goPhase(n){
-  currentPhase=n;
-  // Update panels
-  document.querySelectorAll('.med-panel').forEach((p,i)=>{
-    p.classList.toggle('active',i===n);
-  });
-  // Update pips
-  document.querySelectorAll('.phase-pip').forEach((p,i)=>{
-    p.classList.toggle('active',i===n);
-  });
-  // Update label
-  setT('med-phase-label',PHASE_LABELS[n]||'');
-  // Breath
-  if(n===0)startBreath();else stopBreath();
-  // Affirms
-  if(n===5){
-    startAffirms();
-    document.querySelectorAll('.end-word').forEach(w=>{w.style.animation='none';w.offsetHeight;w.style.animation=''});
-  }
-  // Phase timer
-  phaseStart=Date.now();
-  // Progress bar
-  document.getElementById('progress').style.width=Math.round((n/(PHASE_LABELS.length-1))*100)+'%';
-  window.scrollTo(0,0);
+function exitMed(){hideBin();stopBreath();clearInterval(sessionElapsedInterval);showDash()}
+
+function revealNext(n){
+  const el=document.getElementById('ms-'+n);
+  if(!el)return;
+  el.classList.remove('locked');
+  el.classList.add('unlocking');
+  setTimeout(()=>el.classList.remove('unlocking'),800);
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),80);
+  document.getElementById('progress').style.width=Math.round((n/5)*100)+'%';
+  if(n===5){startAffirms();document.querySelectorAll('.end-word').forEach(w=>{w.style.animation='none';w.offsetHeight;w.style.animation=''})}
 }
 
-function jumpPhase(n){goPhase(n)}
-
 function startSessionElapsed(){
-  sessionElapsed=0;
-  clearInterval(sessionElapsedInterval);
+  sessionElapsed=0;clearInterval(sessionElapsedInterval);
   sessionElapsedInterval=setInterval(()=>{
     sessionElapsed++;
     const m=Math.floor(sessionElapsed/60),s=sessionElapsed%60;
@@ -943,8 +896,9 @@ function startSessionElapsed(){
   },1000);
 }
 
-// Stub for old sessionStep calls that may remain
 function sessionStep(n){}
+function goPhase(n){revealNext(n)}
+function jumpPhase(n){revealNext(n)}
 
 // ═══ BUILD MEDITATION ═══
 function buildMeditation(){
@@ -1037,7 +991,7 @@ function buildMeditation(){
     A.who?{l:'The people you built this for',t:`You think about ${A.who.trim()} — and what this life means for them. The things they no longer carry. The doors that are open because you refused to stay small. <em>You did that. You changed the line.</em>`}:null,
     !isDay1&&isGrateful?{l:'What you already have',t:`Before you even reach the future — look at what's already here. The sessions you've completed. The version of you that shows up even when it's hard. <em>That person is already becoming the future you're visualising.</em>`}:null
   ].filter(Boolean);
-  function makeCards(cards){return cards.map(c=>`<div class="med-card"><div class="med-card-lbl">${c.l}</div><div class="med-card-text">${c.t}</div></div>`).join('')}
+  function makeCards(cards){return cards.map(c=>`<div class="ms-card"><div class="ms-card-lbl">${c.l}</div><div class="ms-card-text">${c.t}</div></div>`).join('')}
 
   setH('scene-cards',makeCards(sceneCards));
   setH('scene-verse',`<div class="verse-text">${openV.text}</div><div class="verse-ref">${openV.ref}</div>`);
