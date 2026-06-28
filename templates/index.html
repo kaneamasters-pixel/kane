@@ -9,210 +9,227 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --black:#0A0A0A;--surface:#111;--surface2:#161616;--surface3:#1C1C1C;
-  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.2);--gold-glow:rgba(201,168,76,0.08);
+  --black:#0A0A0A;--surface:#111;--surface2:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.2);--gold-glow:rgba(201,168,76,0.07);
   --text:#F0EDE6;--text-s:#8A8580;--text-t:#3E3C3A;
   --border:rgba(240,237,230,0.07);--border-s:rgba(240,237,230,0.04);
-  --green:#4CAF7D;--red:#C0392B;
 }
 html,body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.page{display:none;min-height:100vh;padding:40px 20px 80px;flex-direction:column;align-items:center;justify-content:center}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding:40px 24px 80px;flex-direction:column;align-items:center;justify-content:center}
 .page.active{display:flex;animation:fadeUp 0.5s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .inner{max-width:540px;width:100%;margin:0 auto}
-.inner.c{text-align:center;margin:0 auto}
-.eyebrow{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,8vw,64px);font-weight:300;line-height:1.06;color:var(--text);margin-bottom:20px}
-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,44px);font-weight:300;line-height:1.12;color:var(--text);margin-bottom:16px}
-h3{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,30px);font-weight:300;line-height:1.2;color:var(--text);margin-bottom:12px}
-.body{font-size:15px;line-height:1.9;color:var(--text-s);margin-bottom:22px;font-weight:300}
-.body em,.body strong{color:var(--text);font-style:normal;font-weight:400}
+.inner.c{text-align:center}
+.inner.wide{max-width:620px}
+
+/* ── TYPE ── */
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,7vw,62px);font-weight:300;line-height:1.06;color:var(--text);margin-bottom:18px}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,5vw,42px);font-weight:300;line-height:1.12;color:var(--text);margin-bottom:14px}
+h3{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,3.5vw,28px);font-weight:300;line-height:1.2;color:var(--text);margin-bottom:10px}
+.body{font-size:15px;line-height:1.9;color:var(--text-s);margin-bottom:20px;font-weight:300}
+.body em{color:var(--text);font-style:normal;font-weight:400}
 .small{font-size:13px;line-height:1.8;color:var(--text-s)}
+
+/* ── BUTTONS ── */
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .btn-row.c{justify-content:center}
-button,a.btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:13px 26px;border-radius:1px;cursor:pointer;transition:all .18s;border:1px solid rgba(240,237,230,.18);background:transparent;color:var(--text-s);text-decoration:none;display:inline-block}
-button:hover,a.btn:hover{color:var(--text);border-color:rgba(240,237,230,.35)}
-.btn-primary{background:var(--gold)!important;color:var(--black)!important;border-color:var(--gold)!important;font-weight:500!important}
-.btn-primary:hover{background:#DDB85A!important}
-.btn-ghost{color:var(--text-t)!important;border-color:transparent!important;font-size:11px;padding:10px 0}
-.btn-ghost:hover{color:var(--text-s)!important;border-color:transparent!important}
-button:disabled{opacity:.3;cursor:not-allowed}
-.field{margin-bottom:18px}
-label.lbl{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-t);display:block;margin-bottom:8px}
-input[type=email],input[type=password],input[type=text],textarea.q-input,textarea.ta{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:1px;padding:13px 15px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text);font-weight:300;line-height:1.6;outline:none;transition:border-color .18s}
+button{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:13px 26px;border-radius:1px;cursor:pointer;transition:all .18s;border:1px solid rgba(240,237,230,.16);background:transparent;color:var(--text-s)}
+button:hover{color:var(--text);border-color:rgba(240,237,230,.3)}
+.btn-p{background:var(--gold)!important;color:var(--black)!important;border-color:var(--gold)!important;font-weight:500!important}
+.btn-p:hover{background:#DDB85A!important}
+.btn-g{color:var(--text-t)!important;border-color:transparent!important;padding:8px 0}
+.btn-g:hover{color:var(--text-s)!important;border-color:transparent!important}
+
+/* ── FORM ── */
+.field{margin-bottom:16px}
+.lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-t);display:block;margin-bottom:7px}
+input[type=email],input[type=password],textarea.ta{width:100%;background:var(--surface);border:1px solid var(--border);padding:13px 15px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text);font-weight:300;line-height:1.6;outline:none;transition:border-color .18s;border-radius:1px}
 input:focus,textarea:focus{border-color:rgba(201,168,76,.4)}
 input::placeholder,textarea::placeholder{color:var(--text-t)}
-textarea.q-input,textarea.ta{resize:vertical;min-height:80px}
-.error-msg{font-size:12px;color:#E07070;margin-top:8px;display:none}
-.error-msg.show{display:block}
-.auth-card{background:var(--surface);border:1px solid var(--border);padding:32px 28px;margin-bottom:18px}
+textarea.ta{resize:vertical;min-height:80px}
+.err{font-size:12px;color:#E07070;margin-top:7px;display:none}
+.err.show{display:block}
+.auth-card{background:var(--surface);border:1px solid var(--border);padding:30px 26px;margin-bottom:16px;border-radius:1px}
+
+/* ── NAV ── */
 .progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--gold);transition:width .5s ease;z-index:200}
-.phase-counter{position:fixed;top:18px;right:18px;font-size:10px;letter-spacing:.1em;color:var(--text-t)}
-.nav-bar{position:fixed;top:0;left:0;right:0;height:52px;display:none;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(10,10,10,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:150}
+.nav-bar{position:fixed;top:0;left:0;right:0;height:50px;display:none;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(10,10,10,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:150}
 .nav-bar.show{display:flex}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--text);letter-spacing:.06em;cursor:pointer}
-.nav-right{display:flex;gap:4px;align-items:center}
-.nav-link{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);cursor:pointer;transition:color .15s;background:none;border:none;padding:8px 12px;font-family:'Inter',sans-serif;font-weight:400}
-.nav-link:hover{color:var(--text-s)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--text);letter-spacing:.05em;cursor:pointer}
+.nav-right{display:flex;gap:2px}
+.nav-link{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);cursor:pointer;background:none;border:none;padding:8px 10px;font-family:'Inter',sans-serif;font-weight:400;transition:color .15s}
+.nav-link:hover,.nav-link.active{color:var(--text-s)}
 .nav-link.active{color:var(--gold)}
-.q-steps{display:flex;gap:4px;margin-bottom:28px}
-.q-step{height:2px;flex:1;background:var(--text-t);border-radius:1px;transition:background .3s}
-.q-step.done{background:var(--gold)}.q-step.active{background:rgba(201,168,76,.5)}
-.q-num{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-t);margin-bottom:7px}
-.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,4vw,26px);font-weight:300;color:var(--text);line-height:1.4;margin-bottom:10px}
-.q-hint{font-size:13px;color:var(--text-t);margin-bottom:12px;line-height:1.7}
-.multi-hint{font-size:11px;color:var(--text-t);letter-spacing:.06em;margin-bottom:12px}
-.options{display:flex;flex-direction:column;gap:7px}
-.opt{background:transparent;border:1px solid var(--border);border-radius:1px;padding:12px 15px;text-align:left;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;width:100%;color:var(--text-s)}
-.opt:hover{border-color:rgba(240,237,230,.25);color:var(--text)}
-.opt.selected{border-color:var(--gold);color:var(--text);background:var(--gold-glow)}
-.opt-dot{width:13px;height:13px;border-radius:2px;border:1px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.opt.selected .opt-dot::after{content:'✓';font-size:9px;color:var(--gold);font-weight:600}
-.opt-text{font-size:13px;font-weight:300}
-.verse-block{border-left:1px solid var(--gold-dim);padding:16px 22px;margin:22px 0}
+
+/* ── SESSION FLOW ── */
+.session-page{min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px 80px;animation:fadeUp .5s ease}
+.session-page.active{display:flex}
+
+/* Check-in / inline question */
+.checkin-block{width:100%;max-width:540px;margin:0 auto}
+.checkin-q{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,32px);font-weight:300;color:var(--text);line-height:1.35;margin-bottom:12px}
+.checkin-hint{font-size:13px;color:var(--text-t);margin-bottom:18px;line-height:1.7}
+.opts{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.opt{background:transparent;border:1px solid var(--border);padding:12px 16px;text-align:left;cursor:pointer;display:flex;align-items:center;gap:12px;width:100%;color:var(--text-s);transition:all .18s;border-radius:1px}
+.opt:hover{border-color:rgba(240,237,230,.22);color:var(--text)}
+.opt.sel{border-color:var(--gold);color:var(--text);background:var(--gold-glow)}
+.opt-box{width:13px;height:13px;border-radius:2px;border:1px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.opt.sel .opt-box::after{content:'✓';font-size:9px;color:var(--gold);font-weight:600}
+.opt-txt{font-size:13px;font-weight:300}
+.multi-hint{font-size:11px;color:var(--text-t);letter-spacing:.05em;margin-bottom:10px}
+
+/* Progress dots for session */
+.sess-steps{display:flex;gap:5px;margin-bottom:32px;justify-content:center}
+.sess-step{height:2px;width:28px;background:var(--text-t);border-radius:1px;transition:background .3s}
+.sess-step.done{background:var(--gold)}
+.sess-step.active{background:rgba(201,168,76,.5)}
+
+/* Meditation content blocks */
+.verse-block{border-left:1px solid var(--gold-dim);padding:16px 22px;margin:20px 0}
 .verse-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;line-height:1.8;color:var(--text-s);margin-bottom:7px}
 .verse-ref{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
-.scene{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin:10px 0;border-radius:1px}
-.scene-lbl{font-size:10px;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:var(--text-t);margin-bottom:10px}
+.scene{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin:9px 0;border-radius:1px}
+.scene-lbl{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-t);margin-bottom:10px}
 .scene-text{font-size:14px;line-height:1.95;color:var(--text-s)}
 .scene-text em{color:var(--text);font-style:normal}
-.breath-wrap{position:relative;width:130px;height:130px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
-.breath-ring{position:absolute;width:130px;height:130px;border-radius:50%;border:1px solid rgba(201,168,76,.22);transition:transform 4s ease-in-out,opacity 4s ease-in-out;opacity:.4}
-.breath-ring.expand{transform:scale(1.6);opacity:.1}
-.breath-core{width:36px;height:36px;border-radius:50%;border:1px solid rgba(201,168,76,.3);transition:transform 4s ease-in-out}
-.breath-core.expand{transform:scale(1.5)}
-.breath-lbl{font-size:12px;letter-spacing:.07em;color:var(--text-t);margin-bottom:20px;text-align:center;min-height:18px}
-.affirm-list{margin:8px 0 22px}
-.affirm-item{padding:14px 0;border-bottom:1px solid var(--border-s);font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.65;color:var(--text-t);transition:color .4s}
+.affirm-list{margin:8px 0 20px}
+.affirm-item{padding:13px 0;border-bottom:1px solid var(--border-s);font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.65;color:var(--text-t);transition:color .4s}
 .affirm-item:last-child{border-bottom:none}
 .affirm-item.lit{color:var(--text)}
 .end-word{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,7vw,56px);font-weight:300;letter-spacing:.04em;color:var(--text);opacity:0;animation:fadeword 1.2s ease forwards;display:block;line-height:1.3}
 @keyframes fadeword{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .scroll-area{max-height:55vh;overflow-y:auto;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.divider{width:32px;height:1px;background:var(--gold-dim);margin:24px auto;opacity:.6}
-.open-pulse{width:80px;height:80px;border-radius:50%;border:1px solid rgba(201,168,76,.12);margin:0 auto 32px;position:relative;display:flex;align-items:center;justify-content:center}
-.pulse-inner{width:28px;height:28px;border-radius:50%;border:1px solid rgba(201,168,76,.4);animation:pulse 3s ease-in-out infinite}
-.pulse-outer{position:absolute;width:80px;height:80px;border-radius:50%;border:1px solid rgba(201,168,76,.07);animation:pulse-out 3s ease-in-out infinite}
+.divider{width:32px;height:1px;background:var(--gold-dim);margin:22px auto;opacity:.6}
+.med-timer{font-size:11px;color:var(--text-t);letter-spacing:.07em;text-align:center;margin-bottom:6px}
+
+/* Breath */
+.breath-wrap{position:relative;width:120px;height:120px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
+.breath-ring{position:absolute;width:120px;height:120px;border-radius:50%;border:1px solid rgba(201,168,76,.2);transition:transform 4s ease-in-out,opacity 4s ease-in-out;opacity:.4}
+.breath-ring.expand{transform:scale(1.6);opacity:.1}
+.breath-core{width:34px;height:34px;border-radius:50%;border:1px solid rgba(201,168,76,.3);transition:transform 4s ease-in-out}
+.breath-core.expand{transform:scale(1.5)}
+.breath-lbl{font-size:12px;letter-spacing:.07em;color:var(--text-t);margin-bottom:20px;text-align:center;min-height:18px}
+
+/* Pulse */
+.open-pulse{width:76px;height:76px;border-radius:50%;border:1px solid rgba(201,168,76,.1);margin:0 auto 30px;position:relative;display:flex;align-items:center;justify-content:center}
+.pulse-inner{width:26px;height:26px;border-radius:50%;border:1px solid rgba(201,168,76,.4);animation:pulse 3s ease-in-out infinite}
+.pulse-outer{position:absolute;width:76px;height:76px;border-radius:50%;border:1px solid rgba(201,168,76,.06);animation:pulse-out 3s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.35);opacity:.9}}
 @keyframes pulse-out{0%,100%{transform:scale(1);opacity:.1}50%{transform:scale(1.6);opacity:0}}
 .dots-anim::after{content:'.';animation:dots 1.5s infinite}
 @keyframes dots{0%{content:'.'}33%{content:'..'}66%{content:'...'}100%{content:'.'}}
 
-/* ── BINAURAL PLAYER ── */
-.binaural-player{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(17,17,17,0.96);border:1px solid var(--border);backdrop-filter:blur(12px);padding:12px 18px;display:none;align-items:center;gap:14px;z-index:180;border-radius:2px;min-width:280px;justify-content:center}
-.binaural-player.show{display:flex}
-.bplay-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--gold-dim);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;color:var(--gold);font-size:12px;padding:0;flex-shrink:0}
-.bplay-btn:hover{background:var(--gold-glow);border-color:var(--gold)}
-.bplay-btn.playing{background:var(--gold-glow)}
-.bwave-tabs{display:flex;gap:6px}
-.bwave-tab{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--border);background:transparent;color:var(--text-t);cursor:pointer;transition:all .18s;border-radius:1px}
-.bwave-tab:hover{color:var(--text-s);border-color:rgba(240,237,230,.2)}
-.bwave-tab.active{color:var(--gold);border-color:var(--gold);background:var(--gold-glow)}
-.bvol-wrap{display:flex;align-items:center;gap:6px}
-.bvol-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t)}
-input[type=range].bvol{-webkit-appearance:none;width:60px;height:2px;background:var(--border);border-radius:1px;outline:none;cursor:pointer}
-input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer}
-.bfreq-label{font-size:9px;color:var(--text-t);letter-spacing:.06em;min-width:60px;text-align:center}
-.dash-wrap{padding-top:72px;padding-bottom:80px;align-items:center}
-.dash-section{margin-bottom:28px}
-.dash-section-title{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--text-t);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.stat-card{background:var(--surface);border:1px solid var(--border);padding:16px;text-align:center}
-.stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--text)}
-.stat-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);margin-top:4px}
-.plan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px;margin-bottom:16px}
-.plan-day{width:100%;aspect-ratio:1;border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-t);cursor:pointer;transition:all .15s;flex-direction:column;gap:2px}
+/* ── DASHBOARD ── */
+.dash-wrap{padding-top:66px;padding-bottom:60px;align-items:center;justify-content:flex-start}
+.dash-inner{max-width:600px;width:100%;margin:0 auto}
+.ds{margin-bottom:24px}
+.ds-title{font-size:10px;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:var(--text-t);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.stat-card{background:var(--surface);border:1px solid var(--border);padding:14px;text-align:center;border-radius:1px}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--text)}
+.stat-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);margin-top:3px}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:5px;margin-bottom:12px}
+.plan-day{width:100%;aspect-ratio:1;border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-t);flex-direction:column;gap:1px}
 .plan-day.done{background:var(--gold-glow);border-color:var(--gold);color:var(--gold)}
-.plan-day.today{border-color:rgba(201,168,76,.5);color:var(--text-s)}
-.plan-day.done .day-check{display:block}.day-check{display:none;font-size:10px}
-.session-item{background:var(--surface);border:1px solid var(--border);padding:14px 16px;margin-bottom:8px;border-radius:1px}
-.session-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.session-day{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-.session-time{font-size:11px;color:var(--text-t)}
-.session-takeaway{font-size:13px;color:var(--text-s);line-height:1.6;font-style:italic}
-.vision-box{background:var(--surface);border:1px solid var(--border);padding:16px 18px;margin-bottom:12px;border-radius:1px}
-.vision-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:var(--text-s);line-height:1.7;font-style:italic}
+.plan-day.today{border-color:rgba(201,168,76,.4);color:var(--text-s)}
+.plan-day.done .dck{display:block}.dck{display:none;font-size:9px}
+.sess-item{background:var(--surface);border:1px solid var(--border);padding:12px 16px;margin-bottom:7px;border-radius:1px}
+.sess-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.sess-day{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.sess-time{font-size:10px;color:var(--text-t)}
+.sess-takeaway{font-size:13px;color:var(--text-s);line-height:1.6;font-style:italic}
+.vision-box{background:var(--surface);border:1px solid var(--border);padding:14px 16px;margin-bottom:10px;border-radius:1px}
+.vision-text{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:var(--text-s);line-height:1.7;font-style:italic}
 
-/* ── PLAN SELECTOR ── */
-.plan-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:20px}
-.plan-card{background:var(--surface);border:1px solid var(--border);padding:16px 12px;text-align:center;cursor:pointer;transition:all .18s;border-radius:1px}
-.plan-card:hover{border-color:rgba(201,168,76,.4)}
-.plan-card.selected{border-color:var(--gold);background:var(--gold-glow)}
-.plan-card-days{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--text);margin-bottom:4px}
-.plan-card-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t)}
-.plan-card.selected .plan-card-days{color:var(--gold)}
+/* Plan cards */
+.plan-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:9px;margin-bottom:18px}
+.plan-card{background:var(--surface);border:1px solid var(--border);padding:14px 10px;text-align:center;cursor:pointer;transition:all .18s;border-radius:1px}
+.plan-card:hover{border-color:rgba(201,168,76,.3)}
+.plan-card.sel{border-color:var(--gold);background:var(--gold-glow)}
+.plan-card-days{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--text);margin-bottom:3px}
+.plan-card.sel .plan-card-days{color:var(--gold)}
+.plan-card-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t)}
 
-/* ── LEADERBOARD ── */
-.lb-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border-s);transition:background .15s}
+/* Leaderboard */
+.lb-card{background:var(--surface);border:1px solid var(--border);border-radius:1px}
+.lb-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--border-s)}
 .lb-row:last-child{border-bottom:none}
 .lb-row.me{background:var(--gold-glow)}
-.lb-rank{font-size:11px;font-weight:500;color:var(--text-t);min-width:24px;text-align:center}
-.lb-rank.top{color:var(--gold)}
+.lb-rank{font-size:11px;font-weight:500;color:var(--text-t);min-width:22px;text-align:center}
 .lb-name{flex:1;font-size:14px;color:var(--text)}
 .lb-name.me{color:var(--gold)}
-.lb-day{font-size:12px;color:var(--text-s);min-width:50px;text-align:right}
-.lb-streak{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-t);min-width:40px;text-align:right}
-.lb-badge{font-size:14px}
-.lb-card{background:var(--surface);border:1px solid var(--border)}
+.lb-day{font-size:12px;color:var(--text-s);min-width:46px;text-align:right}
+.lb-count{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-t);min-width:60px;text-align:right}
 
-/* ── PREP SCREEN ── */
-.prep-step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border-s);align-items:flex-start}
-.prep-step:last-child{border-bottom:none}
-.prep-num{width:24px;height:24px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0;margin-top:1px}
-.prep-text{font-size:14px;color:var(--text-s);line-height:1.7}
-.prep-text strong{color:var(--text);font-weight:400}
-
-/* ── TIMER ── */
-.med-timer{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--text-t);letter-spacing:.08em;text-align:center;margin-bottom:8px}
-
-/* ── TAKEAWAY MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.show{display:flex;animation:fadeUp .3s ease}
-.modal{background:var(--surface);border:1px solid var(--border);padding:28px 24px;max-width:480px;width:100%;border-radius:1px}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--text);margin-bottom:8px}
-.modal-sub{font-size:13px;color:var(--text-s);margin-bottom:18px;line-height:1.7}
+.modal{background:var(--surface);border:1px solid var(--border);padding:26px 22px;max-width:460px;width:100%;border-radius:1px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--text);margin-bottom:7px}
+.modal-sub{font-size:13px;color:var(--text-s);margin-bottom:16px;line-height:1.7}
 
-@media(max-width:480px){.page{padding:28px 14px 60px}.auth-card{padding:22px 18px}.stat-grid{grid-template-columns:repeat(3,1fr)}.plan-cards{grid-template-columns:repeat(3,1fr)}}
+/* Binaural */
+.bplayer{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(15,15,15,.97);border:1px solid var(--border);backdrop-filter:blur(14px);padding:11px 16px;display:none;align-items:center;gap:12px;z-index:180;border-radius:2px;min-width:270px;justify-content:center}
+.bplayer.show{display:flex}
+.bplay-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--gold-dim);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gold);font-size:11px;padding:0;flex-shrink:0;transition:all .18s}
+.bplay-btn:hover,.bplay-btn.on{background:var(--gold-glow);border-color:var(--gold)}
+.btabs{display:flex;gap:5px}
+.btab{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--border);background:transparent;color:var(--text-t);cursor:pointer;transition:all .18s;border-radius:1px}
+.btab:hover{color:var(--text-s)}
+.btab.active{color:var(--gold);border-color:var(--gold);background:var(--gold-glow)}
+.bfreq{font-size:9px;color:var(--text-t);letter-spacing:.06em;min-width:68px;text-align:center}
+input[type=range].bvol{-webkit-appearance:none;width:54px;height:2px;background:var(--border);border-radius:1px;outline:none;cursor:pointer}
+input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:var(--gold);cursor:pointer}
+
+/* Day badge */
+.day-badge{display:inline-block;background:var(--gold-glow);border:1px solid var(--gold-dim);color:var(--gold);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:16px}
+
+/* Insight card (day 2+) */
+.insight-card{background:var(--surface);border:1px solid var(--gold-dim);padding:16px 20px;margin-bottom:20px;border-radius:1px;border-left:2px solid var(--gold)}
+.insight-label{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.insight-text{font-size:14px;color:var(--text-s);line-height:1.8}
+.insight-text em{color:var(--text);font-style:normal}
+
+@media(max-width:480px){.page,.session-page{padding:28px 16px 60px}.auth-card{padding:22px 16px}.stat-grid{grid-template-columns:repeat(3,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="progress-bar" id="progress" style="width:0%"></div>
-<div class="phase-counter" id="counter"></div>
 
 <nav class="nav-bar" id="nav">
   <div class="nav-logo" onclick="showDash()">2VIBRATE</div>
   <div class="nav-right">
     <button class="nav-link" id="nav-dash" onclick="showDash()">Home</button>
     <button class="nav-link" id="nav-lb" onclick="showLeaderboard()">Leaderboard</button>
-    <button class="nav-link" id="nav-profile" onclick="showProfile()">Profile</button>
+    <button class="nav-link" id="nav-prof" onclick="showProfile()">Profile</button>
     <button class="nav-link" onclick="doLogout()">Out</button>
   </div>
 </nav>
 
-<!-- BINAURAL BEATS PLAYER -->
-<div class="binaural-player" id="binaural-player">
-  <button class="bplay-btn" id="bplay-btn" onclick="toggleBinaural()" title="Play/pause">▶</button>
-  <div class="bwave-tabs">
-    <button class="bwave-tab active" id="btab-theta" onclick="setBrainwave('theta')">Theta</button>
-    <button class="bwave-tab" id="btab-alpha" onclick="setBrainwave('alpha')">Alpha</button>
+<!-- BINAURAL PLAYER -->
+<div class="bplayer" id="bplayer">
+  <button class="bplay-btn" id="bplay-btn" onclick="toggleBinaural()">▶</button>
+  <div class="btabs">
+    <button class="btab active" id="btab-theta" onclick="setBrainwave('theta')">Theta</button>
+    <button class="btab" id="btab-alpha" onclick="setBrainwave('alpha')">Alpha</button>
   </div>
-  <div class="bfreq-label" id="bfreq-label">432hz · 6hz</div>
-  <div class="bvol-wrap">
-    <span class="bvol-label">Vol</span>
-    <input type="range" class="bvol" id="bvol" min="0" max="100" value="40" oninput="setBinauralVolume(this.value)">
-  </div>
+  <div class="bfreq" id="bfreq">432hz · 6hz</div>
+  <input type="range" class="bvol" id="bvol" min="0" max="100" value="40" oninput="setBinauralVolume(this.value)">
 </div>
 
 <!-- TAKEAWAY MODAL -->
-<div class="modal-overlay" id="takeaway-modal">
+<div class="modal-overlay" id="modal-takeaway">
   <div class="modal">
-    <div class="modal-title">How was your session?</div>
-    <div class="modal-sub">Take a moment to capture what you felt, what came up, what shifted. Even one line is enough.</div>
-    <div class="field"><textarea class="ta" id="takeaway-input" placeholder="I felt... I noticed... Something shifted in me..." rows="4"></textarea></div>
+    <div class="modal-title">Capture this moment</div>
+    <div class="modal-sub">What did you feel? What came up? What shifted? Even one honest line feeds tomorrow's session.</div>
+    <div class="field"><textarea class="ta" id="takeaway-input" placeholder="I felt... I noticed... Something shifted..." rows="4"></textarea></div>
     <div class="btn-row">
-      <button class="btn-primary" onclick="saveTakeaway()">Save & complete →</button>
-      <button onclick="saveTakeaway(true)">Skip</button>
+      <button class="btn-p" onclick="completeTakeaway()">Save & finish →</button>
+      <button onclick="completeTakeaway(true)">Skip</button>
     </div>
   </div>
 </div>
@@ -221,11 +238,11 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;
 <div class="page active" id="p-land">
   <div class="inner c">
     <div class="open-pulse"><div class="pulse-outer"></div><div class="pulse-inner"></div></div>
-    <div class="eyebrow">Guided meditation</div>
+    <div class="eyebrow">Subconscious reprogramming</div>
     <h1>2VIBRATE</h1>
-    <p class="body">A personalised daily meditation built around your story, your vision, and your faith. Track your journey. Hold each other accountable. Build the life you're here to live.</p>
+    <p class="body">A daily meditation system that learns who you are, adapts to where you are, and rebuilds your subconscious reality one session at a time.</p>
     <div class="btn-row c" style="gap:12px">
-      <button class="btn-primary" onclick="show('p-register')">Create account</button>
+      <button class="btn-p" onclick="show('p-register')">Begin your journey</button>
       <button onclick="show('p-login')">Sign in</button>
     </div>
   </div>
@@ -237,13 +254,13 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;
     <div class="eyebrow">Create account</div>
     <h2>Start your journey</h2>
     <div class="auth-card">
-      <div class="field"><label class="lbl">Email</label><input type="email" id="reg-email" placeholder="you@email.com" autocomplete="email"></div>
-      <div class="field"><label class="lbl">Password</label><input type="password" id="reg-pw" placeholder="At least 6 characters" autocomplete="new-password"></div>
-      <div class="error-msg" id="reg-err"></div>
-      <button class="btn-primary" style="width:100%;margin-top:4px" onclick="doRegister()">Create account →</button>
+      <div class="field"><label class="lbl">Email</label><input type="email" id="reg-email" placeholder="you@email.com"></div>
+      <div class="field"><label class="lbl">Password</label><input type="password" id="reg-pw" placeholder="At least 6 characters"></div>
+      <div class="err" id="reg-err"></div>
+      <button class="btn-p" style="width:100%;margin-top:4px" onclick="doRegister()">Create account →</button>
     </div>
-    <div style="text-align:center"><button class="btn-ghost" onclick="show('p-login')">Already have an account? Sign in</button></div>
-    <div style="text-align:center;margin-top:6px"><button class="btn-ghost" onclick="show('p-land')">← Back</button></div>
+    <div style="text-align:center"><button class="btn-g" onclick="show('p-login')">Already have an account? Sign in</button></div>
+    <div style="text-align:center;margin-top:6px"><button class="btn-g" onclick="show('p-land')">← Back</button></div>
   </div>
 </div>
 
@@ -253,316 +270,304 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;
     <div class="eyebrow">Welcome back</div>
     <h2>Sign in</h2>
     <div class="auth-card">
-      <div class="field"><label class="lbl">Email</label><input type="email" id="log-email" placeholder="you@email.com" autocomplete="email"></div>
-      <div class="field"><label class="lbl">Password</label><input type="password" id="log-pw" placeholder="Your password" autocomplete="current-password"></div>
-      <div class="error-msg" id="log-err"></div>
-      <button class="btn-primary" style="width:100%;margin-top:4px" onclick="doLogin()">Sign in →</button>
+      <div class="field"><label class="lbl">Email</label><input type="email" id="log-email" placeholder="you@email.com"></div>
+      <div class="field"><label class="lbl">Password</label><input type="password" id="log-pw" placeholder="Your password"></div>
+      <div class="err" id="log-err"></div>
+      <button class="btn-p" style="width:100%;margin-top:4px" onclick="doLogin()">Sign in →</button>
     </div>
-    <div style="text-align:center"><button class="btn-ghost" onclick="show('p-register')">No account? Create one</button></div>
+    <div style="text-align:center"><button class="btn-g" onclick="show('p-register')">No account? Create one</button></div>
   </div>
 </div>
 
 <!-- DASHBOARD -->
 <div class="page dash-wrap" id="p-dash">
-  <div class="inner" style="max-width:600px">
-    <div class="dash-section">
-      <h2 id="dash-greeting" style="margin-bottom:4px">Welcome back</h2>
-      <p class="small" id="dash-sub" style="margin-bottom:20px"></p>
-      <div class="stat-grid">
-        <div class="stat-card"><div class="stat-val" id="stat-day">0</div><div class="stat-label">Current day</div></div>
-        <div class="stat-card"><div class="stat-val" id="stat-sessions">0</div><div class="stat-label">Sessions</div></div>
-        <div class="stat-card"><div class="stat-val" id="stat-time">0m</div><div class="stat-label">Total time</div></div>
-      </div>
-      <div class="btn-row" style="margin-bottom:20px">
-        <button class="btn-primary" onclick="showPrep()">Begin today's meditation →</button>
-        <button onclick="showPlanSelector()">Change plan</button>
-      </div>
+  <div class="dash-inner">
+    <h2 id="dash-greeting" style="margin-bottom:4px">Welcome back</h2>
+    <p class="small" id="dash-sub" style="margin-bottom:18px"></p>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-val" id="stat-day">—</div><div class="stat-lbl">Current day</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat-sess">0</div><div class="stat-lbl">Sessions</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat-time">0m</div><div class="stat-lbl">Total time</div></div>
     </div>
-    <div class="dash-section" id="vision-section" style="display:none">
-      <div class="dash-section-title">Your vision</div>
+    <div class="btn-row" style="margin-bottom:22px">
+      <button class="btn-p" onclick="beginSession()">Begin today's session →</button>
+      <button onclick="showPlanSelector()">Change plan</button>
+    </div>
+    <div class="ds" id="vision-ds" style="display:none">
+      <div class="ds-title">Your vision</div>
       <div class="vision-box"><div class="vision-text" id="dash-vision"></div></div>
-      <button class="btn-ghost" style="padding:6px 0" onclick="showVisionEdit()">Edit vision →</button>
+      <button class="btn-g" style="padding:5px 0" onclick="showProfile()">Edit →</button>
     </div>
-    <div class="dash-section">
-      <div class="dash-section-title">Your plan — <span id="plan-label">7-day journey</span></div>
+    <div class="ds">
+      <div class="ds-title">Your plan — <span id="plan-lbl">7-day journey</span></div>
       <div class="plan-grid" id="plan-grid"></div>
     </div>
-    <div class="dash-section" id="history-section" style="display:none">
-      <div class="dash-section-title">Session history</div>
+    <div class="ds" id="history-ds" style="display:none">
+      <div class="ds-title">Session history</div>
       <div id="session-history"></div>
     </div>
   </div>
 </div>
 
 <!-- PLAN SELECTOR -->
-<div class="page" id="p-plan" style="padding-top:72px;justify-content:flex-start">
+<div class="page" id="p-plan" style="padding-top:66px;justify-content:flex-start">
   <div class="inner">
-    <div class="eyebrow">Choose your journey</div>
-    <h2>Select a plan</h2>
-    <p class="body">Each plan is a commitment — to yourself, to your vision, to the person you're becoming. Choose what you're ready for.</p>
+    <div class="eyebrow">Your commitment</div>
+    <h2>Choose your plan</h2>
+    <p class="body">The longer the plan, the deeper the reprogramming. Choose what you're ready to honour.</p>
     <div class="plan-cards" id="plan-cards"></div>
     <div class="btn-row">
-      <button class="btn-primary" onclick="savePlan()">Confirm plan →</button>
+      <button class="btn-p" onclick="savePlan()">Confirm →</button>
       <button onclick="showDash()">Back</button>
     </div>
   </div>
 </div>
 
-<!-- PROFILE EDITOR -->
-<div class="page" id="p-profile" style="padding-top:72px;justify-content:flex-start">
+<!-- PROFILE -->
+<div class="page" id="p-profile" style="padding-top:66px;justify-content:flex-start">
   <div class="inner">
     <div class="eyebrow">Your profile</div>
     <h2>Update your vision</h2>
-    <p class="body">Your vision should grow as you grow. Update it whenever it no longer feels big enough.</p>
-    <div class="field"><label class="lbl">What you're building toward (your vision)</label><textarea class="ta" id="vision-input" placeholder="In 3 years I wake up and..." rows="4"></textarea></div>
+    <p class="body">Your vision should grow as you do. Update it whenever it no longer feels big enough.</p>
+    <div class="field"><label class="lbl">Your vision</label><textarea class="ta" id="vision-input" placeholder="In 3 years I wake up and..." rows="4"></textarea></div>
     <div class="btn-row">
-      <button class="btn-primary" onclick="saveVision()">Save vision →</button>
-      <button onclick="startIntake()">Redo full questionnaire</button>
-      <button class="btn-ghost" onclick="showDash()">Back</button>
+      <button class="btn-p" onclick="saveVision()">Save →</button>
+      <button onclick="startFreshIntake()">Redo full profile</button>
+      <button class="btn-g" onclick="showDash()">Back</button>
     </div>
   </div>
 </div>
 
 <!-- LEADERBOARD -->
-<div class="page" id="p-leaderboard" style="padding-top:72px;justify-content:flex-start">
-  <div class="inner" style="max-width:600px">
+<div class="page" id="p-lb" style="padding-top:66px;justify-content:flex-start">
+  <div class="inner wide">
     <div class="eyebrow">Leaderboard</div>
     <h2>Who's showing up</h2>
-    <p class="body">Accountability is built in public. Everyone on this board made the same commitment you did. <em>Keep your streak alive.</em></p>
-    <div class="lb-card" id="lb-table" style="margin-bottom:20px"></div>
-    <div class="btn-row"><button onclick="showDash()">← Back to dashboard</button></div>
+    <p class="body">Every name on this board made the same commitment you did. <em>Keep your streak alive.</em></p>
+    <div class="lb-card" id="lb-table" style="margin-bottom:18px"></div>
+    <div class="btn-row"><button onclick="showDash()">← Dashboard</button></div>
   </div>
 </div>
 
-<!-- INTAKE -->
-<div class="page" id="p-intake" style="padding-top:72px">
+<!-- ═══════════════════════════════════════════════════
+     UNIFIED SESSION FLOW
+     All session steps use .session-page
+═══════════════════════════════════════════════════ -->
+
+<!-- STEP 0: PREP / READY -->
+<div class="session-page" id="sp-prep">
   <div class="inner">
-    <div class="eyebrow">About you</div>
-    <div class="q-steps" id="q-steps"></div>
-    <div id="q-container"></div>
-    <div class="btn-row" style="margin-top:18px">
-      <button id="q-back" onclick="qBack()">Back</button>
-      <button class="btn-primary" onclick="qNext()">Continue →</button>
-    </div>
-  </div>
-</div>
-
-<!-- BUILDING -->
-<div class="page" id="p-building">
-  <div class="inner c">
-    <div class="open-pulse"><div class="pulse-outer"></div><div class="pulse-inner"></div></div>
-    <h3 style="font-size:26px;margin-bottom:10px">Building your meditation<span class="dots-anim"></span></h3>
-    <p class="body">Personalising every word to your story and vision.</p>
-  </div>
-</div>
-
-<!-- PREP SCREEN -->
-<div class="page" id="p-prep">
-  <div class="inner">
-    <div class="eyebrow" id="prep-day-label">Day 1</div>
-    <h2>Before you begin</h2>
-    <p class="body">Set yourself up properly. This meditation works best when your environment works with you.</p>
-    <div style="margin-bottom:24px">
-      <div class="prep-step"><div class="prep-num">1</div><div class="prep-text"><strong>Find your space.</strong> Sit comfortably or lie down somewhere you won't be disturbed for the next 10-15 minutes.</div></div>
-      <div class="prep-step"><div class="prep-num">2</div><div class="prep-text"><strong>Silence everything.</strong> Phone on silent. Notifications off. This time is yours.</div></div>
-      <div class="prep-step"><div class="prep-num">3</div><div class="prep-text"><strong>Put on binaural beats.</strong> Open Spotify or YouTube and search "theta binaural beats" or "528hz meditation music". Play it quietly in the background — this deepens the experience.</div></div>
-      <div class="prep-step"><div class="prep-num">4</div><div class="prep-text"><strong>Close your eyes briefly.</strong> Take three deep breaths before pressing Start. Let your shoulders drop. Let your body settle.</div></div>
-      <div class="prep-step"><div class="prep-num">5</div><div class="prep-text"><strong>Commit to the full session.</strong> Don't skip forward. Let each phase land before you move to the next.</div></div>
+    <div class="day-badge" id="prep-day-badge">Day 1</div>
+    <h2 id="prep-title">Before you begin</h2>
+    <p class="body" id="prep-body">Set yourself up. This works best when your environment supports you.</p>
+    <div style="margin-bottom:22px">
+      <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-s)"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">1</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Find your space.</strong> Sit or lie somewhere you won't be disturbed for the next 10-15 minutes.</div></div>
+      <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-s)"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">2</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Silence everything.</strong> Phone on silent. Notifications off. This time is yours.</div></div>
+      <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-s)"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">3</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Put on binaural beats.</strong> When you press Start, the binaural beats player will appear. Use headphones for maximum effect. Start with Theta for deep subconscious work.</div></div>
+      <div style="display:flex;gap:12px;padding:13px 0"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">4</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Commit to the full session.</strong> Don't skip forward. Let each phase land before moving on.</div></div>
     </div>
     <div class="btn-row c">
       <button onclick="showDash()">Not now</button>
-      <button class="btn-primary" onclick="startSession()">I'm ready — start →</button>
+      <button class="btn-p" onclick="startSession()">I'm ready — start →</button>
     </div>
   </div>
 </div>
 
-<!-- MEDITATION PAGES -->
-<div class="page" id="p-intro">
-  <div class="inner c">
-    <div class="open-pulse"><div class="pulse-outer"></div><div class="pulse-inner"></div></div>
-    <div class="eyebrow">Your meditation</div>
-    <h1 id="med-title">2VIBRATE</h1>
-    <p class="body" id="med-intro-body"></p>
-    <div class="verse-block" id="med-verse"></div>
-    <div class="btn-row c"><button class="btn-primary" onclick="medGo(1)">Begin →</button></div>
+<!-- STEP 1: AWARENESS CHECK-IN (adapts by day) -->
+<div class="session-page" id="sp-checkin">
+  <div class="inner">
+    <div class="sess-steps" id="checkin-steps"></div>
+    <div class="day-badge" id="checkin-day-badge">Day 1</div>
+    <div class="checkin-block" id="checkin-content"></div>
+    <div class="btn-row" style="margin-top:18px">
+      <button id="checkin-back" onclick="sessionStep(0)">Back</button>
+      <button class="btn-p" id="checkin-next" onclick="checkinNext()">Continue →</button>
+    </div>
   </div>
 </div>
 
-<div class="page" id="p-settle">
+<!-- STEP 2: SETTLE / BREATHWORK -->
+<div class="session-page" id="sp-settle">
   <div class="inner c">
     <div class="med-timer" id="timer-settle"></div>
-    <div class="eyebrow">Phase 1 · Settle</div>
-    <h2>Come out of the noise</h2>
-    <p class="body" id="settle-body"></p>
+    <div class="eyebrow">Awareness · Settle</div>
+    <h2>Leave the noise behind</h2>
+    <p class="body" id="settle-body">Before you can see the future clearly, you have to leave the present behind. Right now — your phone, your worries, everything on your plate — none of it exists here.</p>
     <div class="breath-wrap"><div class="breath-ring" id="ring"></div><div class="breath-core" id="core"></div></div>
     <div class="breath-lbl" id="breath-lbl">Breathe in slowly...</div>
-    <p class="body" style="font-size:13px;margin-bottom:28px">In for 4. Hold for 4. Out for 6. Three rounds. Feel your body go heavy. <em>You are safe here.</em></p>
-    <div class="btn-row c"><button onclick="medGo(0)">Back</button><button class="btn-primary" onclick="medGo(2)">I'm settled →</button></div>
+    <p class="body" style="font-size:13px;margin-bottom:28px">In for 4 counts. Hold for 4. Out for 6. Three rounds. Feel your body go heavy. <em>You are safe here.</em></p>
+    <div class="btn-row c">
+      <button onclick="sessionStep(1)">Back</button>
+      <button class="btn-p" onclick="sessionStep(3)">I'm settled →</button>
+    </div>
   </div>
 </div>
 
-<div class="page" id="p-release">
+<!-- STEP 3: RELEASE -->
+<div class="session-page" id="sp-release">
   <div class="inner">
     <div class="med-timer" id="timer-release"></div>
-    <div class="eyebrow">Phase 2 · Release</div>
-    <h2 id="rel-title"></h2>
+    <div class="eyebrow">Interruption · Release</div>
+    <h2 id="rel-title">You are not who you were</h2>
     <p class="body" id="rel-body"></p>
     <div class="scene"><div class="scene-lbl">Speak this slowly in your mind</div><div class="scene-text" id="rel-scene"></div></div>
-    <p class="body" id="rel-close" style="margin-top:16px"></p>
-    <div class="btn-row"><button onclick="medGo(1)">Back</button><button class="btn-primary" onclick="medGo(3)">Released →</button></div>
+    <p class="body" id="rel-close" style="margin-top:14px"></p>
+    <div class="btn-row">
+      <button onclick="sessionStep(2)">Back</button>
+      <button class="btn-p" onclick="sessionStep(4)">Released →</button>
+    </div>
   </div>
 </div>
 
-<div class="page" id="p-scene">
+<!-- STEP 4: VISUALISATION / SCENE -->
+<div class="session-page" id="sp-scene">
   <div class="inner">
     <div class="med-timer" id="timer-scene"></div>
-    <div class="eyebrow">Phase 3 · Enter the scene</div>
-    <h2 id="scene-title"></h2>
+    <div class="eyebrow">Installation · Enter the scene</div>
+    <h2 id="scene-title">See your life</h2>
     <p class="body" id="scene-intro"></p>
     <div class="scroll-area" id="scene-cards"></div>
-    <div class="btn-row" style="margin-top:14px"><button onclick="medGo(2)">Back</button><button class="btn-primary" onclick="medGo(4)">I see it →</button></div>
+    <div class="btn-row" style="margin-top:14px">
+      <button onclick="sessionStep(3)">Back</button>
+      <button class="btn-p" onclick="sessionStep(5)">I see it →</button>
+    </div>
   </div>
 </div>
 
-<div class="page" id="p-become">
+<!-- STEP 5: BECOME -->
+<div class="session-page" id="sp-become">
   <div class="inner">
     <div class="med-timer" id="timer-become"></div>
-    <div class="eyebrow">Phase 4 · Become them</div>
-    <h2 id="become-title"></h2>
+    <div class="eyebrow">Installation · Become</div>
+    <h2 id="become-title">Step into who you are</h2>
     <p class="body" id="become-intro"></p>
     <div class="scroll-area" id="become-cards"></div>
     <div class="verse-block" id="become-verse" style="margin-top:14px"></div>
-    <div class="btn-row" style="margin-top:6px"><button onclick="medGo(3)">Back</button><button class="btn-primary" onclick="medGo(5)">I feel it →</button></div>
+    <div class="btn-row" style="margin-top:6px">
+      <button onclick="sessionStep(4)">Back</button>
+      <button class="btn-p" onclick="sessionStep(6)">I feel it →</button>
+    </div>
   </div>
 </div>
 
-<div class="page" id="p-why">
+<!-- STEP 6: WHY -->
+<div class="session-page" id="sp-why">
   <div class="inner">
     <div class="med-timer" id="timer-why"></div>
-    <div class="eyebrow">Phase 5 · The why</div>
-    <h2 id="why-title"></h2>
+    <div class="eyebrow">Installation · The why</div>
+    <h2 id="why-title">What this is really for</h2>
     <p class="body" id="why-intro"></p>
     <div class="scroll-area" id="why-cards"></div>
-    <div class="btn-row" style="margin-top:14px"><button onclick="medGo(4)">Back</button><button class="btn-primary" onclick="medGo(6)">I feel the why →</button></div>
+    <div class="btn-row" style="margin-top:14px">
+      <button onclick="sessionStep(5)">Back</button>
+      <button class="btn-p" onclick="sessionStep(7)">I feel the why →</button>
+    </div>
   </div>
 </div>
 
-<div class="page" id="p-affirm">
+<!-- STEP 7: AFFIRMATIONS -->
+<div class="session-page" id="sp-affirm">
   <div class="inner">
     <div class="med-timer" id="timer-affirm"></div>
-    <div class="eyebrow">Phase 6 · Seal it</div>
+    <div class="eyebrow">Repetition · Seal it</div>
     <h2>Lock it in</h2>
-    <p class="body">Read each one slowly. Close your eyes after each and <em>feel</em> it as already true. Because in the part of your mind that matters, it is.</p>
+    <p class="body">Read each one slowly. Close your eyes after each and <em>feel</em> it as already true. Because in the part of your mind that matters most, it is.</p>
     <div class="affirm-list" id="affirm-list"></div>
-    <div class="btn-row"><button onclick="medGo(5)">Back</button><button class="btn-primary" onclick="medGo(7)">Complete →</button></div>
+    <div class="btn-row">
+      <button onclick="sessionStep(6)">Back</button>
+      <button class="btn-p" onclick="sessionStep(8)">Complete →</button>
+    </div>
   </div>
 </div>
 
-<div class="page" id="p-complete">
+<!-- STEP 8: COMPLETE -->
+<div class="session-page" id="sp-complete">
   <div class="inner c">
     <div class="divider"></div>
-    <div style="margin-bottom:36px" id="end-words"></div>
+    <div style="margin-bottom:34px" id="end-words"></div>
     <p class="body" id="complete-body"></p>
     <div class="verse-block" id="complete-verse"></div>
-    <p class="body" id="complete-close" style="font-size:13px;margin-bottom:28px"></p>
+    <p class="body" id="complete-close" style="font-size:13px;margin-bottom:26px"></p>
     <div class="btn-row c">
-      <button class="btn-primary" onclick="showDash()">Back to dashboard →</button>
-      <button onclick="restartMed()">Begin again</button>
+      <button class="btn-p" onclick="openTakeawayModal()">Capture the moment →</button>
     </div>
     <div class="divider"></div>
   </div>
 </div>
 
 <script>
-// ── STATE ──
-let user=null, answers={}, qIndex=0, breathTimer=null;
-let sessionStart=null, selectedPlan=7, currentDayNum=1;
-const MED_PAGES=['p-intro','p-settle','p-release','p-scene','p-become','p-why','p-affirm','p-complete'];
-const PLANS=[7,14,21,30,60,90];
+// ═══ STATE ═══
+let user=null, userSessions=[], answers={}, selectedPlan=7;
+let currentDayNum=1, sessionStart=null, breathTimer=null, phaseTimer=null;
+let checkinData={}, checkinStep=0, freshIntake=false;
 
-const QUESTIONS=[
-  {id:'name',type:'text',q:'What is your first name?',hint:'This is just for your meditation — nothing else.',ph:'Your name...'},
-  {id:'situation',type:'opts',q:'Where are you honestly right now?',hint:"Not where you want to be — where you actually are today.",opts:['At the very start — I know I want more but haven\'t moved yet','I\'ve started but I\'m still figuring it out day by day','I\'m in the grind — working hard but results are slow','I\'m building momentum — things are moving but I\'m not there yet','I\'m close — I can feel it, just not quite over the line']},
-  {id:'domain',type:'opts',q:'What areas of your life are you trying to transform?',hint:'Select everything that genuinely burns in you right now.',opts:['Financial — I want real freedom, not just enough to survive','Purpose — I want work that actually means something','Physical — my body and health need to change','Mental — my mindset, discipline and focus','Relationships — the people around me and the love I give','Spiritual — my connection to God and who He\'s calling me to be']},
-  {id:'struggle',type:'opts',q:'What has the struggle actually felt like?',hint:'Be honest with yourself here. This is where it gets real.',opts:['Financial pressure — the weight of not having enough','Lost — no direction, no purpose, just going through motions','Isolated — wrong crowd, wrong environment, pulling me backward','Self-doubt — feeling like success isn\'t meant for someone like me','Inconsistency — I start but I don\'t finish, I know what to do but I don\'t','All of it — it was everything hitting at once']},
-  {id:'emotion',type:'opts',q:'What emotion do you carry most right now?',hint:'The one that sits underneath everything, even on good days.',opts:['Hunger — a burning need to prove something and build something real','Frustration — I know I\'m capable of more and it bothers me','Fear — of failing, of staying stuck, of wasting my potential','Quiet faith — I don\'t have it all figured out but I trust the process','Restlessness — I can\'t settle because I know I\'m meant for more']},
-  {id:'turning',type:'text',q:'What was the moment something started to shift for you?',hint:'A conversation, a rock bottom, a prayer, a realisation. What was it?',ph:'It was when I...'},
-  {id:'faith',type:'opts',q:'Where are you with faith and spirituality right now?',opts:['God is central — He is the foundation of every decision I make','Growing — my faith is becoming more real and more personal','Searching — I believe but I\'m still finding my way','Spiritual but not religious — I believe in something bigger than me','Open — I\'m not sure what I believe but I\'m not closed off']},
-  {id:'identity',type:'opts',q:'How do you honestly see yourself today?',hint:'Not who you want to be. Who you actually believe you are right now.',opts:['Someone with potential who hasn\'t fully stepped into it yet','Someone in the middle of a transformation — I can feel it happening','Someone who has been underestimated — including by myself','Someone being rebuilt — not who I was, but not yet who I\'m becoming','Someone who already knows who they are — I just need to execute']},
-  {id:'vision',type:'text',q:'Paint your future. What does life look like when you\'ve made it?',hint:'Make it real — where are you, what do you feel, what does a day look like?',ph:'In 3 years I wake up and...'},
-  {id:'who',type:'text',q:'Who are you really doing this for?',hint:'Underneath the ambition — who are the faces you see when you think about winning?',ph:'I\'m doing this for...'},
-  {id:'fear',type:'text',q:'What is the version of your life you are most afraid of living?',hint:'The version where you played it safe, stayed small, or gave up.',ph:'I\'m afraid that if I don\'t change...'},
-  {id:'why',type:'text',q:'What would the world lose if you stayed exactly where you are?',hint:'Not what you gain — what others lose if you don\'t rise.',ph:'If I never become who I\'m meant to be...'},
-  {id:'words',type:'text',q:'Three words. What do you want your life to stand for?',hint:'Not what sounds good. The three that actually move something in you.',ph:'e.g. Faith. Freedom. Legacy.'}
+// ═══ CHECKIN QUESTIONS ═══
+// Day 1: full intake (inline, one at a time)
+// Day 2+: daily awareness check-in
+
+const INTAKE_QS = [
+  {id:'name',type:'text',q:"What is your first name?",hint:"This is just for your meditation.",ph:"Your name..."},
+  {id:'situation',type:'opts',q:"Where are you honestly right now in life?",hint:"Not where you want to be — where you actually are today.",opts:["At the very start — I know I want more but haven't moved yet","I've started but I'm still figuring it out day by day","I'm in the grind — working hard but results feel slow","I'm building momentum — things are moving but I'm not there yet","I'm close — I can feel it, just not quite over the line"]},
+  {id:'domain',type:'opts',q:"What are you trying to transform?",hint:"Select everything that genuinely burns in you.",opts:["Financial — I want real freedom, not just enough","Purpose — I want work that actually means something","Physical — my body and energy need to change","Mental — my mindset, focus and discipline","Relationships — the people around me","Spiritual — my connection to God and my calling"]},
+  {id:'struggle',type:'opts',q:"What has the struggle actually felt like?",hint:"Be honest. This is where it gets real.",opts:["Financial pressure — the weight of not enough","Lost — no direction, going through the motions","Wrong environment — wrong people, pulling me backward","Self-doubt — success doesn't feel meant for me","Inconsistency — I know what to do but I don't do it","All of it — everything hitting at once"]},
+  {id:'emotion',type:'opts',q:"What emotion lives underneath everything right now?",hint:"The one that's there even on good days.",opts:["Hunger — a burning need to build something real","Frustration — I know I'm capable of more","Fear — of failing, staying stuck, wasting my potential","Quiet faith — I don't have it all figured out but I trust","Restlessness — I can't settle, I know I'm meant for more"]},
+  {id:'turning',type:'text',q:"What was the moment something started to shift for you?",hint:"A conversation, a rock bottom, a prayer. What was it?",ph:"It was when I..."},
+  {id:'faith',type:'opts',q:"Where are you with faith and spirituality?",opts:["God is central — He is the foundation of everything","Growing — my faith is becoming more real and personal","Searching — I believe but I'm still finding my way","Spiritual — I believe in something bigger than me","Open — I'm not sure but I'm not closed off"]},
+  {id:'identity',type:'opts',q:"How do you honestly see yourself today?",hint:"Not who you want to be. Who you believe you are right now.",opts:["Someone with potential not yet stepped into","Someone in the middle of a transformation","Someone who has been underestimated — including by myself","Someone being rebuilt — not who I was, not yet who I'm becoming","Someone who knows who they are — I just need to execute"]},
+  {id:'vision',type:'text',q:"Paint your future. What does life look like when you've made it?",hint:"Where are you, what do you feel, what does a day look like? Don't hold back.",ph:"In 3 years I wake up and..."},
+  {id:'who',type:'text',q:"Who are you really doing this for?",hint:"The faces you see when you think about winning.",ph:"I'm doing this for..."},
+  {id:'fear',type:'text',q:"What is the version of your life you are most afraid of living?",hint:"The version where you stayed small or gave up.",ph:"I'm afraid that if I don't change..."},
+  {id:'why',type:'text',q:"What would the world lose if you stayed exactly where you are?",hint:"Not what you gain — what others lose if you don't rise.",ph:"If I never become who I'm meant to be..."},
+  {id:'words',type:'text',q:"Three words. What do you want your life to stand for?",hint:"Not what sounds good. The three that actually move something in you.",ph:"e.g. Faith. Freedom. Legacy."}
 ];
 
-// ── BINAURAL BEATS ENGINE ──
-let audioCtx=null,binauralNodes=null,binauralPlaying=false,currentWave='theta';
-const BRAINWAVES={theta:{beat:6,label:'432hz · 6hz theta'},alpha:{beat:10,label:'432hz · 10hz alpha'}};
-const BASE_FREQ=432;
+const DAILY_QS = [
+  {id:'today_state',type:'opts',q:"How do you arrive today?",hint:"Your honest starting point right now.",opts:["Grounded — clear and ready","Scattered — pulled in different directions","Heavy — something is weighing on me","Restless — I can't settle","Grateful — I feel the momentum building","Empty — I need this today more than usual"]},
+  {id:'today_resistance',type:'opts',q:"What is your mind most resisting right now?",hint:"The thing you're avoiding or fighting.",opts:["Taking action — I know what to do but I'm stalling","Believing it's really possible for me","Letting go of the past version of myself","Trusting God with the timeline","Being consistent — showing up even when I don't feel it","Nothing — I'm fully aligned today"]},
+  {id:'today_focus',type:'opts',q:"What needs the most attention in this session?",opts:["Reconnecting with my vision — I've drifted","Releasing — I'm holding onto something that's limiting me","Elevation — I need to feel the future, not just think it","Gratitude — I need to shift my state","Identity — I need to remember who I'm becoming","All of it — take me deep"]}
+];
+
+// ═══ BINAURAL ═══
+let audioCtx=null,binNodes=null,binPlaying=false,curWave='theta';
+const WAVES={theta:{beat:6,label:'432hz · 6hz'},alpha:{beat:10,label:'432hz · 10hz'}};
 function initAudio(){if(audioCtx)return;audioCtx=new(window.AudioContext||window.webkitAudioContext)()}
-function createBinauralNodes(beatFreq,vol){
+function makeBinNodes(beatHz,vol){
   if(!audioCtx)return null;
-  const gain=audioCtx.createGain();gain.gain.setValueAtTime(vol,audioCtx.currentTime);
-  const merger=audioCtx.createChannelMerger(2);
-  const lOsc=audioCtx.createOscillator(),lGain=audioCtx.createGain();
-  lOsc.type='sine';lOsc.frequency.setValueAtTime(BASE_FREQ,audioCtx.currentTime);
-  lGain.gain.setValueAtTime(0.5,audioCtx.currentTime);
-  lOsc.connect(lGain);lGain.connect(merger,0,0);
-  const rOsc=audioCtx.createOscillator(),rGain=audioCtx.createGain();
-  rOsc.type='sine';rOsc.frequency.setValueAtTime(BASE_FREQ+beatFreq,audioCtx.currentTime);
-  rGain.gain.setValueAtTime(0.5,audioCtx.currentTime);
-  rOsc.connect(rGain);rGain.connect(merger,0,1);
-  const aOsc=audioCtx.createOscillator(),aGain=audioCtx.createGain();
-  aOsc.type='sine';aOsc.frequency.setValueAtTime(BASE_FREQ*0.5,audioCtx.currentTime);
-  aGain.gain.setValueAtTime(0.07,audioCtx.currentTime);
-  aOsc.connect(aGain);aGain.connect(gain);
-  merger.connect(gain);gain.connect(audioCtx.destination);
-  lOsc.start();rOsc.start();aOsc.start();
-  return{lOsc,rOsc,aOsc,gain};
+  const g=audioCtx.createGain();g.gain.setValueAtTime(vol,audioCtx.currentTime);
+  const m=audioCtx.createChannelMerger(2);
+  const lO=audioCtx.createOscillator(),lG=audioCtx.createGain();
+  lO.type='sine';lO.frequency.setValueAtTime(432,audioCtx.currentTime);lG.gain.setValueAtTime(.5,audioCtx.currentTime);
+  lO.connect(lG);lG.connect(m,0,0);
+  const rO=audioCtx.createOscillator(),rG=audioCtx.createGain();
+  rO.type='sine';rO.frequency.setValueAtTime(432+beatHz,audioCtx.currentTime);rG.gain.setValueAtTime(.5,audioCtx.currentTime);
+  rO.connect(rG);rG.connect(m,0,1);
+  const aO=audioCtx.createOscillator(),aG=audioCtx.createGain();
+  aO.type='sine';aO.frequency.setValueAtTime(216,audioCtx.currentTime);aG.gain.setValueAtTime(.07,audioCtx.currentTime);
+  aO.connect(aG);aG.connect(g);
+  m.connect(g);g.connect(audioCtx.destination);
+  lO.start();rO.start();aO.start();
+  return{lO,rO,aO,g};
 }
-function stopBinauralNodes(){
-  if(!binauralNodes)return;
-  const{lOsc,rOsc,aOsc,gain}=binauralNodes;
-  gain.gain.setTargetAtTime(0,audioCtx.currentTime,0.4);
-  setTimeout(()=>{try{lOsc.stop();rOsc.stop();aOsc.stop()}catch(e){}},600);
-  binauralNodes=null;
-}
-function startBinaural(){
-  initAudio();if(audioCtx.state==='suspended')audioCtx.resume();
-  const vol=parseInt(document.getElementById('bvol').value)/100*0.28;
-  stopBinauralNodes();binauralNodes=createBinauralNodes(BRAINWAVES[currentWave].beat,vol);
-  binauralPlaying=true;
-  document.getElementById('bplay-btn').textContent='⏸';
-  document.getElementById('bplay-btn').classList.add('playing');
-  updateFreqLabel();
-}
-function pauseBinaural(){stopBinauralNodes();binauralPlaying=false;document.getElementById('bplay-btn').textContent='▶';document.getElementById('bplay-btn').classList.remove('playing')}
-function toggleBinaural(){if(binauralPlaying)pauseBinaural();else startBinaural()}
-function setBrainwave(wave){
-  currentWave=wave;
-  document.querySelectorAll('.bwave-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('btab-'+wave).classList.add('active');
-  updateFreqLabel();if(binauralPlaying){stopBinauralNodes();startBinaural()}
-}
-function setBinauralVolume(val){if(binauralNodes){binauralNodes.gain.gain.setTargetAtTime(parseInt(val)/100*0.28,audioCtx.currentTime,0.1)}}
-function updateFreqLabel(){document.getElementById('bfreq-label').textContent=BRAINWAVES[currentWave].label}
-function showBinauralPlayer(){document.getElementById('binaural-player').classList.add('show')}
-function hideBinauralPlayer(){pauseBinaural();document.getElementById('binaural-player').classList.remove('show')}
+function stopBin(){if(!binNodes)return;const{lO,rO,aO,g}=binNodes;g.gain.setTargetAtTime(0,audioCtx.currentTime,.4);setTimeout(()=>{try{lO.stop();rO.stop();aO.stop()}catch(e){}},600);binNodes=null}
+function startBin(){initAudio();if(audioCtx.state==='suspended')audioCtx.resume();const vol=parseInt(document.getElementById('bvol').value)/100*.28;stopBin();binNodes=makeBinNodes(WAVES[curWave].beat,vol);binPlaying=true;document.getElementById('bplay-btn').textContent='⏸';document.getElementById('bplay-btn').classList.add('on');document.getElementById('bfreq').textContent=WAVES[curWave].label}
+function pauseBin(){stopBin();binPlaying=false;document.getElementById('bplay-btn').textContent='▶';document.getElementById('bplay-btn').classList.remove('on')}
+function toggleBinaural(){if(binPlaying)pauseBin();else startBin()}
+function setBrainwave(w){curWave=w;document.querySelectorAll('.btab').forEach(t=>t.classList.remove('active'));document.getElementById('btab-'+w).classList.add('active');document.getElementById('bfreq').textContent=WAVES[w].label;if(binPlaying){stopBin();startBin()}}
+function setBinauralVolume(v){if(binNodes)binNodes.g.gain.setTargetAtTime(parseInt(v)/100*.28,audioCtx.currentTime,.1)}
+function showBin(){document.getElementById('bplayer').classList.add('show')}
+function hideBin(){pauseBin();document.getElementById('bplayer').classList.remove('show')}
 
-// ── UTILS ──
+// ═══ UTILS ═══
 function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-function setProgress(pct,label){document.getElementById('progress').style.width=pct+'%';document.getElementById('counter').textContent=label||''}
-function setHTML(id,h){const e=document.getElementById(id);if(e)e.innerHTML=h}
-function setText(id,t){const e=document.getElementById(id);if(e)e.textContent=t}
-function showErr(id,msg){const e=document.getElementById(id);if(e){e.textContent=msg;e.classList.toggle('show',!!msg)}}
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
-function fmtTime(secs){const m=Math.floor(secs/60),s=secs%60;return m>0?`${m}m ${s}s`:`${s}s`}
-function fmtDate(str){if(!str)return'';try{return new Date(str).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}catch{return str}}
+function showSP(id){document.querySelectorAll('.session-page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+function setH(id,h){const e=document.getElementById(id);if(e)e.innerHTML=h}
+function setT(id,t){const e=document.getElementById(id);if(e)e.textContent=t}
+function showErr(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.classList.toggle('show',!!m)}}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function fmtTime(s){const m=Math.floor(s/60),r=s%60;return m>0?`${m}m ${r}s`:`${r}s`}
+function fmtDate(s){if(!s)return'';try{return new Date(s).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}catch{return s}}
 function showNav(on){document.getElementById('nav').classList.toggle('show',on)}
-function setNavActive(id){document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));const el=document.getElementById(id);if(el)el.classList.add('active')}
-
-// ── TOKEN MANAGEMENT ──
+function setNA(id){document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));const e=document.getElementById(id);if(e)e.classList.add('active')}
 function getToken(){return localStorage.getItem('2vib_token')||''}
 function setToken(t){if(t)localStorage.setItem('2vib_token',t);else localStorage.removeItem('2vib_token')}
 function apiFetch(url,opts={}){
@@ -571,210 +576,234 @@ function apiFetch(url,opts={}){
   if(token)headers['Authorization']=`Bearer ${token}`;
   return fetch(url,{...opts,headers,credentials:'include'});
 }
+function has(v,term){const s=Array.isArray(v)?v.join(' '):(v||'');return s.toLowerCase().includes(term.toLowerCase())}
 
-// ── AUTH ──
+// ═══ AUTH ═══
 async function doRegister(){
-  const email=document.getElementById('reg-email').value.trim();
-  const pw=document.getElementById('reg-pw').value;
+  const email=document.getElementById('reg-email').value.trim(),pw=document.getElementById('reg-pw').value;
   showErr('reg-err','');
-  try{
-    const r=await apiFetch('/api/register',{method:'POST',body:JSON.stringify({email,password:pw})});
-    const d=await r.json();
-    if(!r.ok){showErr('reg-err',d.error||'Something went wrong');return}
-    if(d.token)setToken(d.token);
-    await loadUser();
-  }catch(e){showErr('reg-err','Connection error.')}
+  try{const r=await apiFetch('/api/register',{method:'POST',body:JSON.stringify({email,password:pw})});
+  const d=await r.json();if(!r.ok){showErr('reg-err',d.error||'Something went wrong');return}
+  if(d.token)setToken(d.token);await loadUser()}catch(e){showErr('reg-err','Connection error.')}
 }
 async function doLogin(){
-  const email=document.getElementById('log-email').value.trim();
-  const pw=document.getElementById('log-pw').value;
+  const email=document.getElementById('log-email').value.trim(),pw=document.getElementById('log-pw').value;
   showErr('log-err','');
-  try{
-    const r=await apiFetch('/api/login',{method:'POST',body:JSON.stringify({email,password:pw})});
-    const d=await r.json();
-    if(!r.ok){showErr('log-err',d.error||'Something went wrong');return}
-    if(d.token)setToken(d.token);
-    await loadUser();
-  }catch(e){showErr('log-err','Connection error.')}
+  try{const r=await apiFetch('/api/login',{method:'POST',body:JSON.stringify({email,password:pw})});
+  const d=await r.json();if(!r.ok){showErr('log-err',d.error||'Something went wrong');return}
+  if(d.token)setToken(d.token);await loadUser()}catch(e){showErr('log-err','Connection error.')}
 }
-async function doLogout(){
-  await apiFetch('/api/logout',{method:'POST'});
-  setToken('');user=null;showNav(false);setProgress(0,'');show('p-land');
-}
-
+async function doLogout(){await apiFetch('/api/logout',{method:'POST'});setToken('');user=null;showNav(false);show('p-land')}
 async function loadUser(){
-  try{const r=await apiFetch('/api/me');if(!r.ok){showNav(false);show('p-land');return}
+  try{const r=await apiFetch('/api/me');if(!r.ok){show('p-land');return}
   const d=await r.json();user=d;showNav(true);
-  if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;showDash()}
-  else startIntake();}catch(e){show('p-land')}
+  if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;await showDash()}
+  else{freshIntake=true;beginSession()}}catch(e){show('p-land')}
 }
 
-// ── DASHBOARD ──
+// ═══ DASHBOARD ═══
 async function showDash(){
-  hideBinauralPlayer();
-  if(!user)return;
-  setNavActive('nav-dash');
-  const name=(user.profile?.name||user.email.split('@')[0]);
-  setText('dash-greeting',`Day ${currentDayNum} — ${name}`);
-  setText('dash-sub',`Your ${selectedPlan}-day journey. Keep showing up.`);
-  setText('plan-label',`${selectedPlan}-day journey`);
-  // Load sessions
+  hideBin();if(!user)return;setNA('nav-dash');
+  const name=user.profile?.name||user.email.split('@')[0];
   try{const r=await apiFetch('/api/sessions');const d=await r.json();
-  const sessions=d.sessions||[];
-  // Stats
-  const totalSecs=sessions.reduce((a,s)=>a+(s.duration||0),0);
-  const maxDay=sessions.length>0?Math.max(...sessions.map(s=>s.day||1)):0;
+  userSessions=d.sessions||[];
+  const totalSecs=userSessions.reduce((a,s)=>a+(s.duration||0),0);
+  const maxDay=userSessions.length>0?Math.max(...userSessions.map(s=>s.day||1)):0;
   currentDayNum=maxDay+1;
-  setText('stat-day',maxDay>0?`${maxDay}`:'—');
-  setText('stat-sessions',sessions.length);
-  setText('stat-time',totalSecs>60?`${Math.floor(totalSecs/60)}m`:`${totalSecs}s`);
-  setText('dash-greeting',`Day ${currentDayNum} — ${name}`);
-  // Plan grid
-  buildPlanGrid(sessions,selectedPlan);
-  // History
-  if(sessions.length>0){
-    document.getElementById('history-section').style.display='block';
-    document.getElementById('session-history').innerHTML=sessions.slice(0,5).map(s=>`
-      <div class="session-item">
-        <div class="session-top">
-          <div class="session-day">Day ${s.day}</div>
-          <div class="session-time">${fmtDate(s.completed_at)} · ${fmtTime(s.duration||0)}</div>
-        </div>
-        ${s.takeaway?`<div class="session-takeaway">"${s.takeaway}"</div>`:''}
+  selectedPlan=user.profile?.plan_days||selectedPlan||7;
+  setT('dash-greeting',`${name} — Day ${currentDayNum}`);
+  setT('dash-sub',`${selectedPlan}-day journey · Keep showing up.`);
+  setT('plan-lbl',`${selectedPlan}-day journey`);
+  setT('stat-day',maxDay>0?`${maxDay}`:'—');
+  setT('stat-sess',userSessions.length);
+  setT('stat-time',totalSecs>60?`${Math.floor(totalSecs/60)}m`:`${totalSecs}s`);
+  buildPlanGrid(userSessions,selectedPlan);
+  if(userSessions.length>0){
+    document.getElementById('history-ds').style.display='block';
+    document.getElementById('session-history').innerHTML=userSessions.slice(0,5).map(s=>`
+      <div class="sess-item">
+        <div class="sess-top"><div class="sess-day">Day ${s.day}</div><div class="sess-time">${fmtDate(s.completed_at)} · ${fmtTime(s.duration||0)}</div></div>
+        ${s.takeaway?`<div class="sess-takeaway">"${s.takeaway}"</div>`:''}
       </div>`).join('');
-  }}catch(e){}
-  // Vision
-  if(user.profile?.vision){
-    document.getElementById('vision-section').style.display='block';
-    setText('dash-vision',user.profile.vision);
-    document.getElementById('vision-input').value=user.profile.vision;
   }
-  setProgress(0,'');
+  if(user.profile?.vision){
+    document.getElementById('vision-ds').style.display='block';
+    setT('dash-vision',user.profile.vision);
+    document.getElementById('vision-input').value=user.profile.vision;
+  }}catch(e){}
   show('p-dash');
 }
 
-function buildPlanGrid(sessions,planDays){
-  const completedDays=new Set(sessions.map(s=>s.day));
-  const grid=document.getElementById('plan-grid');
-  const nextDay=sessions.length>0?Math.max(...sessions.map(s=>s.day))+1:1;
-  grid.innerHTML='';
-  for(let i=1;i<=planDays;i++){
-    const div=document.createElement('div');
-    div.className='plan-day'+(completedDays.has(i)?' done':i===nextDay?' today':'');
-    div.innerHTML=`<span>${i}</span><span class="day-check">✓</span>`;
-    div.title=`Day ${i}${completedDays.has(i)?' — completed':''}`;
-    grid.appendChild(div);
+function buildPlanGrid(sessions,days){
+  const done=new Set(sessions.map(s=>s.day));
+  const next=sessions.length>0?Math.max(...sessions.map(s=>s.day))+1:1;
+  const g=document.getElementById('plan-grid');g.innerHTML='';
+  for(let i=1;i<=days;i++){
+    const d=document.createElement('div');
+    d.className='plan-day'+(done.has(i)?' done':i===next?' today':'');
+    d.innerHTML=`<span>${i}</span><span class="dck">✓</span>`;
+    g.appendChild(d);
   }
 }
 
-// ── PLAN SELECTOR ──
+// ═══ PLAN ═══
 function showPlanSelector(){
-  const container=document.getElementById('plan-cards');
-  container.innerHTML=PLANS.map(p=>`
-    <div class="plan-card${p===selectedPlan?' selected':''}" onclick="selectPlan(${p},this)">
-      <div class="plan-card-days">${p}</div>
-      <div class="plan-card-label">day${p===1?'':'s'}</div>
-    </div>`).join('');
+  const c=document.getElementById('plan-cards');
+  c.innerHTML=[7,14,21,30,60,90].map(p=>`<div class="plan-card${p===selectedPlan?' sel':''}" onclick="pickPlan(${p},this)"><div class="plan-card-days">${p}</div><div class="plan-card-lbl">days</div></div>`).join('');
   show('p-plan');
 }
-function selectPlan(days,el){selectedPlan=days;document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function pickPlan(d,el){selectedPlan=d;document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
 async function savePlan(){
-  const v=document.getElementById('vision-input').value.trim();
-  await apiFetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
-  if(user){user.profile={...user.profile,plan_days:selectedPlan};selectedPlan=selectedPlan}
+  await apiFetch('/api/profile',{method:'POST',body:JSON.stringify({name:answers.name||'',answers,vision:user?.profile?.vision||'',plan_days:selectedPlan})});
+  if(user&&user.profile)user.profile.plan_days=selectedPlan;
   await showDash();
 }
 
-// ── VISION EDIT ──
-function showVisionEdit(){show('p-profile')}
-function showProfile(){setNavActive('nav-profile');show('p-profile')}
+// ═══ PROFILE ═══
+function showProfile(){setNA('nav-prof');show('p-profile')}
 async function saveVision(){
   const v=document.getElementById('vision-input').value.trim();
-  await apiFetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
+  await apiFetch('/api/profile',{method:'POST',body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
   if(user&&user.profile)user.profile.vision=v;
   await showDash();
 }
+function startFreshIntake(){freshIntake=true;beginSession()}
 
-// ── LEADERBOARD ──
+// ═══ LEADERBOARD ═══
 async function showLeaderboard(){
-  setNavActive('nav-lb');
-  show('p-leaderboard');
+  setNA('nav-lb');show('p-lb');
   try{const r=await apiFetch('/api/leaderboard');const d=await r.json();
-  const lb=d.leaderboard||[];
-  const medals=['🥇','🥈','🥉'];
+  const lb=d.leaderboard||[];const medals=['🥇','🥈','🥉'];
   document.getElementById('lb-table').innerHTML=lb.length===0
-    ?'<div style="padding:24px;text-align:center;font-size:13px;color:var(--text-t)">No data yet — be the first to complete a session.</div>'
-    :lb.map(r=>`
-      <div class="lb-row${r.is_me?' me':''}">
-        <div class="lb-rank${r.rank<=3?' top':''}">${medals[r.rank-1]||r.rank}</div>
-        <div class="lb-name${r.is_me?' me':''}">${r.name}${r.is_me?' (you)':''}</div>
-        <div class="lb-day">Day ${r.current_day||'—'}</div>
-        <div class="lb-streak">${r.total_sessions} sessions</div>
-      </div>`).join('');}
-  catch(e){setHTML('lb-table','<div style="padding:20px;text-align:center;color:var(--text-t);font-size:13px">Could not load leaderboard.</div>')}
+    ?'<div style="padding:22px;text-align:center;font-size:13px;color:var(--text-t)">No data yet. Be the first to complete a session.</div>'
+    :lb.map(r=>`<div class="lb-row${r.is_me?' me':''}"><div class="lb-rank">${medals[r.rank-1]||r.rank}</div><div class="lb-name${r.is_me?' me':''}">${r.name}${r.is_me?' (you)':''}</div><div class="lb-day">Day ${r.current_day||'—'}</div><div class="lb-count">${r.total_sessions} sessions</div></div>`).join('');
+  }catch(e){setH('lb-table','<div style="padding:20px;text-align:center;color:var(--text-t);font-size:13px">Could not load.</div>')}
 }
 
-// ── INTAKE ──
-function startIntake(){qIndex=0;if(user?.profile?.answers)answers={...user.profile.answers};else answers={};renderQ();show('p-intake')}
-function buildSteps(){const el=document.getElementById('q-steps');el.innerHTML='';QUESTIONS.forEach((_,i)=>{const d=document.createElement('div');d.className='q-step'+(i<qIndex?' done':i===qIndex?' active':'');el.appendChild(d)})}
-function renderQ(){
-  buildSteps();
-  const q=QUESTIONS[qIndex];
-  setProgress(Math.round(qIndex/QUESTIONS.length*35),`Question ${qIndex+1} of ${QUESTIONS.length}`);
-  document.getElementById('q-back').style.display=qIndex===0?'none':'';
-  const c=document.getElementById('q-container');c.innerHTML='';
-  const num=document.createElement('div');num.className='q-num';num.textContent=`${qIndex+1} / ${QUESTIONS.length}`;c.appendChild(num);
-  const qt=document.createElement('div');qt.className='q-text';qt.textContent=q.q;c.appendChild(qt);
-  if(q.hint){const h=document.createElement('div');h.className='q-hint';h.textContent=q.hint;c.appendChild(h)}
-  if(q.type==='opts'){
-    const hint=document.createElement('div');hint.className='multi-hint';hint.textContent='Select all that apply';c.appendChild(hint);
-    const wrap=document.createElement('div');wrap.className='options';
-    if(!Array.isArray(answers[q.id]))answers[q.id]=answers[q.id]?[answers[q.id]]:[];
-    q.opts.forEach(o=>{
-      const btn=document.createElement('button');btn.className='opt'+(answers[q.id].includes(o)?' selected':'');btn.type='button';
-      btn.innerHTML=`<div class="opt-dot"></div><span class="opt-text">${o}</span>`;
-      btn.onclick=()=>{const arr=answers[q.id];const idx=arr.indexOf(o);if(idx>-1){arr.splice(idx,1);btn.classList.remove('selected')}else{arr.push(o);btn.classList.add('selected')};answers[q.id]=arr};
-      wrap.appendChild(btn);
-    });c.appendChild(wrap);
+// ═══ SESSION FLOW ═══
+function beginSession(){
+  sessionStart=Date.now();checkinData={};checkinStep=0;
+  const isFirst=!answers||!answers.name||freshIntake;
+  setT('prep-day-badge',isFirst?'Day 1':`Day ${currentDayNum}`);
+  setT('prep-title',isFirst?'Welcome to 2VIBRATE':'Before you begin');
+  setT('prep-body',isFirst
+    ?'Your journey starts here. We\'ll guide you through everything — starting with a few honest questions, then your first meditation. Set yourself up properly.'
+    :`Day ${currentDayNum} of your ${selectedPlan}-day journey. Set yourself up properly before we begin.`);
+  showSP('sp-prep');
+}
+
+function startSession(){
+  showBin();startBin();
+  if(!answers||!answers.name||freshIntake){
+    // Day 1: full intake inline
+    renderCheckin(INTAKE_QS,0,'Day 1',7);
   } else {
-    const ta=document.createElement('textarea');ta.className='q-input';ta.placeholder=q.ph||'';ta.value=answers[q.id]||'';
-    ta.oninput=()=>{answers[q.id]=ta.value};c.appendChild(ta);
+    // Day 2+: daily check-in
+    renderCheckin(DAILY_QS,0,`Day ${currentDayNum}`,3);
   }
 }
-function qBack(){if(qIndex>0){qIndex--;renderQ()}else if(user&&user.profile?.answers)showDash();else show('p-land')}
-async function qNext(){
-  const q=QUESTIONS[qIndex];
-  if(!answers[q.id]||(Array.isArray(answers[q.id])?answers[q.id].length===0:answers[q.id].toString().trim()===''))
-    {if(q.type==='opts'){alert('Please select at least one option.');return}
-    if(['name','vision','why','words'].includes(q.id)){alert('Please fill this in.');return}}
-  if(qIndex<QUESTIONS.length-1){qIndex++;renderQ()}
-  else{await saveProfile();buildAndShow()}
-}
-async function saveProfile(){
-  const v=answers.vision||'';
-  try{await apiFetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
-  if(user)user.profile={name:answers.name,answers,vision:v,plan_days:selectedPlan,updated_at:new Date().toISOString()}}catch(e){}
+
+// ═══ UNIFIED CHECK-IN ═══
+let currentQSet=[],currentQIndex=0,totalQs=0;
+
+function renderCheckin(qSet,idx,dayLabel,total){
+  currentQSet=qSet;currentQIndex=idx;totalQs=total||qSet.length;
+  const q=qSet[idx];
+  setT('checkin-day-badge',dayLabel);
+  // Steps
+  const stepsEl=document.getElementById('checkin-steps');
+  stepsEl.innerHTML=qSet.map((_,i)=>`<div class="sess-step${i<idx?' done':i===idx?' active':''}"></div>`).join('');
+  // Content
+  let html=`<div class="checkin-q">${q.q}</div>`;
+  if(q.hint)html+=`<div class="checkin-hint">${q.hint}</div>`;
+  if(q.type==='opts'){
+    const cur=checkinData[q.id]||(answers[q.id]||[]);
+    const curArr=Array.isArray(cur)?cur:[cur].filter(Boolean);
+    html+=`<div class="multi-hint">Select all that apply</div><div class="opts">`;
+    q.opts.forEach((o,i)=>{
+      const sel=curArr.includes(o);
+      html+=`<button class="opt${sel?' sel':''}" onclick="toggleOpt(this,'${q.id}','${o.replace(/'/g,"\\'")}')"><div class="opt-box"></div><span class="opt-txt">${o}</span></button>`;
+    });
+    html+=`</div>`;
+  } else {
+    const val=checkinData[q.id]||answers[q.id]||'';
+    html+=`<textarea class="ta" id="qa-input" placeholder="${q.ph||''}" rows="3" oninput="checkinData['${q.id}']=this.value">${val}</textarea>`;
+  }
+  document.getElementById('checkin-content').innerHTML=html;
+  document.getElementById('checkin-back').style.display=idx===0?'none':'';
+  showSP('sp-checkin');
 }
 
-// ── PREP ──
-function showPrep(){
-  setText('prep-day-label',`Day ${currentDayNum} of ${selectedPlan}`);
-  show('p-prep');
+function toggleOpt(btn,qid,val){
+  if(!checkinData[qid])checkinData[qid]=[];
+  const arr=checkinData[qid];
+  const i=arr.indexOf(val);
+  if(i>-1){arr.splice(i,1);btn.classList.remove('sel')}
+  else{arr.push(val);btn.classList.add('sel')}
 }
 
-// ── BUILD MEDITATION ──
-function startSession(){sessionStart=Date.now();showBinauralPlayer();startBinaural();buildAndShow()}
-function startMeditation(){if(!answers||!answers.name){startIntake();return}showPrep()}
-function buildAndShow(){show('p-building');setProgress(40,'');setTimeout(()=>{generate();show('p-intro');setProgress(42,'');},1800)}
+async function checkinNext(){
+  const q=currentQSet[currentQIndex];
+  // Validate
+  if(q.type==='opts'){
+    if(!checkinData[q.id]||checkinData[q.id].length===0){alert('Please select at least one option.');return}
+  } else {
+    const ta=document.getElementById('qa-input');
+    if(ta)checkinData[q.id]=ta.value.trim();
+    if(['name','vision','why','words'].includes(q.id)&&!checkinData[q.id]){alert('Please fill this in.');return}
+    if(checkinData[q.id])checkinData[q.id]=checkinData[q.id];
+  }
 
-function generate(){
+  if(currentQIndex<currentQSet.length-1){
+    // Next question
+    const isIntake=currentQSet===INTAKE_QS;
+    renderCheckin(currentQSet,currentQIndex+1,isIntake?'Day 1':`Day ${currentDayNum}`,currentQSet.length);
+  } else {
+    // Done with questions — merge into answers and save
+    Object.assign(answers,checkinData);
+    freshIntake=false;
+    await apiFetch('/api/profile',{method:'POST',body:JSON.stringify({name:answers.name||'',answers,vision:answers.vision||user?.profile?.vision||'',plan_days:selectedPlan})});
+    if(user&&user.profile){user.profile.answers=answers;user.profile.name=answers.name||user.profile.name}
+    // Build and enter meditation
+    buildMeditation();
+    sessionStep(2);
+  }
+}
+
+// ═══ SESSION STEP NAVIGATION ═══
+const SESSION_STEPS=['sp-prep','sp-checkin','sp-settle','sp-release','sp-scene','sp-become','sp-why','sp-affirm','sp-complete'];
+const PHASE_TIMERS=['','','timer-settle','timer-release','timer-scene','timer-become','timer-why','timer-affirm',''];
+let phaseStart=null,phaseInterval=null;
+
+function sessionStep(n){
+  const id=SESSION_STEPS[n];
+  showSP(id);
+  const pct=Math.round(n/(SESSION_STEPS.length-1)*100);
+  document.getElementById('progress').style.width=pct+'%';
+  if(n===2)startBreath();else stopBreath();
+  if(n===7)startAffirms();
+  if(n>=2&&n<=7&&PHASE_TIMERS[n]){phaseStart=Date.now();startPhaseTimer(PHASE_TIMERS[n])}
+  if(n===8){
+    document.querySelectorAll('.end-word').forEach(w=>{w.style.animation='none';w.offsetHeight;w.style.animation=''});
+  }
+}
+
+function startPhaseTimer(id){
+  clearInterval(phaseInterval);
+  phaseInterval=setInterval(()=>{
+    const e=Math.floor((Date.now()-phaseStart)/1000);
+    setT(id,fmtTime(e));
+  },1000);
+}
+
+// ═══ BUILD MEDITATION ═══
+function buildMeditation(){
   const A=answers;
   const name=(A.name||'').split(' ')[0]||'friend';
-  const arrStr=v=>Array.isArray(v)?v.join(' '):(v||'');
-  const has=(v,term)=>arrStr(v).toLowerCase().includes(term.toLowerCase());
-  const faithC=has(A.faith,'Central')||has(A.faith,'God');
+  const isDay1=currentDayNum<=1;
+  const faithC=has(A.faith,'Central')||has(A.faith,'foundation');
   const faithG=has(A.faith,'Growing')||has(A.faith,'Present');
-  const faithS=has(A.faith,'spiritual');
+  const faithS=has(A.faith,'spiritual')||has(A.faith,'Spiritual');
   const isFinancial=has(A.domain,'Financial');
   const isHealth=has(A.domain,'Physical');
   const isRelation=has(A.domain,'Relation');
@@ -788,139 +817,130 @@ function generate(){
   const isFearful=has(A.emotion,'Fear');
   const isRestless=has(A.emotion,'Restless');
 
-  const verses={c:{text:'"For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."',ref:'Jeremiah 29:11'},g:{text:'"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."',ref:'Proverbs 3:5-6'},s:{text:'"Whatever you ask for in prayer, believe that you have received it, and it will be yours."',ref:'Mark 11:24'},n:{text:'"The future belongs to those who believe in the beauty of their dreams."',ref:'Eleanor Roosevelt'}};
+  // Daily check-in adaptations
+  const todayState=checkinData.today_state||'';
+  const todayResistance=checkinData.today_resistance||'';
+  const todayFocus=checkinData.today_focus||'';
+  const isHeavy=has(todayState,'Heavy')||has(todayState,'Empty');
+  const isScattered=has(todayState,'Scattered');
+  const isGrateful=has(todayState,'Grateful');
+  const resistingBelief=has(todayResistance,'Believing');
+  const resistingAction=has(todayResistance,'action');
+  const resistingLetGo=has(todayResistance,'Letting go');
+  const focusRelease=has(todayFocus,'Releasing');
+  const focusElevation=has(todayFocus,'Elevation');
+  const focusGratitude=has(todayFocus,'Gratitude');
+
+  const verses={c:{text:'"For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."',ref:'Jeremiah 29:11'},g:{text:'"Trust in the Lord with all your heart and lean not on your own understanding."',ref:'Proverbs 3:5'},s:{text:'"Whatever you ask for in prayer, believe that you have received it, and it will be yours."',ref:'Mark 11:24'},n:{text:'"The future belongs to those who believe in the beauty of their dreams."',ref:'Eleanor Roosevelt'}};
   const openV=faithC?verses.c:faithG?verses.g:faithS?verses.s:verses.n;
   const closeVerses=[{text:'"I can do all things through Christ who strengthens me."',ref:'Philippians 4:13'},{text:'"Commit to the Lord whatever you do, and he will establish your plans."',ref:'Proverbs 16:3'},{text:'"Be strong and courageous. Do not be afraid; for the Lord your God will be with you wherever you go."',ref:'Joshua 1:9'}];
   const closeV=faithC||faithG?pick(closeVerses):{text:'"The secret of getting ahead is getting started."',ref:'Mark Twain'};
   const wordList=(A.words||'Faith. Freedom. Legacy.').split(/[.,\s]+/).filter(w=>w.length>1).slice(0,3);
   const visionText=user?.profile?.vision||A.vision||'';
 
-  setText('med-title',`Day ${currentDayNum} — ${name}`);
-  setHTML('med-intro-body',`This is Day ${currentDayNum} of your ${selectedPlan}-day journey. Settle in. Close your eyes between each section. Let each word land before you move forward. <em>You showed up. That already matters.</em>`);
-  setHTML('med-verse',`<div class="verse-text">${openV.text}</div><div class="verse-ref">${openV.ref}</div>`);
-  setHTML('settle-body',`Before you can see the future clearly, you have to leave the present behind. Right now — your phone, your worries, everything on your plate — none of it exists here. You are stepping out of time and into what's possible.`);
+  // ── SETTLE ──
+  let settleBody=`Before you can see the future clearly, you have to leave the present behind.`;
+  if(isScattered)settleBody=`Your mind is scattered — that's okay. That's exactly why you showed up. Right now, all of it stops. You are stepping out of time.`;
+  else if(isHeavy)settleBody=`You arrived heavy today. That weight is real. And this is exactly the place to put it down. Right now — none of it exists here. You are safe.`;
+  else if(isGrateful)settleBody=`You arrived with gratitude already present. Let's deepen that. Right now, breathe in and let that feeling expand. You are exactly where you're meant to be.`;
+  setH('settle-body',settleBody);
 
-  setText('rel-title','You are not who you were');
+  // ── RELEASE ──
   let rBody=`Close your eyes. Picture the version of you that was `;
   if(wasAll)rBody+='<em>carrying everything at once — financially under pressure, directionless, in the wrong environment.</em>';
-  else if(wasBroke)rBody+='<em>under real financial pressure</em> — the quiet weight of not having enough.';
-  else if(wasLost)rBody+='<em>lost</em> — going through the motions without real direction or purpose.';
-  else if(wrongCrowd)rBody+='<em>in the wrong environment</em> — being pulled in the wrong direction.';
-  else if(wasDoubt)rBody+='<em>doubting himself</em> — wondering if success was really meant for someone like him.';
+  else if(wasBroke)rBody+='<em>under real financial pressure</em> — the quiet weight of not enough.';
+  else if(wasLost)rBody+='<em>lost</em> — going through the motions without direction or purpose.';
+  else if(wrongCrowd)rBody+='<em>surrounded by the wrong environment</em> — being pulled backwards.';
+  else if(wasDoubt)rBody+='<em>doubting himself</em> — wondering if this was really meant for someone like him.';
   else rBody+='<em>carrying everything you\'ve been through.</em>';
-  rBody+=` See him. He felt the weight of it. He didn't know the way out yet.`;
-  setHTML('rel-body',rBody);
+  rBody+=` He felt the weight of it. He didn't know the way out yet.`;
+
+  // Day 2+ resistance adaptation
+  if(!isDay1&&resistingLetGo)rBody+=` <em>And today, there is something you are still holding onto.</em> Feel it. We're going to release that too.`;
+  if(!isDay1&&resistingBelief)rBody+=` <em>And right now, part of you doubts it's really for you.</em> We're going to address that today.`;
 
   let rScene=`I see you. I know what you carried. `;
   if(A.turning)rScene+=`And I know the moment things began to shift — ${A.turning.trim()}${A.turning.trim().endsWith('.')?'':'.'}  `;
   if(faithC)rScene+=`Even in the darkest part of that, <em>God saw you.</em> He was already writing the next chapter. `;
   else if(faithG||faithS)rScene+=`Even then, something bigger was at work. You were being shaped, not abandoned. `;
   else rScene+=`Even then, something in you refused to fold. That part of you carried you here. `;
-  if(isFearful)rScene+=`The fear you felt was real. But it didn't stop you. `;
-  if(isHungry)rScene+=`That hunger wasn't desperation. It was a signal pointing you somewhere. `;
+  if(isFearful)rScene+=`The fear was real. But it didn't stop you. `;
+  if(isHungry)rScene+=`That hunger wasn't desperation. It was a signal. `;
+  if(!isDay1&&focusRelease)rScene+=`Today especially — let the old identity go. You've outgrown it. <em>It no longer serves you.</em> `;
   rScene+=`What you've built from that season is something that version of you couldn't have imagined. You can rest now. <em>I've got it from here.</em>`;
-  setHTML('rel-scene',rScene);
-  setHTML('rel-close',`Feel the weight of that version of you lift. He did his job. He survived. <em>Now let him go — and step forward.</em>`);
 
-  setText('scene-title','See your life');
-  setHTML('scene-intro',`You are now three years forward. Everything you worked toward is real. Close your eyes and step into this completely — don't observe it. <em>You are living it.</em>`);
+  setH('rel-body',rBody);
+  setH('rel-scene',rScene);
+  setH('rel-close',`Feel the weight of that version of you lift. He did his job. He survived. <em>Now let him go — and step forward.</em>`);
+
+  // ── SCENE ──
+  let sceneIntro=`You are now three years forward. Everything you worked toward is real. Close your eyes and step into this completely — don't observe it. <em>You are living it.</em>`;
+  if(!isDay1&&focusElevation)sceneIntro=`Today we go deeper into the scene. Don't just see it — <em>feel the body you carry in it, the weight lifted from your shoulders, the pace of your breathing.</em> You are inside this life. Not watching it. Living it.`;
+
   const sceneCards=[
     {l:'The morning',t:`You wake up with no alarm. The space around you is yours — calm, intentional. There is no dread. No financial panic. No feeling of wasted potential. You open your eyes and the first thing you feel is <em>gratitude.</em> You made it, ${name}. You actually made it.`},
-    visionText?{l:'Your vision, realised',t:`You described it yourself — "${visionText.length>120?visionText.slice(0,120)+'...':visionText}". <em>You are living that.</em> Not thinking about it. Not working toward it. Living it.`}:null,
-    isFinancial?{l:'The freedom',t:`Your income moves without you having to grind every single hour. The stress of money is gone — replaced by quiet confidence. You look at your numbers and feel <em>peace, not panic.</em>`}:
-    isHealth?{l:'The transformation',t:`You move through life in a body that feels strong and alive. The discipline is no longer an effort — it is simply <em>who you are.</em> People notice. But more importantly, you feel it.`}:
-    isRelation?{l:'The people',t:`The relationships in your life are deep and real. The people you love feel it — your presence, your time, your peace. <em>You built a life worth sharing.</em>`}:
-    {l:'The purpose',t:`Every day you wake up aligned. What you do matches who you are. The work feels meaningful. The impact is real. <em>You are living exactly the life you described to yourself on your hardest days.</em>`},
-    A.who?{l:'The people you built this for',t:`You think about ${A.who.trim()} — and what this life means for them. The things they no longer have to worry about. The doors that are open now. <em>You did that. You changed the line.</em>`}:null
+    visionText?{l:'Your vision, realised',t:`You described it: "${visionText.length>110?visionText.slice(0,110)+'...':visionText}". <em>You are living that.</em> Not working toward it. Not thinking about it. Living it. Every single morning.`}:null,
+    isFinancial?{l:'The freedom',t:`The stress of money is gone. Not because you got lucky — because you built something real. You look at your numbers and feel <em>peace, not panic.</em> That is the life you chose with your daily commitment.`}:
+    isHealth?{l:'The transformation',t:`You move through life in a body that feels strong and fully alive. The discipline you built is no longer an effort — it is simply <em>who you are.</em> You feel it from the moment you wake.`}:
+    isRelation?{l:'The people',t:`The relationships around you are deep and real. The people you love feel it — your presence, your time, the peace you carry. <em>You built a life worth sharing.</em>`}:
+    {l:'The purpose',t:`Every day you wake up aligned. What you do matches who you are. The impact is real. <em>You are living exactly the life you described to yourself on your hardest days.</em>`},
+    A.who?{l:'The people you built this for',t:`You think about ${A.who.trim()} — and what this life means for them. The things they no longer carry. The doors that are open because you refused to stay small. <em>You did that. You changed the line.</em>`}:null,
+    !isDay1&&isGrateful?{l:'What you already have',t:`Before you even reach the future — look at what's already here. The sessions you've completed. The version of you that shows up even when it's hard. <em>That person is already becoming the future you're visualising.</em>`}:null
   ].filter(Boolean);
+  setH('scene-intro',sceneIntro);
   document.getElementById('scene-cards').innerHTML=sceneCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
 
-  setText('become-title','Step into who you are');
-  setHTML('become-intro',`Now go deeper. You are not watching this life from the outside. You are <em>inside it.</em> Feel what this version of you carries every ordinary day.`);
-  const becCards=[
-    {l:'The inner world',t:faithC?`His first thought every morning is <em>thank you.</em> When challenges come he doesn't panic — he prays, he thinks, he moves. He trusts the process because he trusts the God behind it. Setbacks don't shake him. They refine him.`:faithG||faithS?`When challenges come, something inside him stays steady. He has learned that hard moments are preparation, not punishment. He moves with patience. He acts with intention. <em>He is unshakeable where it matters.</em>`:`When challenges come he doesn't spiral. He gets still, thinks clearly, and moves. The discipline he built is now just who he is. Setbacks teach him. <em>He knows himself.</em>`},
-    {l:'How he carries himself',t:`He walks into rooms with quiet authority. He doesn't need to be the loudest. People feel something when they're around him — a groundedness, a calm, a sense that this person knows exactly where they're going. He speaks with intention. He listens. <em>This is who you are becoming, ${name}.</em>`}
-  ];
-  document.getElementById('become-cards').innerHTML=becCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
-  const becV=faithC?{text:'"But seek first his kingdom and his righteousness, and all these things will be given to you as well."',ref:'Matthew 6:33'}:faithG||faithS?{text:'"Ask and it will be given to you; seek and you will find; knock and the door will be opened to you."',ref:'Matthew 7:7'}:{text:'"The man who moves a mountain begins by carrying away small stones."',ref:'Confucius'};
-  setHTML('become-verse',`<div class="verse-text">${becV.text}</div><div class="verse-ref">${becV.ref}</div>`);
+  // ── BECOME ──
+  let becomeIntro=`Now go deeper. You are not watching this life from the outside. You are <em>inside it.</em> Feel what this version of you carries every ordinary day.`;
+  if(!isDay1&&resistingBelief)becomeIntro=`Today your mind has been resisting the belief that this is really for you. So we're going to do this differently. <em>Don't think your way there — feel your way there.</em> Drop into the body of the person who already made it.`;
 
-  setText('why-title','What this is really for');
-  setHTML('why-intro','Now feel the weight of the real reason underneath all of it. Not the results. Not the status. The thing that actually moves you.');
-  const whyCards=[
-    {l:'The person you\'re reaching',t:`Right now, somewhere, there is someone who is exactly where you were — ${wasAll?'broke, lost and in the wrong crowd':wasLost?'without direction, just going through motions':wasBroke?'under real financial pressure':wrongCrowd?'surrounded by the wrong people':wasDoubt?'doubting whether they\'re capable':'carrying what you once carried'}. They don't know your name yet. <em>But they will find you.</em> And when they do, your story will be the thing that makes them believe.`},
-    A.fear?{l:'The life you refused',t:`You wrote it: "${A.fear.trim().slice(0,150)}". <em>That is the version of your life you are fighting against every single day.</em> Feel the weight of that. Let it sharpen you. Not paralyse you — fuel you.`}:null,
-    A.why?{l:'What the world loses if you stay small',t:`You said it: "${A.why.trim().slice(0,150)}". <em>That is not a small thing.</em> That is the real cost. Let it move you.`}:null,
-    {l:'The legacy',t:`Years from now, when people ask what ${name} built — the answer won't be a number. It will be people. A family line that shifted. A generation that saw someone like them make it. <em>That is what you are actually building.</em>`}
+  const becCards=[
+    {l:'The inner world',t:faithC?`His first thought every morning is <em>thank you.</em> When challenges come he doesn't panic — he prays, he thinks, he moves. He trusts the process because he trusts the God behind it. Setbacks don't shake him. They refine him.`:faithG||faithS?`When challenges come, something inside him stays steady. He has learned that hard moments are preparation, not punishment. He moves with patience. <em>He is unshakeable where it matters.</em>`:`When challenges come he doesn't spiral. He gets still, thinks, and moves. The discipline is now just who he is. <em>He knows himself.</em>`},
+    {l:'How he carries himself',t:`He walks into rooms with quiet authority. He doesn't need to be the loudest. People feel something when they're around him — a groundedness, a sense that this person knows exactly where they're going. He speaks with intention. He listens first. <em>This is who you are becoming, ${name}.</em>`},
+    !isDay1&&resistingAction?{l:'He acts without waiting to feel ready',t:`He stopped waiting for the right moment. He stopped waiting to feel motivated. He acts first — the emotion follows the action, not the other way around. <em>That is the identity you are installing right now.</em>`}:null
   ].filter(Boolean);
+
+  const becV=faithC?{text:'"But seek first his kingdom and his righteousness, and all these things will be given to you as well."',ref:'Matthew 6:33'}:faithG||faithS?{text:'"Ask and it will be given to you; seek and you will find."',ref:'Matthew 7:7'}:{text:'"The man who moves a mountain begins by carrying away small stones."',ref:'Confucius'};
+  setH('become-intro',becomeIntro);
+  document.getElementById('become-cards').innerHTML=becCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
+  setH('become-verse',`<div class="verse-text">${becV.text}</div><div class="verse-ref">${becV.ref}</div>`);
+
+  // ── WHY ──
+  let whyIntro='Now feel the weight of the real reason underneath all of it. Not the results. Not the status. The thing that actually moves you.';
+  if(!isDay1&&focusGratitude)whyIntro='Today, the why lives in gratitude. Not just for what is coming — for what is already happening. <em>Every session you complete is evidence that you are the person you're becoming.</em>';
+
+  const whyCards=[
+    {l:'The person you\'re reaching',t:`Right now, somewhere, there is someone who is exactly where you were — ${wasAll?'broke, lost and in the wrong crowd':wasLost?'without direction, going through the motions':wasBroke?'under real financial pressure':wrongCrowd?'surrounded by the wrong people':wasDoubt?'doubting whether they\'re capable':'carrying what you once carried'}. They don't know your name yet. <em>But they will find you.</em> And your story will be the thing that makes them believe.`},
+    A.fear?{l:'The life you refused',t:`You wrote it: "${A.fear.trim().slice(0,130)}". <em>Every session you complete is a day further from that version of your life.</em> Feel the distance you're creating.`}:null,
+    A.why?{l:'What the world loses if you stay small',t:`You said it: "${A.why.trim().slice(0,130)}". <em>That is not a small thing.</em> Let it fuel you today.`}:null,
+    {l:'The legacy',t:`Years from now, when people ask what ${name} built — the answer won't be a number. It will be people. A family that changed. A generation that saw someone like them make it. <em>That is what every single session is building toward.</em>`}
+  ].filter(Boolean);
+  setH('why-intro',whyIntro);
   document.getElementById('why-cards').innerHTML=whyCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
 
+  // ── AFFIRMATIONS ── (adapt by day and state)
   const affirms=[
-    faithC?`I am exactly who God designed me to be. I am simply stepping into that person now.`:`I am becoming who I was always meant to be. Every day I step closer.`,
-    `My story — every struggle, every setback, every dark season — is the exact qualification for everything I am called to do.`,
-    faithC||faithG?`I keep God first and trust that everything else aligns behind that decision.`:`I stay aligned with what matters most, and everything else follows from there.`,
-    isRestless||isHungry?`The hunger inside me is not restlessness. It is purpose — a signal pointing me toward what I am meant to build.`:`The drive I feel is not anxiety. It is direction. It is fuel.`,
-    `The life I am building is real. I can feel it. I can see it. It already exists — I am simply walking toward it.`,
+    faithC?`I am exactly who God designed me to be. I am stepping into that person now.`:`I am becoming who I was always meant to be. Every day I step closer.`,
+    !isDay1?`I have shown up ${userSessions.length} time${userSessions.length===1?'':'s'}. That is evidence of who I am becoming.`:`My story — every struggle, every dark season — is the exact qualification for everything I'm called to do.`,
+    faithC||faithG?`I keep God first and trust that everything else aligns behind that decision.`:`I stay aligned with what matters most, and everything else follows.`,
+    resistingBelief&&!isDay1?`My subconscious does not need my permission to believe this. I install it now through feeling, not thinking.`:`The life I am building is real. I can feel it. I can see it. It already exists — I am walking toward it.`,
+    isRestless||isHungry?`The hunger inside me is not restlessness. It is purpose — a signal pointing me toward what I am meant to build.`:`The drive I feel is direction. It is fuel. It is God-given.`,
     `Every single day I show up is a day I honour the version of me who refused to quit.`,
-    A.who?`I am doing this for ${A.who.trim().slice(0,60)}. On the hard days, that is enough.`:`I know exactly who I am building this for. That is enough to keep going on any day.`,
+    A.who?`I am doing this for ${A.who.trim().slice(0,60)}. On the hard days, that is enough.`:`I know exactly who I am building this for. That is enough to keep going.`,
     `I am disciplined. I am grounded. I am faith-led. I am unstoppable.`
   ];
   document.getElementById('affirm-list').innerHTML=affirms.map(a=>`<div class="affirm-item">${a}</div>`).join('');
+
+  // ── COMPLETE ──
   document.getElementById('end-words').innerHTML=wordList.map((w,i)=>`<span class="end-word" style="animation-delay:${i*0.4}s">${w}</span>`).join('');
-  setHTML('complete-body',`Take three deep breaths. Feel the ground beneath you. When you open your eyes, ${name}, carry what you felt in here into everything you do today. <em>That version of you is not a dream. He is the direction.</em>`);
-  setHTML('complete-verse',`<div class="verse-text">${closeV.text}</div><div class="verse-ref">${closeV.ref}</div>`);
-  setHTML('complete-close',`Come back every morning before you touch your phone. Day ${currentDayNum} is done. See you tomorrow. <em>This is how identity changes.</em>`);
+  setH('complete-body',`Take three deep breaths. Feel the ground. When you open your eyes, ${name}, carry what you just felt into everything you do today. <em>That version of you is not a dream. He is the direction.</em>`);
+  setH('complete-verse',`<div class="verse-text">${closeV.text}</div><div class="verse-ref">${closeV.ref}</div>`);
+  setH('complete-close',isDay1
+    ?`Day 1 is complete. Come back tomorrow. The subconscious changes through repetition — not one perfect session, but consistent daily practice. This is how your reality changes.`
+    :`Day ${currentDayNum} is complete. Tomorrow's session will be built around what you captured today. <em>The system learns as you do.</em>`);
 }
 
-// ── MED NAV ──
-let medScreen=0;
-const timerIds=['timer-settle','timer-release','timer-scene','timer-become','timer-why','timer-affirm'];
-let phaseStart=null;
-
-function medGo(n){
-  medScreen=n;show(MED_PAGES[n]);
-  const pct=42+Math.round(n/(MED_PAGES.length-1)*58);
-  const labels=['','Phase 1 of 6','Phase 2 of 6','Phase 3 of 6','Phase 4 of 6','Phase 5 of 6','Phase 6 of 6',''];
-  setProgress(pct,labels[n]||'');
-  if(n===1)startBreath();else stopBreath();
-  if(n===6)startAffirms();
-  if(n>=1&&n<=6){phaseStart=Date.now();startPhaseTimer(timerIds[n-1])}
-  if(n===7){
-    document.querySelectorAll('.end-word').forEach(w=>{w.style.animation='none';w.offsetHeight;w.style.animation=''});
-    showTakeawayModal();
-  }
-}
-
-let phaseTimerInterval=null;
-function startPhaseTimer(id){
-  clearInterval(phaseTimerInterval);
-  phaseTimerInterval=setInterval(()=>{
-    const elapsed=Math.floor((Date.now()-(phaseStart||Date.now()))/1000);
-    setText(id,fmtTime(elapsed));
-  },1000);
-}
-
-function restartMed(){medGo(0)}
-
-// ── TAKEAWAY ──
-function showTakeawayModal(){
-  const totalSecs=sessionStart?Math.floor((Date.now()-sessionStart)/1000):0;
-  document.getElementById('takeaway-modal').classList.add('show');
-  document.getElementById('takeaway-input').value='';
-  document.getElementById('takeaway-input')._duration=totalSecs;
-}
-async function saveTakeaway(skip=false){
-  const ta=document.getElementById('takeaway-input');
-  const takeaway=skip?'':ta.value.trim();
-  const duration=ta._duration||0;
-  document.getElementById('takeaway-modal').classList.remove('show');
-  clearInterval(phaseTimerInterval);
-  try{await apiFetch('/api/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({day_number:currentDayNum,duration_seconds:duration,takeaway})});}catch(e){}
-  // Refresh user
-  try{const r=await apiFetch('/api/me');if(r.ok){const d=await r.json();user=d;}}catch(e){}
-}
-
-// ── BREATH ──
+// ═══ BREATH ═══
 function startBreath(){
   const ring=document.getElementById('ring'),core=document.getElementById('core'),lbl=document.getElementById('breath-lbl');
   const phases=[{t:'Breathe in slowly...',e:true,d:4000},{t:'Hold...',e:true,d:4000},{t:'Breathe out slowly...',e:false,d:6000}];
@@ -930,7 +950,7 @@ function startBreath(){
 }
 function stopBreath(){if(breathTimer){clearTimeout(breathTimer);breathTimer=null}}
 
-// ── AFFIRMS ──
+// ═══ AFFIRMATIONS ═══
 function startAffirms(){
   const items=document.querySelectorAll('.affirm-item');
   items.forEach(i=>i.classList.remove('lit'));
@@ -939,14 +959,27 @@ function startAffirms(){
   setTimeout(light,500);
 }
 
-// ── INIT ──
+// ═══ TAKEAWAY ═══
+function openTakeawayModal(){document.getElementById('modal-takeaway').classList.add('show');document.getElementById('takeaway-input').value=''}
+async function completeTakeaway(skip=false){
+  const ta=document.getElementById('takeaway-input');
+  const takeaway=skip?'':ta.value.trim();
+  document.getElementById('modal-takeaway').classList.remove('show');
+  clearInterval(phaseInterval);
+  const duration=sessionStart?Math.floor((Date.now()-sessionStart)/1000):0;
+  try{await apiFetch('/api/session',{method:'POST',body:JSON.stringify({day_number:currentDayNum,duration_seconds:duration,takeaway})})}catch(e){}
+  hideBin();
+  try{const r=await apiFetch('/api/me');if(r.ok){const d=await r.json();user=d}}catch(e){}
+  await showDash();
+}
+
+// ═══ INIT ═══
 window.addEventListener('DOMContentLoaded',()=>{
   ['reg-email','reg-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doRegister()})});
   ['log-email','log-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()})});
-  // Check if already logged in via stored token
   if(!getToken()){show('p-land');return}
-  apiFetch('/api/me').then(r=>{if(r.ok)return r.json();throw new Error('unauthed')})
-    .then(d=>{user=d;showNav(true);if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;showDash()}else startIntake()})
+  apiFetch('/api/me').then(r=>{if(r.ok)return r.json();throw new Error()})
+    .then(d=>{user=d;showNav(true);if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;showDash()}else{freshIntake=true;beginSession()}})
     .catch(()=>{setToken('');show('p-land')});
 });
 </script>
