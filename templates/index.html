@@ -597,8 +597,15 @@ async function doLogout(){await apiFetch('/api/logout',{method:'POST'});setToken
 async function loadUser(){
   try{const r=await apiFetch('/api/me');if(!r.ok){show('p-land');return}
   const d=await r.json();user=d;showNav(true);
-  if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;await showDash()}
-  else{freshIntake=true;beginSession()}}catch(e){show('p-land')}
+  if(d.profile&&d.profile.answers){
+    answers=d.profile.answers;
+    selectedPlan=d.profile.plan_days||7;
+    freshIntake=false;
+    await showDash();
+  } else {
+    freshIntake=true;
+    beginSession();
+  }}catch(e){show('p-land')}
 }
 
 // ═══ DASHBOARD ═══
@@ -683,20 +690,24 @@ async function showLeaderboard(){
 // ═══ SESSION FLOW ═══
 function beginSession(){
   sessionStart=Date.now();checkinData={};checkinStep=0;
-  const isFirst=!answers||!answers.name||freshIntake;
+  const hasProfile=user&&user.profile&&user.profile.answers&&user.profile.answers.name;
+  const isFirst=!hasProfile||freshIntake;
   setT('prep-day-badge',isFirst?'Day 1':`Day ${currentDayNum}`);
   setT('prep-title',isFirst?'Welcome to 2VIBRATE':'Before you begin');
   setT('prep-body',isFirst
-    ?'Your journey starts here. We\'ll guide you through everything — starting with a few honest questions, then your first meditation. Set yourself up properly.'
+    ?"Your journey starts here. We'll guide you through everything — starting with a few honest questions, then your first meditation. Set yourself up properly."
     :`Day ${currentDayNum} of your ${selectedPlan}-day journey. Set yourself up properly before we begin.`);
   showSP('sp-prep');
 }
 
 function startSession(){
-  if(!answers||!answers.name||freshIntake){
-    renderCheckin(INTAKE_QS,0,'Day 1',7);
+  hideBin();
+  const hasProfile=user&&user.profile&&user.profile.answers&&user.profile.answers.name;
+  if(!hasProfile||freshIntake){
+    freshIntake=false;
+    renderCheckin(INTAKE_QS,0,'Day 1',INTAKE_QS.length);
   } else {
-    renderCheckin(DAILY_QS,0,`Day ${currentDayNum}`,3);
+    renderCheckin(DAILY_QS,0,`Day ${currentDayNum}`,DAILY_QS.length);
   }
 }
 
