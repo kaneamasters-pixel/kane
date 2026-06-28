@@ -19,8 +19,8 @@ html,body{background:var(--black);color:var(--text);font-family:'Inter',sans-ser
 .page{display:none;min-height:100vh;padding:40px 20px 80px;flex-direction:column;align-items:center;justify-content:center}
 .page.active{display:flex;animation:fadeUp 0.5s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.inner{max-width:540px;width:100%}
-.inner.c{text-align:center}
+.inner{max-width:540px;width:100%;margin:0 auto}
+.inner.c{text-align:center;margin:0 auto}
 .eyebrow{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,8vw,64px);font-weight:300;line-height:1.06;color:var(--text);margin-bottom:20px}
 h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,44px);font-weight:300;line-height:1.12;color:var(--text);margin-bottom:16px}
@@ -99,7 +99,7 @@ textarea.q-input,textarea.ta{resize:vertical;min-height:80px}
 @keyframes dots{0%{content:'.'}33%{content:'..'}66%{content:'...'}100%{content:'.'}}
 
 /* ── DASHBOARD ── */
-.dash-wrap{padding-top:72px;padding-bottom:80px;align-items:flex-start}
+.dash-wrap{padding-top:72px;padding-bottom:80px;align-items:center}
 .dash-section{margin-bottom:28px}
 .dash-section-title{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--text-t);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
