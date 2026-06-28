@@ -95,15 +95,51 @@ textarea.ta{resize:vertical;min-height:80px}
 .scene-lbl{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-t);margin-bottom:10px}
 .scene-text{font-size:14px;line-height:1.95;color:var(--text-s)}
 .scene-text em{color:var(--text);font-style:normal}
-.affirm-list{margin:8px 0 20px}
-.affirm-item{padding:13px 0;border-bottom:1px solid var(--border-s);font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.65;color:var(--text-t);transition:color .4s}
-.affirm-item:last-child{border-bottom:none}
-.affirm-item.lit{color:var(--text)}
-.end-word{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,7vw,56px);font-weight:300;letter-spacing:.04em;color:var(--text);opacity:0;animation:fadeword 1.2s ease forwards;display:block;line-height:1.3}
-@keyframes fadeword{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.scroll-area{max-height:55vh;overflow-y:auto;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .divider{width:32px;height:1px;background:var(--gold-dim);margin:22px auto;opacity:.6}
 .med-timer{font-size:11px;color:var(--text-t);letter-spacing:.07em;text-align:center;margin-bottom:6px}
+
+/* ── MEDITATION CANVAS ── */
+#sp-meditation{padding:0;justify-content:flex-start;overflow:hidden;min-height:100vh}
+.phase-strip{position:fixed;top:50px;left:0;right:0;z-index:140;display:flex;align-items:center;justify-content:center;background:rgba(10,10,10,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);height:38px;overflow-x:auto}
+.phase-pip{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);padding:0 16px;height:38px;display:flex;align-items:center;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.phase-pip:hover{color:var(--text-s)}
+.phase-pip.active{color:var(--gold);border-bottom-color:var(--gold)}
+.med-timer-bar{position:fixed;top:88px;left:0;right:0;z-index:130;display:flex;align-items:center;justify-content:space-between;padding:5px 28px;background:rgba(10,10,10,.6)}
+.med-phase-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-t)}
+.med-elapsed{font-size:10px;letter-spacing:.08em;color:var(--text-t);font-variant-numeric:tabular-nums}
+.med-canvas{position:fixed;top:110px;left:0;right:0;bottom:0;overflow:hidden}
+.med-panel{display:none;height:100%;grid-template-columns:1fr 1fr;animation:fadeUp .4s ease}
+.med-panel.active{display:grid}
+.med-left{padding:30px 32px 80px 40px;overflow-y:auto;border-right:1px solid var(--border);scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.med-right{padding:30px 40px 80px 32px;overflow-y:auto;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.phase-eyebrow{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.med-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,38px);font-weight:300;line-height:1.1;color:var(--text);margin-bottom:14px}
+.med-body{font-size:14px;line-height:1.9;color:var(--text-s);margin-bottom:14px;font-weight:300}
+.med-body em{color:var(--text);font-style:normal}
+.med-cards{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.med-card{background:var(--surface);border:1px solid var(--border);padding:15px 17px;border-radius:1px}
+.med-card-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-t);margin-bottom:7px}
+.med-card-text{font-size:13px;line-height:1.85;color:var(--text-s)}
+.med-card-text em{color:var(--text);font-style:normal}
+.med-quote-block{background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--gold-dim);padding:20px 20px;margin-bottom:20px;border-radius:1px}
+.med-quote-label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-t);margin-bottom:10px}
+.med-quote-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;line-height:1.75;color:var(--text-s)}
+.med-quote-text em{color:var(--text);font-style:normal}
+.med-next-btn{align-self:flex-start;margin-top:auto}
+.affirm-list{margin:4px 0}
+.affirm-item{padding:11px 0;border-bottom:1px solid var(--border-s);font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.6;color:var(--text-t);transition:color .4s}
+.affirm-item:last-child{border-bottom:none}
+.affirm-item.lit{color:var(--text)}
+.end-word{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,44px);font-weight:300;letter-spacing:.04em;color:var(--text);opacity:0;animation:fadeword 1.2s ease forwards;display:block;line-height:1.3}
+@keyframes fadeword{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){
+  .med-panel.active{grid-template-columns:1fr;overflow-y:auto}
+  .med-canvas{overflow-y:auto}
+  .med-left{border-right:none;border-bottom:1px solid var(--border);padding:20px 18px 20px}
+  .med-right{padding:20px 18px 80px}
+  .phase-strip{justify-content:flex-start}
+  .phase-pip{padding:0 10px;font-size:9px}
+}
 
 /* Breath */
 .breath-wrap{position:relative;width:120px;height:120px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
@@ -361,10 +397,10 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
     <h2 id="prep-title">Before you begin</h2>
     <p class="body" id="prep-body">Set yourself up. This works best when your environment supports you.</p>
     <div style="margin-bottom:22px">
-      <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-s)"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">1</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Find your space.</strong> Sit or lie somewhere you won't be disturbed for the next 10-15 minutes.</div></div>
+      <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-s)"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">1</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Find your space.</strong> Sit or lie somewhere you won't be disturbed for 10-15 minutes.</div></div>
       <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-s)"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">2</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Silence everything.</strong> Phone on silent. Notifications off. This time is yours.</div></div>
-      <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-s)"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">3</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Put on binaural beats.</strong> When you press Start, the binaural beats player will appear. Use headphones for maximum effect. Start with Theta for deep subconscious work.</div></div>
-      <div style="display:flex;gap:12px;padding:13px 0"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">4</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Commit to the full session.</strong> Don't skip forward. Let each phase land before moving on.</div></div>
+      <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-s)"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">3</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Use headphones.</strong> When you press Start, binaural beats will begin. Headphones are essential for the full effect.</div></div>
+      <div style="display:flex;gap:12px;padding:13px 0"><div style="width:22px;height:22px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);flex-shrink:0">4</div><div class="small" style="color:var(--text-s)"><strong style="color:var(--text);font-weight:400">Stay with each phase.</strong> Read slowly. Close your eyes after each section. Let it land.</div></div>
     </div>
     <div class="btn-row c">
       <button onclick="showDash()">Not now</button>
@@ -373,127 +409,135 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
   </div>
 </div>
 
-<!-- STEP 1: AWARENESS CHECK-IN (adapts by day) -->
+<!-- STEP 1: CHECK-IN -->
 <div class="session-page" id="sp-checkin">
   <div class="inner">
     <div class="sess-steps" id="checkin-steps"></div>
     <div class="day-badge" id="checkin-day-badge">Day 1</div>
     <div class="checkin-block" id="checkin-content"></div>
     <div class="btn-row" style="margin-top:18px">
-      <button id="checkin-back" onclick="sessionStep(0)">Back</button>
-      <button class="btn-p" id="checkin-next" onclick="checkinNext()">Continue →</button>
+      <button id="checkin-back" onclick="sessionBack()">Back</button>
+      <button class="btn-p" onclick="checkinNext()">Continue →</button>
     </div>
   </div>
 </div>
 
-<!-- STEP 2: SETTLE / BREATHWORK -->
-<div class="session-page" id="sp-settle">
-  <div class="inner c">
-    <div class="med-timer" id="timer-settle"></div>
-    <div class="eyebrow">Awareness · Settle</div>
-    <h2>Leave the noise behind</h2>
-    <p class="body" id="settle-body">Before you can see the future clearly, you have to leave the present behind. Right now — your phone, your worries, everything on your plate — none of it exists here.</p>
-    <div class="breath-wrap"><div class="breath-ring" id="ring"></div><div class="breath-core" id="core"></div></div>
-    <div class="breath-lbl" id="breath-lbl">Breathe in slowly...</div>
-    <p class="body" style="font-size:13px;margin-bottom:28px">In for 4 counts. Hold for 4. Out for 6. Three rounds. Feel your body go heavy. <em>You are safe here.</em></p>
-    <div class="btn-row c">
-      <button onclick="sessionStep(1)">Back</button>
-      <button class="btn-p" onclick="sessionStep(3)">I'm settled →</button>
-    </div>
+<!-- UNIFIED MEDITATION CANVAS -->
+<div class="session-page" id="sp-meditation">
+  <!-- Phase nav strip -->
+  <div class="phase-strip" id="phase-strip">
+    <div class="phase-pip active" id="pip-0" onclick="jumpPhase(0)">Settle</div>
+    <div class="phase-pip" id="pip-1" onclick="jumpPhase(1)">Release</div>
+    <div class="phase-pip" id="pip-2" onclick="jumpPhase(2)">See it</div>
+    <div class="phase-pip" id="pip-3" onclick="jumpPhase(3)">Become</div>
+    <div class="phase-pip" id="pip-4" onclick="jumpPhase(4)">The why</div>
+    <div class="phase-pip" id="pip-5" onclick="jumpPhase(5)">Seal it</div>
   </div>
-</div>
 
-<!-- STEP 3: RELEASE -->
-<div class="session-page" id="sp-release">
-  <div class="inner">
-    <div class="med-timer" id="timer-release"></div>
-    <div class="eyebrow">Interruption · Release</div>
-    <h2 id="rel-title">You are not who you were</h2>
-    <p class="body" id="rel-body"></p>
-    <div class="scene"><div class="scene-lbl">Speak this slowly in your mind</div><div class="scene-text" id="rel-scene"></div></div>
-    <p class="body" id="rel-close" style="margin-top:14px"></p>
-    <div class="btn-row">
-      <button onclick="sessionStep(2)">Back</button>
-      <button class="btn-p" onclick="sessionStep(4)">Released →</button>
-    </div>
+  <!-- Timer -->
+  <div class="med-timer-bar">
+    <div class="med-phase-label" id="med-phase-label">Settle</div>
+    <div class="med-elapsed" id="med-elapsed">0:00</div>
   </div>
-</div>
 
-<!-- STEP 4: VISUALISATION / SCENE -->
-<div class="session-page" id="sp-scene">
-  <div class="inner">
-    <div class="med-timer" id="timer-scene"></div>
-    <div class="eyebrow">Installation · Enter the scene</div>
-    <h2 id="scene-title">See your life</h2>
-    <p class="body" id="scene-intro"></p>
-    <div class="scroll-area" id="scene-cards"></div>
-    <div class="btn-row" style="margin-top:14px">
-      <button onclick="sessionStep(3)">Back</button>
-      <button class="btn-p" onclick="sessionStep(5)">I see it →</button>
-    </div>
-  </div>
-</div>
+  <!-- Phase panels — all in DOM, only one visible -->
+  <div class="med-canvas" id="med-canvas">
 
-<!-- STEP 5: BECOME -->
-<div class="session-page" id="sp-become">
-  <div class="inner">
-    <div class="med-timer" id="timer-become"></div>
-    <div class="eyebrow">Installation · Become</div>
-    <h2 id="become-title">Step into who you are</h2>
-    <p class="body" id="become-intro"></p>
-    <div class="scroll-area" id="become-cards"></div>
-    <div class="verse-block" id="become-verse" style="margin-top:14px"></div>
-    <div class="btn-row" style="margin-top:6px">
-      <button onclick="sessionStep(4)">Back</button>
-      <button class="btn-p" onclick="sessionStep(6)">I feel it →</button>
+    <!-- PHASE 0: SETTLE -->
+    <div class="med-panel active" id="panel-0">
+      <div class="med-left">
+        <div class="phase-eyebrow">Phase 1 · Settle</div>
+        <div class="med-heading">Leave the noise behind</div>
+        <div class="med-body" id="settle-body"></div>
+        <div class="med-body" style="font-size:13px">In for 4 counts. Hold for 4. Out for 6. Three rounds. Let your body go heavy. <em>You are safe here.</em></div>
+      </div>
+      <div class="med-right">
+        <div class="breath-wrap"><div class="breath-ring" id="ring"></div><div class="breath-core" id="core"></div></div>
+        <div class="breath-lbl" id="breath-lbl">Breathe in slowly...</div>
+        <button class="btn-p med-next-btn" onclick="goPhase(1)">I'm settled →</button>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- STEP 6: WHY -->
-<div class="session-page" id="sp-why">
-  <div class="inner">
-    <div class="med-timer" id="timer-why"></div>
-    <div class="eyebrow">Installation · The why</div>
-    <h2 id="why-title">What this is really for</h2>
-    <p class="body" id="why-intro"></p>
-    <div class="scroll-area" id="why-cards"></div>
-    <div class="btn-row" style="margin-top:14px">
-      <button onclick="sessionStep(5)">Back</button>
-      <button class="btn-p" onclick="sessionStep(7)">I feel the why →</button>
+    <!-- PHASE 1: RELEASE -->
+    <div class="med-panel" id="panel-1">
+      <div class="med-left">
+        <div class="phase-eyebrow">Phase 2 · Release</div>
+        <div class="med-heading" id="rel-title">You are not who you were</div>
+        <div class="med-body" id="rel-body"></div>
+        <div class="med-body" id="rel-close" style="margin-top:8px"></div>
+      </div>
+      <div class="med-right">
+        <div class="med-quote-block">
+          <div class="med-quote-label">Speak this slowly in your mind</div>
+          <div class="med-quote-text" id="rel-scene"></div>
+        </div>
+        <button class="btn-p med-next-btn" onclick="goPhase(2)">Released →</button>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- STEP 7: AFFIRMATIONS -->
-<div class="session-page" id="sp-affirm">
-  <div class="inner">
-    <div class="med-timer" id="timer-affirm"></div>
-    <div class="eyebrow">Repetition · Seal it</div>
-    <h2>Lock it in</h2>
-    <p class="body">Read each one slowly. Close your eyes after each and <em>feel</em> it as already true. Because in the part of your mind that matters most, it is.</p>
-    <div class="affirm-list" id="affirm-list"></div>
-    <div class="btn-row">
-      <button onclick="sessionStep(6)">Back</button>
-      <button class="btn-p" onclick="sessionStep(8)">Complete →</button>
+    <!-- PHASE 2: SCENE -->
+    <div class="med-panel" id="panel-2">
+      <div class="med-left">
+        <div class="phase-eyebrow">Phase 3 · See it</div>
+        <div class="med-heading" id="scene-title">See your life</div>
+        <div class="med-body" id="scene-intro"></div>
+        <div id="scene-cards" class="med-cards"></div>
+      </div>
+      <div class="med-right med-right-verse">
+        <div class="verse-block" id="scene-verse" style="margin-bottom:24px"></div>
+        <button class="btn-p med-next-btn" onclick="goPhase(3)">I see it →</button>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- STEP 8: COMPLETE -->
-<div class="session-page" id="sp-complete">
-  <div class="inner c">
-    <div class="divider"></div>
-    <div style="margin-bottom:34px" id="end-words"></div>
-    <p class="body" id="complete-body"></p>
-    <div class="verse-block" id="complete-verse"></div>
-    <p class="body" id="complete-close" style="font-size:13px;margin-bottom:26px"></p>
-    <div class="btn-row c">
-      <button class="btn-p" onclick="openTakeawayModal()">Capture the moment →</button>
+    <!-- PHASE 3: BECOME -->
+    <div class="med-panel" id="panel-3">
+      <div class="med-left">
+        <div class="phase-eyebrow">Phase 4 · Become</div>
+        <div class="med-heading" id="become-title">Step into who you are</div>
+        <div class="med-body" id="become-intro"></div>
+        <div id="become-cards" class="med-cards"></div>
+      </div>
+      <div class="med-right med-right-verse">
+        <div class="verse-block" id="become-verse" style="margin-bottom:24px"></div>
+        <button class="btn-p med-next-btn" onclick="goPhase(4)">I feel it →</button>
+      </div>
     </div>
-    <div class="divider"></div>
-  </div>
-</div>
+
+    <!-- PHASE 4: WHY -->
+    <div class="med-panel" id="panel-4">
+      <div class="med-left">
+        <div class="phase-eyebrow">Phase 5 · The why</div>
+        <div class="med-heading" id="why-title">What this is really for</div>
+        <div class="med-body" id="why-intro"></div>
+        <div id="why-cards" class="med-cards"></div>
+      </div>
+      <div class="med-right">
+        <div class="med-quote-block" style="margin-bottom:24px">
+          <div class="med-quote-label">The cost of staying small</div>
+          <div class="med-quote-text" id="why-fear-quote" style="font-style:italic"></div>
+        </div>
+        <button class="btn-p med-next-btn" onclick="goPhase(5)">I feel the why →</button>
+      </div>
+    </div>
+
+    <!-- PHASE 5: AFFIRM -->
+    <div class="med-panel" id="panel-5">
+      <div class="med-left">
+        <div class="phase-eyebrow">Phase 6 · Seal it</div>
+        <div class="med-heading">Lock it in</div>
+        <div class="med-body">Read each one slowly. Close your eyes after each and <em>feel</em> it as already true.</div>
+        <div class="affirm-list" id="affirm-list"></div>
+      </div>
+      <div class="med-right">
+        <div id="end-words" style="margin-bottom:28px"></div>
+        <div class="verse-block" id="complete-verse" style="margin-bottom:20px"></div>
+        <div class="med-body" id="complete-close" style="font-size:13px;margin-bottom:20px"></div>
+        <button class="btn-p med-next-btn" onclick="openTakeawayModal()">Complete session →</button>
+      </div>
+    </div>
+
+  </div><!-- end med-canvas -->
+</div><!-- end sp-meditation -->
 
 <script>
 // ═══ STATE ═══
@@ -774,35 +818,71 @@ async function checkinNext(){
     if(user&&user.profile){user.profile.answers=answers;user.profile.name=answers.name||user.profile.name}
     // Build and enter meditation
     buildMeditation();
-    sessionStep(2);
+    showSP('sp-meditation');
+    showBin();startBin();
+    goPhase(0);
+    startSessionElapsed();
+    document.getElementById('progress').style.width='0%';
   }
 }
 
 // ═══ SESSION STEP NAVIGATION ═══
-const SESSION_STEPS=['sp-prep','sp-checkin','sp-settle','sp-release','sp-scene','sp-become','sp-why','sp-affirm','sp-complete'];
-const PHASE_TIMERS=['','','timer-settle','timer-release','timer-scene','timer-become','timer-why','timer-affirm',''];
-let phaseStart=null,phaseInterval=null;
+const SESSION_STEPS=['sp-prep','sp-checkin','sp-meditation'];
+let currentPhase=0, phaseStart=null, phaseInterval=null, sessionElapsedInterval=null, sessionElapsed=0;
+const PHASE_LABELS=['Settle','Release','See it','Become','The why','Seal it'];
 
-function sessionStep(n){
-  const id=SESSION_STEPS[n];
-  showSP(id);
-  const pct=Math.round(n/(SESSION_STEPS.length-1)*100);
-  document.getElementById('progress').style.width=pct+'%';
-  if(n===2){startBreath();showBin();startBin();}else stopBreath();
-  if(n===7)startAffirms();
-  if(n>=2&&n<=7&&PHASE_TIMERS[n]){phaseStart=Date.now();startPhaseTimer(PHASE_TIMERS[n])}
-  if(n===8){
+function sessionBack(){
+  if(currentQIndex>0)renderCheckin(currentQSet,currentQIndex-1,currentQSet===INTAKE_QS?'Day 1':`Day ${currentDayNum}`,currentQSet.length);
+  else showSP('sp-prep');
+}
+
+function showSP(id){
+  document.querySelectorAll('.session-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goPhase(n){
+  currentPhase=n;
+  // Update panels
+  document.querySelectorAll('.med-panel').forEach((p,i)=>{
+    p.classList.toggle('active',i===n);
+  });
+  // Update pips
+  document.querySelectorAll('.phase-pip').forEach((p,i)=>{
+    p.classList.toggle('active',i===n);
+  });
+  // Update label
+  setT('med-phase-label',PHASE_LABELS[n]||'');
+  // Breath
+  if(n===0)startBreath();else stopBreath();
+  // Affirms
+  if(n===5){
+    startAffirms();
     document.querySelectorAll('.end-word').forEach(w=>{w.style.animation='none';w.offsetHeight;w.style.animation=''});
   }
+  // Phase timer
+  phaseStart=Date.now();
+  // Progress bar
+  document.getElementById('progress').style.width=Math.round((n/(PHASE_LABELS.length-1))*100)+'%';
+  window.scrollTo(0,0);
 }
 
-function startPhaseTimer(id){
-  clearInterval(phaseInterval);
-  phaseInterval=setInterval(()=>{
-    const e=Math.floor((Date.now()-phaseStart)/1000);
-    setT(id,fmtTime(e));
+function jumpPhase(n){goPhase(n)}
+
+function startSessionElapsed(){
+  sessionElapsed=0;
+  clearInterval(sessionElapsedInterval);
+  sessionElapsedInterval=setInterval(()=>{
+    sessionElapsed++;
+    const m=Math.floor(sessionElapsed/60),s=sessionElapsed%60;
+    setT('med-elapsed',`${m}:${s<10?'0'+s:s}`);
   },1000);
 }
+
+// Stub for old sessionStep calls that may remain
+function sessionStep(n){}
 
 // ═══ BUILD MEDITATION ═══
 function buildMeditation(){
@@ -895,10 +975,16 @@ function buildMeditation(){
     A.who?{l:'The people you built this for',t:`You think about ${A.who.trim()} — and what this life means for them. The things they no longer carry. The doors that are open because you refused to stay small. <em>You did that. You changed the line.</em>`}:null,
     !isDay1&&isGrateful?{l:'What you already have',t:`Before you even reach the future — look at what's already here. The sessions you've completed. The version of you that shows up even when it's hard. <em>That person is already becoming the future you're visualising.</em>`}:null
   ].filter(Boolean);
-  setH('scene-intro',sceneIntro);
-  document.getElementById('scene-cards').innerHTML=sceneCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
+  function makeCards(cards){return cards.map(c=>`<div class="med-card"><div class="med-card-lbl">${c.l}</div><div class="med-card-text">${c.t}</div></div>`).join('')}
 
-  // ── BECOME ──
+  setH('scene-cards',makeCards(sceneCards));
+  setH('scene-verse',`<div class="verse-text">${openV.text}</div><div class="verse-ref">${openV.ref}</div>`);
+  setH('become-cards',makeCards(becCards));
+  setH('become-verse',`<div class="verse-text">${becV.text}</div><div class="verse-ref">${becV.ref}</div>`);
+  setH('why-cards',makeCards(whyCards));
+  // Why fear quote
+  const fearQ=A.fear?`"${A.fear.trim().slice(0,150)}" — <em>every session you complete is a day further from this.</em>`:A.why?`"${A.why.trim().slice(0,150)}" — <em>that is not a small thing.</em>`:'The cost of staying small is the person you never became.';
+  setH('why-fear-quote',fearQ);
   let becomeIntro=`Now go deeper. You are not watching this life from the outside. You are <em>inside it.</em> Feel what this version of you carries every ordinary day.`;
   if(!isDay1&&resistingBelief)becomeIntro=`Today your mind has been resisting the belief that this is really for you. So we're going to do this differently. <em>Don't think your way there — feel your way there.</em> Drop into the body of the person who already made it.`;
 
@@ -910,10 +996,8 @@ function buildMeditation(){
 
   const becV=faithC?{text:'"But seek first his kingdom and his righteousness, and all these things will be given to you as well."',ref:'Matthew 6:33'}:faithG||faithS?{text:'"Ask and it will be given to you; seek and you will find."',ref:'Matthew 7:7'}:{text:'"The man who moves a mountain begins by carrying away small stones."',ref:'Confucius'};
   setH('become-intro',becomeIntro);
-  document.getElementById('become-cards').innerHTML=becCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
-  setH('become-verse',`<div class="verse-text">${becV.text}</div><div class="verse-ref">${becV.ref}</div>`);
 
-  // ── WHY ──
+  setH('why-intro',whyIntro);
   let whyIntro='Now feel the weight of the real reason underneath all of it. Not the results. Not the status. The thing that actually moves you.';
   if(!isDay1&&focusGratitude)whyIntro="Today, the why lives in gratitude. Not just for what is coming — for what is already happening. <em>Every session you complete is evidence that you are the person you're becoming.</em>";
 
@@ -924,9 +1008,8 @@ function buildMeditation(){
     {l:'The legacy',t:`Years from now, when people ask what ${name} built — the answer won't be a number. It will be people. A family that changed. A generation that saw someone like them make it. <em>That is what every single session is building toward.</em>`}
   ].filter(Boolean);
   setH('why-intro',whyIntro);
-  document.getElementById('why-cards').innerHTML=whyCards.map(c=>`<div class="scene"><div class="scene-lbl">${c.l}</div><div class="scene-text">${c.t}</div></div>`).join('');
 
-  // ── AFFIRMATIONS ── (adapt by day and state)
+  // ── AFFIRMATIONS / COMPLETE ── (adapt by day and state)
   const affirms=[
     faithC?`I am exactly who God designed me to be. I am stepping into that person now.`:`I am becoming who I was always meant to be. Every day I step closer.`,
     !isDay1?`I have shown up ${userSessions.length} time${userSessions.length===1?'':'s'}. That is evidence of who I am becoming.`:`My story — every struggle, every dark season — is the exact qualification for everything I'm called to do.`,
@@ -941,11 +1024,10 @@ function buildMeditation(){
 
   // ── COMPLETE ──
   document.getElementById('end-words').innerHTML=wordList.map((w,i)=>`<span class="end-word" style="animation-delay:${i*0.4}s">${w}</span>`).join('');
-  setH('complete-body',`Take three deep breaths. Feel the ground. When you open your eyes, ${name}, carry what you just felt into everything you do today. <em>That version of you is not a dream. He is the direction.</em>`);
   setH('complete-verse',`<div class="verse-text">${closeV.text}</div><div class="verse-ref">${closeV.ref}</div>`);
   setH('complete-close',isDay1
-    ?`Day 1 is complete. Come back tomorrow. The subconscious changes through repetition — not one perfect session, but consistent daily practice. This is how your reality changes.`
-    :`Day ${currentDayNum} is complete. Tomorrow's session will be built around what you captured today. <em>The system learns as you do.</em>`);
+    ?`Day 1 is complete. Come back tomorrow. The subconscious changes through repetition — not one perfect session, but consistent daily practice.`
+    :`Day ${currentDayNum} complete. Tomorrow's session will adapt from what you captured today.`);
 }
 
 // ═══ BREATH ═══
@@ -974,6 +1056,7 @@ async function completeTakeaway(skip=false){
   const takeaway=skip?'':ta.value.trim();
   document.getElementById('modal-takeaway').classList.remove('show');
   clearInterval(phaseInterval);
+  clearInterval(sessionElapsedInterval);
   const duration=sessionStart?Math.floor((Date.now()-sessionStart)/1000):0;
   try{await apiFetch('/api/session',{method:'POST',body:JSON.stringify({day_number:currentDayNum,duration_seconds:duration,takeaway})})}catch(e){}
   hideBin();
