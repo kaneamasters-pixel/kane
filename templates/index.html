@@ -1069,7 +1069,7 @@ function buildMeditation(){
   setH('why-cards',makeCards(whyCards));
   // Fear quote
   const fearQ=A.fear?`"${A.fear.trim().slice(0,150)}" — <em>every session is a day further from this.</em>`:A.why?`"${A.why.trim().slice(0,150)}" — <em>that is not a small thing.</em>`:'The cost of staying small is the person you never became.';
-  setH('why-fear-quote',fearQ); (adapt by day and state)
+  setH('why-fear-quote',fearQ);
   const affirms=[
     faithC?`I am exactly who God designed me to be. I am stepping into that person now.`:`I am becoming who I was always meant to be. Every day I step closer.`,
     !isDay1?`I have shown up ${userSessions.length} time${userSessions.length===1?'':'s'}. That is evidence of who I am becoming.`:`My story — every struggle, every dark season — is the exact qualification for everything I'm called to do.`,
