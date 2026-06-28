@@ -76,12 +76,14 @@ def make_token(user_id):
 def require_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = request.cookies.get('token') or request.headers.get('Authorization','').replace('Bearer ','')
+        token = (request.cookies.get('token') or 
+                 request.headers.get('Authorization','').replace('Bearer ','').strip())
         if not token: return jsonify({'error': 'Unauthorized'}), 401
         try:
             data = jwt.decode(token, SECRET, algorithms=['HS256'])
             request.user_id = data['user_id']
-        except: return jsonify({'error': 'Invalid token'}), 401
+        except Exception as e:
+            return jsonify({'error': 'Invalid token'}), 401
         return f(*args, **kwargs)
     return decorated
 
@@ -112,8 +114,8 @@ def register():
             return jsonify({'error': 'An account with this email already exists'}), 400
         return jsonify({'error': 'Registration failed'}), 500
     token = make_token(user_id)
-    resp = make_response(jsonify({'ok': True}))
-    resp.set_cookie('token', token, httponly=True, samesite='Lax', max_age=30*24*3600)
+    resp = make_response(jsonify({'ok': True, 'token': token}))
+    resp.set_cookie('token', token, httponly=False, samesite='Lax', max_age=30*24*3600, path='/')
     return resp
 
 @app.route('/api/login', methods=['POST'])
@@ -127,8 +129,8 @@ def login():
     if not user or not bcrypt.checkpw(password.encode(), user['password_hash'].encode()):
         return jsonify({'error': 'Incorrect email or password'}), 401
     token = make_token(user['id'])
-    resp = make_response(jsonify({'ok': True}))
-    resp.set_cookie('token', token, httponly=True, samesite='Lax', max_age=30*24*3600)
+    resp = make_response(jsonify({'ok': True, 'token': token}))
+    resp.set_cookie('token', token, httponly=False, samesite='Lax', max_age=30*24*3600, path='/')
     return resp
 
 @app.route('/api/logout', methods=['POST'])

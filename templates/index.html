@@ -477,31 +477,51 @@ function showErr(id,msg){const e=document.getElementById(id);if(e){e.textContent
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
 function fmtTime(secs){const m=Math.floor(secs/60),s=secs%60;return m>0?`${m}m ${s}s`:`${s}s`}
 function fmtDate(str){if(!str)return'';try{return new Date(str).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}catch{return str}}
-
 function showNav(on){document.getElementById('nav').classList.toggle('show',on)}
 function setNavActive(id){document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));const el=document.getElementById(id);if(el)el.classList.add('active')}
+
+// ── TOKEN MANAGEMENT ──
+function getToken(){return localStorage.getItem('2vib_token')||''}
+function setToken(t){if(t)localStorage.setItem('2vib_token',t);else localStorage.removeItem('2vib_token')}
+function apiFetch(url,opts={}){
+  const token=getToken();
+  const headers={'Content-Type':'application/json',...(opts.headers||{})};
+  if(token)headers['Authorization']=`Bearer ${token}`;
+  return fetch(url,{...opts,headers,credentials:'include'});
+}
 
 // ── AUTH ──
 async function doRegister(){
   const email=document.getElementById('reg-email').value.trim();
   const pw=document.getElementById('reg-pw').value;
   showErr('reg-err','');
-  try{const r=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
-  const d=await r.json();if(!r.ok){showErr('reg-err',d.error||'Something went wrong');return}await loadUser();}
-  catch(e){showErr('reg-err','Connection error.')}
+  try{
+    const r=await apiFetch('/api/register',{method:'POST',body:JSON.stringify({email,password:pw})});
+    const d=await r.json();
+    if(!r.ok){showErr('reg-err',d.error||'Something went wrong');return}
+    if(d.token)setToken(d.token);
+    await loadUser();
+  }catch(e){showErr('reg-err','Connection error.')}
 }
 async function doLogin(){
   const email=document.getElementById('log-email').value.trim();
   const pw=document.getElementById('log-pw').value;
   showErr('log-err','');
-  try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
-  const d=await r.json();if(!r.ok){showErr('log-err',d.error||'Something went wrong');return}await loadUser();}
-  catch(e){showErr('log-err','Connection error.')}
+  try{
+    const r=await apiFetch('/api/login',{method:'POST',body:JSON.stringify({email,password:pw})});
+    const d=await r.json();
+    if(!r.ok){showErr('log-err',d.error||'Something went wrong');return}
+    if(d.token)setToken(d.token);
+    await loadUser();
+  }catch(e){showErr('log-err','Connection error.')}
 }
-async function doLogout(){await fetch('/api/logout',{method:'POST'});user=null;showNav(false);setProgress(0,'');show('p-land')}
+async function doLogout(){
+  await apiFetch('/api/logout',{method:'POST'});
+  setToken('');user=null;showNav(false);setProgress(0,'');show('p-land');
+}
 
 async function loadUser(){
-  try{const r=await fetch('/api/me');if(!r.ok){showNav(false);show('p-land');return}
+  try{const r=await apiFetch('/api/me');if(!r.ok){showNav(false);show('p-land');return}
   const d=await r.json();user=d;showNav(true);
   if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;showDash()}
   else startIntake();}catch(e){show('p-land')}
@@ -516,7 +536,7 @@ async function showDash(){
   setText('dash-sub',`Your ${selectedPlan}-day journey. Keep showing up.`);
   setText('plan-label',`${selectedPlan}-day journey`);
   // Load sessions
-  try{const r=await fetch('/api/sessions');const d=await r.json();
+  try{const r=await apiFetch('/api/sessions');const d=await r.json();
   const sessions=d.sessions||[];
   // Stats
   const totalSecs=sessions.reduce((a,s)=>a+(s.duration||0),0);
@@ -577,7 +597,7 @@ function showPlanSelector(){
 function selectPlan(days,el){selectedPlan=days;document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
 async function savePlan(){
   const v=document.getElementById('vision-input').value.trim();
-  await fetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
+  await apiFetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
   if(user){user.profile={...user.profile,plan_days:selectedPlan};selectedPlan=selectedPlan}
   await showDash();
 }
@@ -587,7 +607,7 @@ function showVisionEdit(){show('p-profile')}
 function showProfile(){setNavActive('nav-profile');show('p-profile')}
 async function saveVision(){
   const v=document.getElementById('vision-input').value.trim();
-  await fetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
+  await apiFetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
   if(user&&user.profile)user.profile.vision=v;
   await showDash();
 }
@@ -596,7 +616,7 @@ async function saveVision(){
 async function showLeaderboard(){
   setNavActive('nav-lb');
   show('p-leaderboard');
-  try{const r=await fetch('/api/leaderboard');const d=await r.json();
+  try{const r=await apiFetch('/api/leaderboard');const d=await r.json();
   const lb=d.leaderboard||[];
   const medals=['🥇','🥈','🥉'];
   document.getElementById('lb-table').innerHTML=lb.length===0
@@ -649,7 +669,7 @@ async function qNext(){
 }
 async function saveProfile(){
   const v=answers.vision||'';
-  try{await fetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
+  try{await apiFetch('/api/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:answers.name||'',answers,vision:v,plan_days:selectedPlan})});
   if(user)user.profile={name:answers.name,answers,vision:v,plan_days:selectedPlan,updated_at:new Date().toISOString()}}catch(e){}
 }
 
@@ -812,9 +832,9 @@ async function saveTakeaway(skip=false){
   const duration=ta._duration||0;
   document.getElementById('takeaway-modal').classList.remove('show');
   clearInterval(phaseTimerInterval);
-  try{await fetch('/api/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({day_number:currentDayNum,duration_seconds:duration,takeaway})});}catch(e){}
+  try{await apiFetch('/api/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({day_number:currentDayNum,duration_seconds:duration,takeaway})});}catch(e){}
   // Refresh user
-  try{const r=await fetch('/api/me');if(r.ok){const d=await r.json();user=d;}}catch(e){}
+  try{const r=await apiFetch('/api/me');if(r.ok){const d=await r.json();user=d;}}catch(e){}
 }
 
 // ── BREATH ──
@@ -840,9 +860,11 @@ function startAffirms(){
 window.addEventListener('DOMContentLoaded',()=>{
   ['reg-email','reg-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doRegister()})});
   ['log-email','log-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()})});
-  fetch('/api/me').then(r=>{if(r.ok)return r.json();throw new Error('unauthed')})
+  // Check if already logged in via stored token
+  if(!getToken()){show('p-land');return}
+  apiFetch('/api/me').then(r=>{if(r.ok)return r.json();throw new Error('unauthed')})
     .then(d=>{user=d;showNav(true);if(d.profile&&d.profile.answers){answers=d.profile.answers;selectedPlan=d.profile.plan_days||7;showDash()}else startIntake()})
-    .catch(()=>show('p-land'));
+    .catch(()=>{setToken('');show('p-land')});
 });
 </script>
 </body>
