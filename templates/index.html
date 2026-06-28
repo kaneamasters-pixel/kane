@@ -252,9 +252,10 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
   <div class="btabs">
     <button class="btab active" id="btab-theta" onclick="setBrainwave('theta')">Theta</button>
     <button class="btab" id="btab-alpha" onclick="setBrainwave('alpha')">Alpha</button>
+    <button class="btab" id="btab-delta" onclick="setBrainwave('delta')">Delta</button>
   </div>
-  <div class="bfreq" id="bfreq">432hz · 6hz</div>
-  <input type="range" class="bvol" id="bvol" min="0" max="100" value="40" oninput="setBinauralVolume(this.value)">
+  <div class="bfreq" id="bfreq">528hz · Theta</div>
+  <input type="range" class="bvol" id="bvol" min="0" max="100" value="45" oninput="setBinauralVolume(this.value)">
 </div>
 
 <!-- TAKEAWAY MODAL -->
@@ -571,33 +572,94 @@ const DAILY_QS = [
   {id:'today_focus',type:'opts',q:"What needs the most attention in this session?",opts:["Reconnecting with my vision — I've drifted","Releasing — I'm holding onto something that's limiting me","Elevation — I need to feel the future, not just think it","Gratitude — I need to shift my state","Identity — I need to remember who I'm becoming","All of it — take me deep"]}
 ];
 
-// ═══ BINAURAL ═══
+// ═══ BINAURAL BEATS ENGINE ═══
+// Theta (4-8hz) = subconscious access state | 528hz = transformation frequency
+// Alpha (8-12hz) = relaxed entry | Delta (2hz) = deep healing
 let audioCtx=null,binNodes=null,binPlaying=false,curWave='theta';
-const WAVES={theta:{beat:6,label:'432hz · 6hz'},alpha:{beat:10,label:'432hz · 10hz'}};
+const WAVES={
+  theta:{beat:6,base:528,label:'528hz · Theta'},
+  alpha:{beat:10,base:528,label:'528hz · Alpha'},
+  delta:{beat:2,base:432,label:'432hz · Delta'}
+};
 function initAudio(){if(audioCtx)return;audioCtx=new(window.AudioContext||window.webkitAudioContext)()}
-function makeBinNodes(beatHz,vol){
+function makeBinNodes(beatHz,baseHz,vol){
   if(!audioCtx)return null;
-  const g=audioCtx.createGain();g.gain.setValueAtTime(vol,audioCtx.currentTime);
-  const m=audioCtx.createChannelMerger(2);
+  const master=audioCtx.createGain();
+  master.gain.setValueAtTime(0,audioCtx.currentTime);
+  master.gain.linearRampToValueAtTime(vol,audioCtx.currentTime+3);
+  master.connect(audioCtx.destination);
+  // Binaural stereo beat
+  const merger=audioCtx.createChannelMerger(2);
   const lO=audioCtx.createOscillator(),lG=audioCtx.createGain();
-  lO.type='sine';lO.frequency.setValueAtTime(432,audioCtx.currentTime);lG.gain.setValueAtTime(.5,audioCtx.currentTime);
-  lO.connect(lG);lG.connect(m,0,0);
+  lO.type='sine';lO.frequency.value=baseHz;lG.gain.value=0.35;
+  lO.connect(lG);lG.connect(merger,0,0);
   const rO=audioCtx.createOscillator(),rG=audioCtx.createGain();
-  rO.type='sine';rO.frequency.setValueAtTime(432+beatHz,audioCtx.currentTime);rG.gain.setValueAtTime(.5,audioCtx.currentTime);
-  rO.connect(rG);rG.connect(m,0,1);
-  const aO=audioCtx.createOscillator(),aG=audioCtx.createGain();
-  aO.type='sine';aO.frequency.setValueAtTime(216,audioCtx.currentTime);aG.gain.setValueAtTime(.07,audioCtx.currentTime);
-  aO.connect(aG);aG.connect(g);
-  m.connect(g);g.connect(audioCtx.destination);
-  lO.start();rO.start();aO.start();
-  return{lO,rO,aO,g};
+  rO.type='sine';rO.frequency.value=baseHz+beatHz;rG.gain.value=0.35;
+  rO.connect(rG);rG.connect(merger,0,1);
+  merger.connect(master);
+  // Sub harmonic (warmth + grounding)
+  const subO=audioCtx.createOscillator(),subG=audioCtx.createGain();
+  subO.type='sine';subO.frequency.value=baseHz*0.25;subG.gain.value=0.1;
+  subO.connect(subG);subG.connect(master);
+  // Harmonic shimmer
+  const harmO=audioCtx.createOscillator(),harmG=audioCtx.createGain();
+  harmO.type='sine';harmO.frequency.value=baseHz*1.5;harmG.gain.value=0.03;
+  harmO.connect(harmG);harmG.connect(master);
+  // Pink noise (soft ambient texture — like wind or ocean)
+  const buf=audioCtx.createBuffer(1,2*audioCtx.sampleRate,audioCtx.sampleRate);
+  const data=buf.getChannelData(0);
+  let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0;
+  for(let i=0;i<data.length;i++){
+    const w=Math.random()*2-1;
+    b0=0.99886*b0+w*0.0555179;b1=0.99332*b1+w*0.0750759;
+    b2=0.96900*b2+w*0.1538520;b3=0.86650*b3+w*0.3104856;
+    b4=0.55000*b4+w*0.5329522;b5=-0.7616*b5-w*0.0168980;
+    data[i]=(b0+b1+b2+b3+b4+b5+w*0.5362)*0.008;
+  }
+  const noise=audioCtx.createBufferSource();noise.buffer=buf;noise.loop=true;
+  const noiseF=audioCtx.createBiquadFilter();noiseF.type='lowpass';noiseF.frequency.value=300;
+  const noiseG=audioCtx.createGain();noiseG.gain.value=0.5;
+  noise.connect(noiseF);noiseF.connect(noiseG);noiseG.connect(master);
+  // Slow LFO breathing modulation
+  const lfo=audioCtx.createOscillator(),lfoG=audioCtx.createGain();
+  lfo.type='sine';lfo.frequency.value=0.07;lfoG.gain.value=0.04;
+  lfo.connect(lfoG);lfoG.connect(master.gain);
+  lO.start();rO.start();subO.start();harmO.start();noise.start();lfo.start();
+  return{lO,rO,subO,harmO,noise,lfo,master};
 }
-function stopBin(){if(!binNodes)return;const{lO,rO,aO,g}=binNodes;g.gain.setTargetAtTime(0,audioCtx.currentTime,.4);setTimeout(()=>{try{lO.stop();rO.stop();aO.stop()}catch(e){}},600);binNodes=null}
-function startBin(){initAudio();if(audioCtx.state==='suspended')audioCtx.resume();const vol=parseInt(document.getElementById('bvol').value)/100*.28;stopBin();binNodes=makeBinNodes(WAVES[curWave].beat,vol);binPlaying=true;document.getElementById('bplay-btn').textContent='⏸';document.getElementById('bplay-btn').classList.add('on');document.getElementById('bfreq').textContent=WAVES[curWave].label}
+function stopBin(){
+  if(!binNodes)return;
+  const{lO,rO,subO,harmO,noise,lfo,master}=binNodes;
+  master.gain.setTargetAtTime(0,audioCtx.currentTime,0.7);
+  setTimeout(()=>{try{lO.stop();rO.stop();subO.stop();harmO.stop();noise.stop();lfo.stop()}catch(e){}},2200);
+  binNodes=null;
+}
+function startBin(){
+  initAudio();if(audioCtx.state==='suspended')audioCtx.resume();
+  const vol=parseInt(document.getElementById('bvol').value)/100*0.22;
+  stopBin();binNodes=makeBinNodes(WAVES[curWave].beat,WAVES[curWave].base,vol);
+  binPlaying=true;
+  document.getElementById('bplay-btn').textContent='⏸';
+  document.getElementById('bplay-btn').classList.add('on');
+  document.getElementById('bfreq').textContent=WAVES[curWave].label;
+}
 function pauseBin(){stopBin();binPlaying=false;document.getElementById('bplay-btn').textContent='▶';document.getElementById('bplay-btn').classList.remove('on')}
 function toggleBinaural(){if(binPlaying)pauseBin();else startBin()}
-function setBrainwave(w){curWave=w;document.querySelectorAll('.btab').forEach(t=>t.classList.remove('active'));document.getElementById('btab-'+w).classList.add('active');document.getElementById('bfreq').textContent=WAVES[w].label;if(binPlaying){stopBin();startBin()}}
-function setBinauralVolume(v){if(binNodes)binNodes.g.gain.setTargetAtTime(parseInt(v)/100*.28,audioCtx.currentTime,.1)}
+function setBrainwave(w){
+  curWave=w;
+  document.querySelectorAll('.btab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('btab-'+w).classList.add('active');
+  document.getElementById('bfreq').textContent=WAVES[w].label;
+  if(binPlaying){
+    const vol=parseInt(document.getElementById('bvol').value)/100*0.22;
+    if(binNodes)binNodes.master.gain.setTargetAtTime(0,audioCtx.currentTime,0.5);
+    setTimeout(()=>{
+      try{if(binNodes){const n=binNodes;setTimeout(()=>{try{n.lO.stop();n.rO.stop();n.subO.stop();n.harmO.stop();n.noise.stop();n.lfo.stop()}catch(e){}},600)}}catch(e){}
+      binNodes=makeBinNodes(WAVES[w].beat,WAVES[w].base,vol);
+    },600);
+  }
+}
+function setBinauralVolume(v){if(binNodes&&binNodes.master)binNodes.master.gain.setTargetAtTime(parseInt(v)/100*0.22,audioCtx.currentTime,0.15)}
 function showBin(){document.getElementById('bplayer').classList.add('show')}
 function hideBin(){pauseBin();document.getElementById('bplayer').classList.remove('show')}
 
