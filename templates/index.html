@@ -98,7 +98,21 @@ textarea.q-input,textarea.ta{resize:vertical;min-height:80px}
 .dots-anim::after{content:'.';animation:dots 1.5s infinite}
 @keyframes dots{0%{content:'.'}33%{content:'..'}66%{content:'...'}100%{content:'.'}}
 
-/* ── DASHBOARD ── */
+/* ── BINAURAL PLAYER ── */
+.binaural-player{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(17,17,17,0.96);border:1px solid var(--border);backdrop-filter:blur(12px);padding:12px 18px;display:none;align-items:center;gap:14px;z-index:180;border-radius:2px;min-width:280px;justify-content:center}
+.binaural-player.show{display:flex}
+.bplay-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--gold-dim);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;color:var(--gold);font-size:12px;padding:0;flex-shrink:0}
+.bplay-btn:hover{background:var(--gold-glow);border-color:var(--gold)}
+.bplay-btn.playing{background:var(--gold-glow)}
+.bwave-tabs{display:flex;gap:6px}
+.bwave-tab{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--border);background:transparent;color:var(--text-t);cursor:pointer;transition:all .18s;border-radius:1px}
+.bwave-tab:hover{color:var(--text-s);border-color:rgba(240,237,230,.2)}
+.bwave-tab.active{color:var(--gold);border-color:var(--gold);background:var(--gold-glow)}
+.bvol-wrap{display:flex;align-items:center;gap:6px}
+.bvol-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t)}
+input[type=range].bvol{-webkit-appearance:none;width:60px;height:2px;background:var(--border);border-radius:1px;outline:none;cursor:pointer}
+input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer}
+.bfreq-label{font-size:9px;color:var(--text-t);letter-spacing:.06em;min-width:60px;text-align:center}
 .dash-wrap{padding-top:72px;padding-bottom:80px;align-items:center}
 .dash-section{margin-bottom:28px}
 .dash-section-title{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--text-t);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
@@ -175,6 +189,20 @@ textarea.q-input,textarea.ta{resize:vertical;min-height:80px}
     <button class="nav-link" onclick="doLogout()">Out</button>
   </div>
 </nav>
+
+<!-- BINAURAL BEATS PLAYER -->
+<div class="binaural-player" id="binaural-player">
+  <button class="bplay-btn" id="bplay-btn" onclick="toggleBinaural()" title="Play/pause">▶</button>
+  <div class="bwave-tabs">
+    <button class="bwave-tab active" id="btab-theta" onclick="setBrainwave('theta')">Theta</button>
+    <button class="bwave-tab" id="btab-alpha" onclick="setBrainwave('alpha')">Alpha</button>
+  </div>
+  <div class="bfreq-label" id="bfreq-label">432hz · 6hz</div>
+  <div class="bvol-wrap">
+    <span class="bvol-label">Vol</span>
+    <input type="range" class="bvol" id="bvol" min="0" max="100" value="40" oninput="setBinauralVolume(this.value)">
+  </div>
+</div>
 
 <!-- TAKEAWAY MODAL -->
 <div class="modal-overlay" id="takeaway-modal">
@@ -468,6 +496,60 @@ const QUESTIONS=[
   {id:'words',type:'text',q:'Three words. What do you want your life to stand for?',hint:'Not what sounds good. The three that actually move something in you.',ph:'e.g. Faith. Freedom. Legacy.'}
 ];
 
+// ── BINAURAL BEATS ENGINE ──
+let audioCtx=null,binauralNodes=null,binauralPlaying=false,currentWave='theta';
+const BRAINWAVES={theta:{beat:6,label:'432hz · 6hz theta'},alpha:{beat:10,label:'432hz · 10hz alpha'}};
+const BASE_FREQ=432;
+function initAudio(){if(audioCtx)return;audioCtx=new(window.AudioContext||window.webkitAudioContext)()}
+function createBinauralNodes(beatFreq,vol){
+  if(!audioCtx)return null;
+  const gain=audioCtx.createGain();gain.gain.setValueAtTime(vol,audioCtx.currentTime);
+  const merger=audioCtx.createChannelMerger(2);
+  const lOsc=audioCtx.createOscillator(),lGain=audioCtx.createGain();
+  lOsc.type='sine';lOsc.frequency.setValueAtTime(BASE_FREQ,audioCtx.currentTime);
+  lGain.gain.setValueAtTime(0.5,audioCtx.currentTime);
+  lOsc.connect(lGain);lGain.connect(merger,0,0);
+  const rOsc=audioCtx.createOscillator(),rGain=audioCtx.createGain();
+  rOsc.type='sine';rOsc.frequency.setValueAtTime(BASE_FREQ+beatFreq,audioCtx.currentTime);
+  rGain.gain.setValueAtTime(0.5,audioCtx.currentTime);
+  rOsc.connect(rGain);rGain.connect(merger,0,1);
+  const aOsc=audioCtx.createOscillator(),aGain=audioCtx.createGain();
+  aOsc.type='sine';aOsc.frequency.setValueAtTime(BASE_FREQ*0.5,audioCtx.currentTime);
+  aGain.gain.setValueAtTime(0.07,audioCtx.currentTime);
+  aOsc.connect(aGain);aGain.connect(gain);
+  merger.connect(gain);gain.connect(audioCtx.destination);
+  lOsc.start();rOsc.start();aOsc.start();
+  return{lOsc,rOsc,aOsc,gain};
+}
+function stopBinauralNodes(){
+  if(!binauralNodes)return;
+  const{lOsc,rOsc,aOsc,gain}=binauralNodes;
+  gain.gain.setTargetAtTime(0,audioCtx.currentTime,0.4);
+  setTimeout(()=>{try{lOsc.stop();rOsc.stop();aOsc.stop()}catch(e){}},600);
+  binauralNodes=null;
+}
+function startBinaural(){
+  initAudio();if(audioCtx.state==='suspended')audioCtx.resume();
+  const vol=parseInt(document.getElementById('bvol').value)/100*0.28;
+  stopBinauralNodes();binauralNodes=createBinauralNodes(BRAINWAVES[currentWave].beat,vol);
+  binauralPlaying=true;
+  document.getElementById('bplay-btn').textContent='⏸';
+  document.getElementById('bplay-btn').classList.add('playing');
+  updateFreqLabel();
+}
+function pauseBinaural(){stopBinauralNodes();binauralPlaying=false;document.getElementById('bplay-btn').textContent='▶';document.getElementById('bplay-btn').classList.remove('playing')}
+function toggleBinaural(){if(binauralPlaying)pauseBinaural();else startBinaural()}
+function setBrainwave(wave){
+  currentWave=wave;
+  document.querySelectorAll('.bwave-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('btab-'+wave).classList.add('active');
+  updateFreqLabel();if(binauralPlaying){stopBinauralNodes();startBinaural()}
+}
+function setBinauralVolume(val){if(binauralNodes){binauralNodes.gain.gain.setTargetAtTime(parseInt(val)/100*0.28,audioCtx.currentTime,0.1)}}
+function updateFreqLabel(){document.getElementById('bfreq-label').textContent=BRAINWAVES[currentWave].label}
+function showBinauralPlayer(){document.getElementById('binaural-player').classList.add('show')}
+function hideBinauralPlayer(){pauseBinaural();document.getElementById('binaural-player').classList.remove('show')}
+
 // ── UTILS ──
 function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 function setProgress(pct,label){document.getElementById('progress').style.width=pct+'%';document.getElementById('counter').textContent=label||''}
@@ -529,6 +611,7 @@ async function loadUser(){
 
 // ── DASHBOARD ──
 async function showDash(){
+  hideBinauralPlayer();
   if(!user)return;
   setNavActive('nav-dash');
   const name=(user.profile?.name||user.email.split('@')[0]);
@@ -680,7 +763,7 @@ function showPrep(){
 }
 
 // ── BUILD MEDITATION ──
-function startSession(){sessionStart=Date.now();buildAndShow()}
+function startSession(){sessionStart=Date.now();showBinauralPlayer();startBinaural();buildAndShow()}
 function startMeditation(){if(!answers||!answers.name){startIntake();return}showPrep()}
 function buildAndShow(){show('p-building');setProgress(40,'');setTimeout(()=>{generate();show('p-intro');setProgress(42,'');},1800)}
 
