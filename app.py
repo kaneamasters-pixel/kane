@@ -36,6 +36,15 @@ def init_db():
             id SERIAL PRIMARY KEY, user_id INTEGER REFERENCES users(id),
             day_number INTEGER DEFAULT 1, duration_seconds INTEGER DEFAULT 0,
             takeaway TEXT, completed_at TIMESTAMP DEFAULT NOW())''')
+        # Add missing columns if upgrading from old schema
+        for col, defn in [('vision','TEXT'), ('plan_days','INTEGER DEFAULT 7')]:
+            try:
+                cur.execute(f'ALTER TABLE profiles ADD COLUMN IF NOT EXISTS {col} {defn}')
+            except: pass
+        for col, defn in [('day_number','INTEGER DEFAULT 1'),('duration_seconds','INTEGER DEFAULT 0'),('takeaway','TEXT')]:
+            try:
+                cur.execute(f'ALTER TABLE sessions_log ADD COLUMN IF NOT EXISTS {col} {defn}')
+            except: pass
     else:
         cur.executescript('''
             CREATE TABLE IF NOT EXISTS users (
@@ -141,26 +150,29 @@ def logout():
 @app.route('/api/me', methods=['GET'])
 @require_auth
 def me():
-    conn, mode = get_db(); cur = conn.cursor()
-    cur.execute(f'SELECT id, email, created_at FROM users WHERE id = {ph(mode)}', (request.user_id,))
-    user = fetchone(cur, mode)
-    cur.execute(f'SELECT name, answers, vision, plan_days, updated_at FROM profiles WHERE user_id = {ph(mode)}', (request.user_id,))
-    profile = fetchone(cur, mode)
-    cur.execute(f'SELECT COUNT(*) as c FROM sessions_log WHERE user_id = {ph(mode)}', (request.user_id,))
-    row = cur.fetchone(); count = row[0] if row else 0
-    conn.close()
-    if not user: return jsonify({'error': 'Not found'}), 404
-    return jsonify({
-        'id': user['id'], 'email': user['email'], 'created_at': str(user['created_at']),
-        'profile': {
-            'name': profile['name'] if profile else None,
-            'answers': json.loads(profile['answers']) if profile and profile['answers'] else None,
-            'vision': profile['vision'] if profile else None,
-            'plan_days': profile['plan_days'] if profile else 7,
-            'updated_at': str(profile['updated_at']) if profile and profile.get('updated_at') else None
-        },
-        'session_count': count
-    })
+    try:
+        conn, mode = get_db(); cur = conn.cursor()
+        cur.execute(f'SELECT id, email, created_at FROM users WHERE id = {ph(mode)}', (request.user_id,))
+        user = fetchone(cur, mode)
+        cur.execute(f'SELECT name, answers, vision, plan_days, updated_at FROM profiles WHERE user_id = {ph(mode)}', (request.user_id,))
+        profile = fetchone(cur, mode)
+        cur.execute(f'SELECT COUNT(*) as c FROM sessions_log WHERE user_id = {ph(mode)}', (request.user_id,))
+        row = cur.fetchone(); count = row[0] if row else 0
+        conn.close()
+        if not user: return jsonify({'error': 'Not found'}), 404
+        return jsonify({
+            'id': user['id'], 'email': user['email'], 'created_at': str(user['created_at']),
+            'profile': {
+                'name': profile['name'] if profile else None,
+                'answers': json.loads(profile['answers']) if profile and profile.get('answers') else None,
+                'vision': profile.get('vision') if profile else None,
+                'plan_days': profile.get('plan_days') or 7 if profile else 7,
+                'updated_at': str(profile['updated_at']) if profile and profile.get('updated_at') else None
+            },
+            'session_count': count
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/profile', methods=['POST'])
 @require_auth
