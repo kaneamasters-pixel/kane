@@ -184,16 +184,28 @@ textarea.ta{resize:vertical;min-height:80px}
 .plan-card.sel .plan-card-days{color:var(--gold)}
 .plan-card-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t)}
 
-/* Leaderboard */
-.lb-card{background:var(--surface);border:1px solid var(--border);border-radius:1px}
-.lb-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--border-s)}
+/* Leaderboard table */
+.lb-card{background:var(--surface);border:1px solid var(--border);border-radius:1px;overflow-x:auto}
+.lb-table-wrap{min-width:600px}
+.lb-head-row{display:grid;grid-template-columns:44px 1.6fr 1fr 1fr 1fr 1fr;gap:8px;padding:14px 18px;border-bottom:1px solid var(--border);background:var(--surface2)}
+.lb-head-cell{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-t)}
+.lb-head-cell.num{text-align:right}
+.lb-row{display:grid;grid-template-columns:44px 1.6fr 1fr 1fr 1fr 1fr;gap:8px;align-items:center;padding:13px 18px;border-bottom:1px solid var(--border-s);transition:background .15s}
 .lb-row:last-child{border-bottom:none}
+.lb-row:hover{background:var(--surface2)}
 .lb-row.me{background:var(--gold-glow)}
-.lb-rank{font-size:11px;font-weight:500;color:var(--text-t);min-width:22px;text-align:center}
-.lb-name{flex:1;font-size:14px;color:var(--text)}
-.lb-name.me{color:var(--gold)}
-.lb-day{font-size:12px;color:var(--text-s);min-width:46px;text-align:right}
-.lb-count{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-t);min-width:60px;text-align:right}
+.lb-rank{font-size:13px;font-weight:500;color:var(--text-t)}
+.lb-rank.top1{color:var(--gold);font-size:15px}
+.lb-rank.top2{color:#C9C9C9}
+.lb-rank.top3{color:#B8825A}
+.lb-name{font-size:14px;color:var(--text);font-weight:300}
+.lb-name.me{color:var(--gold);font-weight:400}
+.lb-cell{font-size:13px;color:var(--text-s);text-align:right;font-variant-numeric:tabular-nums}
+.lb-cell.highlight{color:var(--gold)}
+.lb-filter-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+.lb-title-block{display:flex;align-items:center;gap:10px}
+.lb-trophy{width:34px;height:34px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:14px;flex-shrink:0}
+@media(max-width:700px){.lb-card{overflow-x:scroll}}
 
 /* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
@@ -373,10 +385,29 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
 <!-- LEADERBOARD -->
 <div class="page" id="p-lb" style="padding-top:66px;justify-content:flex-start">
   <div class="inner wide">
-    <div class="eyebrow">Leaderboard</div>
-    <h2>Who's showing up</h2>
-    <p class="body">Every name on this board made the same commitment you did. <em>Keep your streak alive.</em></p>
-    <div class="lb-card" id="lb-table" style="margin-bottom:18px"></div>
+    <div class="lb-filter-row">
+      <div class="lb-title-block">
+        <div class="lb-trophy">🏆</div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:2px">Community Leaderboard</div>
+          <h2 style="margin-bottom:0;font-size:24px">2VIBRATE</h2>
+        </div>
+      </div>
+    </div>
+    <p class="body">Every name here made the same commitment you did. <em>Keep your streak alive.</em></p>
+    <div class="lb-card" style="margin-bottom:18px">
+      <div class="lb-table-wrap">
+        <div class="lb-head-row">
+          <div class="lb-head-cell">#</div>
+          <div class="lb-head-cell">Name</div>
+          <div class="lb-head-cell num">Day</div>
+          <div class="lb-head-cell num">Sessions</div>
+          <div class="lb-head-cell num">Total Time</div>
+          <div class="lb-head-cell num">Last Active</div>
+        </div>
+        <div id="lb-table"></div>
+      </div>
+    </div>
     <div class="btn-row"><button onclick="showDash()">← Dashboard</button></div>
   </div>
 </div>
@@ -753,11 +784,24 @@ function startFreshIntake(){freshIntake=true;beginSession()}
 async function showLeaderboard(){
   setNA('nav-lb');show('p-lb');
   try{const r=await apiFetch('/api/leaderboard');const d=await r.json();
-  const lb=d.leaderboard||[];const medals=['🥇','🥈','🥉'];
+  const lb=d.leaderboard||[];
   document.getElementById('lb-table').innerHTML=lb.length===0
-    ?'<div style="padding:22px;text-align:center;font-size:13px;color:var(--text-t)">No data yet. Be the first to complete a session.</div>'
-    :lb.map(r=>`<div class="lb-row${r.is_me?' me':''}"><div class="lb-rank">${medals[r.rank-1]||r.rank}</div><div class="lb-name${r.is_me?' me':''}">${r.name}${r.is_me?' (you)':''}</div><div class="lb-day">Day ${r.current_day||'—'}</div><div class="lb-count">${r.total_sessions} sessions</div></div>`).join('');
-  }catch(e){setH('lb-table','<div style="padding:20px;text-align:center;color:var(--text-t);font-size:13px">Could not load.</div>')}
+    ?'<div style="padding:32px;text-align:center;font-size:13px;color:var(--text-t)">No data yet. Be the first to complete a session.</div>'
+    :lb.map(r=>{
+      const rankClass=r.rank===1?'top1':r.rank===2?'top2':r.rank===3?'top3':'';
+      const mins=Math.floor((r.total_time||0)/60);
+      const timeStr=mins>0?`${mins}m`:`${r.total_time||0}s`;
+      const lastActive=r.last_session?fmtDate(r.last_session):'—';
+      return `<div class="lb-row${r.is_me?' me':''}">
+        <div class="lb-rank ${rankClass}">${r.rank}</div>
+        <div class="lb-name${r.is_me?' me':''}">${r.name}${r.is_me?' (you)':''}</div>
+        <div class="lb-cell highlight">${r.current_day||'—'}</div>
+        <div class="lb-cell">${r.total_sessions}</div>
+        <div class="lb-cell">${timeStr}</div>
+        <div class="lb-cell">${lastActive}</div>
+      </div>`;
+    }).join('');
+  }catch(e){setH('lb-table','<div style="padding:32px;text-align:center;color:var(--text-t);font-size:13px">Could not load leaderboard.</div>')}
 }
 
 // ═══ SESSION FLOW ═══
