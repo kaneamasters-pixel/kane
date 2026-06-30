@@ -238,6 +238,11 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
 
 @media(max-width:480px){.page,.session-page{padding:28px 16px 60px}.auth-card{padding:22px 16px}.stat-grid{grid-template-columns:repeat(3,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+/* Toast */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border);color:var(--text-s);font-size:13px;padding:11px 22px;border-radius:2px;z-index:500;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;backdrop-filter:blur(10px)}
+.toast.show{opacity:1}
+.toast.error{border-color:rgba(192,57,43,.4);color:#E07070}
+.toast.success{border-color:var(--gold-dim);color:var(--gold)}
 </style>
 </head>
 <body>
@@ -266,13 +271,14 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
 </div>
 
 <!-- TAKEAWAY MODAL -->
+<div id="toast" class="toast"></div>
 <div class="modal-overlay" id="modal-takeaway">
   <div class="modal">
     <div class="modal-title">Capture this moment</div>
     <div class="modal-sub">What did you feel? What came up? What shifted? Even one honest line feeds tomorrow's session.</div>
     <div class="field"><textarea class="ta" id="takeaway-input" placeholder="I felt... I noticed... Something shifted..." rows="4"></textarea></div>
     <div class="btn-row">
-      <button class="btn-p" onclick="completeTakeaway()">Save & finish →</button>
+      <button class="btn-p" id="takeaway-btn" onclick="const b=this;btnLoad(b,true);completeTakeaway()">Save & finish →</button>
       <button onclick="completeTakeaway(true)">Skip</button>
     </div>
   </div>
@@ -334,7 +340,7 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
       <div class="stat-card"><div class="stat-val" id="stat-time">0m</div><div class="stat-lbl">Total time</div></div>
     </div>
     <div class="btn-row" style="margin-bottom:22px">
-      <button class="btn-p" onclick="beginSession()">Begin today's session →</button>
+      <button class="btn-p" id="begin-btn" onclick="this.disabled=true;this.textContent='...';beginSession();setTimeout(()=>{this.disabled=false;this.textContent='Begin today's session →'},1500)">Begin today's session →</button>
       <button onclick="showPlanSelector()">Change plan</button>
     </div>
     <div class="ds" id="vision-ds" style="display:none">
@@ -375,7 +381,7 @@ input[type=range].bvol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;
     <p class="body">Your vision should grow as you do. Update it whenever it no longer feels big enough.</p>
     <div class="field"><label class="lbl">Your vision</label><textarea class="ta" id="vision-input" placeholder="In 3 years I wake up and..." rows="4"></textarea></div>
     <div class="btn-row">
-      <button class="btn-p" onclick="saveVision()">Save →</button>
+      <button class="btn-p" id="save-vision-btn" onclick="const b=this;btnLoad(b,true);saveVision().finally(()=>btnLoad(b,false))">Save →</button>
       <button onclick="startFreshIntake()">Redo full profile</button>
       <button class="btn-g" onclick="showDash()">Back</button>
     </div>
@@ -664,6 +670,20 @@ function hideBin(){pauseBin();document.getElementById('bplayer').classList.remov
 // ═══ UTILS ═══
 function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 function showSP(id){document.querySelectorAll('.session-page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+
+// ── Toast notifications ──
+let _toastTimer=null;
+function toast(msg,type,dur){
+  const el=document.getElementById('toast');if(!el)return;
+  el.textContent=msg;el.className='toast'+(type?' '+type:'');void el.offsetWidth;el.classList.add('show');
+  clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>el.classList.remove('show'),dur||3000);
+}
+// ── Button loading state ──
+function btnLoad(btn,on){if(!btn)return;btn.disabled=on;if(on){btn.dataset.orig=btn.textContent;btn.textContent='...'}else{btn.textContent=btn.dataset.orig||btn.textContent}}
+// ── Local session backup (survives network failure) ──
+function saveSessionLocally(d,dur,t){try{localStorage.setItem('2vib_pending',JSON.stringify({day:d,duration:dur,takeaway:t,ts:Date.now()}))}catch(e){}}
+function clearLocalSession(){try{localStorage.removeItem('2vib_pending')}catch(e){}}
+async function flushPending(){try{const raw=localStorage.getItem('2vib_pending');if(!raw)return;const s=JSON.parse(raw);const r=await apiFetch('/api/session',{method:'POST',body:JSON.stringify({day_number:s.day,duration_seconds:s.duration,takeaway:s.takeaway})});if(r.ok)clearLocalSession()}catch(e){}}
 function setH(id,h){const e=document.getElementById(id);if(e)e.innerHTML=h}
 function setT(id,t){const e=document.getElementById(id);if(e)e.textContent=t}
 function showErr(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.classList.toggle('show',!!m)}}
@@ -688,14 +708,14 @@ async function doRegister(){
   showErr('reg-err','');
   try{const r=await apiFetch('/api/register',{method:'POST',body:JSON.stringify({email,password:pw})});
   const d=await r.json();if(!r.ok){showErr('reg-err',d.error||'Something went wrong');return}
-  if(d.token)setToken(d.token);await loadUser()}catch(e){showErr('reg-err','Connection error.')}
+  if(d.token)setToken(d.token);await flushPending();await loadUser()}catch(e){showErr('reg-err','Connection error.')}
 }
 async function doLogin(){
   const email=document.getElementById('log-email').value.trim(),pw=document.getElementById('log-pw').value;
   showErr('log-err','');
   try{const r=await apiFetch('/api/login',{method:'POST',body:JSON.stringify({email,password:pw})});
   const d=await r.json();if(!r.ok){showErr('log-err',d.error||'Something went wrong');return}
-  if(d.token)setToken(d.token);await loadUser()}catch(e){showErr('log-err','Connection error.')}
+  if(d.token)setToken(d.token);await flushPending();await loadUser()}catch(e){showErr('log-err','Connection error.')}
 }
 async function doLogout(){await apiFetch('/api/logout',{method:'POST'});setToken('');user=null;showNav(false);show('p-land')}
 async function loadUser(){
@@ -741,7 +761,7 @@ async function showDash(){
     document.getElementById('vision-ds').style.display='block';
     setT('dash-vision',user.profile.vision);
     document.getElementById('vision-input').value=user.profile.vision;
-  }}catch(e){}
+  }}catch(e){toast('Could not load sessions — pull down to refresh','error')}
   show('p-dash');
 }
 
@@ -909,14 +929,6 @@ let sessionElapsedInterval=null, sessionElapsed=0;
 function sessionBack(){
   if(currentQIndex>0)renderCheckin(currentQSet,currentQIndex-1,currentQSet===INTAKE_QS?'Day 1':`Day ${currentDayNum}`,currentQSet.length);
   else showSP('sp-prep');
-}
-
-function showSP(id){
-  document.querySelectorAll('.session-page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const el=document.getElementById(id);
-  el.classList.add('active');
-  if(id==='sp-meditation'){el.scrollTop=0}else{window.scrollTo(0,0);}
 }
 
 function exitMed(){hideBin();stopBreath();clearInterval(sessionElapsedInterval);showDash()}
@@ -1122,9 +1134,14 @@ async function completeTakeaway(skip=false){
   clearInterval(phaseInterval);
   clearInterval(sessionElapsedInterval);
   const duration=sessionStart?Math.floor((Date.now()-sessionStart)/1000):0;
-  try{await apiFetch('/api/session',{method:'POST',body:JSON.stringify({day_number:currentDayNum,duration_seconds:duration,takeaway})})}catch(e){}
+  saveSessionLocally(currentDayNum,duration,takeaway);
+  try{
+    const sr=await apiFetch('/api/session',{method:'POST',body:JSON.stringify({day_number:currentDayNum,duration_seconds:duration,takeaway})});
+    if(sr.ok){clearLocalSession();toast('Session saved','success')}
+    else toast('Session saved locally — will sync when online','',5000);
+  }catch(e){toast('No connection — session saved locally','',5000)}
   hideBin();
-  try{const r=await apiFetch('/api/me');if(r.ok){const d=await r.json();user=d}}catch(e){}
+  try{const r=await apiFetch('/api/me');if(r.ok){const d=await r.json();user=d}}catch(e){/* silent — not critical */}
   await showDash();
 }
 
